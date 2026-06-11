@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem -Force \"C:\\\\Users\\\\jw300\\\\OneDrive\\\\Documents\\\\Obsidian Vault\" -Directory | Select-Object Name; \"---\"; Get-ChildItem -Force \"C:\\\\Users\\\\jw300\\\\OneDrive\\\\Documents\\\\Obsidian Vault\" -Filter \".claude\" -Directory -ErrorAction SilentlyContinue | Select-Object FullName)",
+      "PowerShell(Get-ChildItem -Force \"C:\\\\Users\\\\jw300\\\\OneDrive\\\\Documents\\\\Obsidian Vault\\\\.claude\" -Recurse -Depth 2 | Select-Object FullName; \"=== claude \\(no dot\\) ===\"; Get-ChildItem -Force \"C:\\\\Users\\\\jw300\\\\OneDrive\\\\Documents\\\\Obsidian Vault\\\\claude\" -Recurse | Select-Object FullName)",
+      "Bash(powershell *)",
+      "PowerShell(Move-Item *)",
+      "PowerShell($out = & \"C:\\\\Users\\\\jw300\\\\OneDrive\\\\Documents\\\\Obsidian Vault\\\\.claude\\\\skills\\\\record-progress\\\\scripts\\\\scan_day.ps1\" -VaultRoot \"C:\\\\Users\\\\jw300\\\\OneDrive\\\\Documents\\\\Obsidian Vault\" -Date \"2026-06-08\"; $parsed = $out | ConvertFrom-Json; Write-Output \"Parsed OK. Projects with activity: $\\($parsed.projects.Count\\)\"; $parsed.projects | ForEach-Object { $_.modified_notes | Select-Object path, filename_marker, has_decision })"
+    ]
+  }
+}

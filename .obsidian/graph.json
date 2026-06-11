@@ -1,0 +1,44 @@
+{
+  "collapse-filter": false,
+  "search": "",
+  "showTags": false,
+  "showAttachments": false,
+  "hideUnresolved": false,
+  "showOrphans": true,
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "tag:#books  ",
+      "color": {
+        "a": 1,
+        "rgb": 14701138
+      }
+    },
+    {
+      "query": "tag: #concept  ",
+      "color": {
+        "a": 1,
+        "rgb": 14725458
+      }
+    },
+    {
+      "query": "tag: #plan  ",
+      "color": {
+        "a": 1,
+        "rgb": 11657298
+      }
+    }
+  ],
+  "collapse-display": false,
+  "showArrow": false,
+  "textFadeMultiplier": 0,
+  "nodeSizeMultiplier": 1.29947916666667,
+  "lineSizeMultiplier": 1.58020833333333,
+  "collapse-forces": false,
+  "centerStrength": 0.442708333333333,
+  "repelStrength": 13.2291666666667,
+  "linkStrength": 0.708333333333333,
+  "linkDistance": 270,
+  "scale": 0.09392927902846936,
+  "close": true
+}

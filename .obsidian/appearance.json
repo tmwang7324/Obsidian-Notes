@@ -1,0 +1,13 @@
+{
+  "cssTheme": "AnuPpuccin",
+  "theme": "obsidian",
+  "enabledCssSnippets": [
+    "custom-rainbow-colors",
+    "MCL Multi Column",
+    "custom-backgrounds",
+    "(C) Dashboard Borders",
+    "line-separator"
+  ],
+  "baseFontSize": 19,
+  "showViewHeader": true
+}

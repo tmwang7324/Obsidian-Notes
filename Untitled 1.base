@@ -1,0 +1,13 @@
+views:
+  - type: table
+    name: Table
+  - type: table
+    name: View
+    groupBy:
+      property: tags
+      direction: ASC
+    order:
+      - file.name
+    sort:
+      - property: file.mtime
+        direction: DESC

@@ -1,0 +1,6 @@
+{
+	"nodes":[
+		{"id":"d6f1c3f9edd03a07","x":-260,"y":-300,"width":280,"height":260,"color":"3","type":"text","text":"```dataview\njoin() thisNote\n```"}
+	],
+	"edges":[]
+}

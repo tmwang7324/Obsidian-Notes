@@ -1,0 +1,97 @@
+hr {
+    height: 1px;
+    border: none;
+    background: linear-gradient(45deg, #333, #ddd, #333);
+}
+
+/* (C) Typography baseline — headings (H1–H6) scaled 1.2x, normal text 1.1x.
+   font-size only; line-height is left untouched so the existing
+   (unitless) line spacing scales proportionally and keeps its rhythm. */
+
+/* Reading view */
+.markdown-rendered {
+    font-size: calc(var(--font-text-size, 16px) * 1.1);
+}
+.markdown-rendered h1 {
+
+    font-size: calc(var(--h1-size, 1.807rem) * 1.2);
+
+}
+
+.markdown-rendered h2 {
+
+    font-size: calc(var(--h2-size, 1.607rem) * 1.2);
+
+}
+
+.markdown-rendered h3 {
+
+    font-size: calc(var(--h3-size, 1.424rem) * 1.2);
+
+}
+
+.markdown-rendered h4 {
+
+    font-size: calc(var(--h4-size, 1.266rem) * 1.2);
+
+}
+
+.markdown-rendered h5 {
+
+    font-size: calc(var(--h5-size, 1.125rem) * 1.2);
+
+}
+
+.markdown-rendered h6 {
+
+    font-size: calc(var(--h6-size, 1rem) * 1.2);
+
+}
+
+  
+
+/* Live Preview / editing view */
+
+.markdown-source-view.mod-cm6 .cm-line {
+
+    font-size: calc(var(--font-text-size, 16px) * 1.1);
+
+}
+
+  
+
+.markdown-source-view.mod-cm6 .cm-header-1 {
+
+    font-size: calc(var(--h1-size, 1.807rem) * 1.2);
+
+}
+
+.markdown-source-view.mod-cm6 .cm-header-2 {
+
+    font-size: calc(var(--h2-size, 1.607rem) * 1.2);
+
+}
+
+.markdown-source-view.mod-cm6 .cm-header-3 {
+
+    font-size: calc(var(--h3-size, 1.424rem) * 1.2);
+
+}
+
+.markdown-source-view.mod-cm6 .cm-header-4 {
+
+    font-size: calc(var(--h4-size, 1.266rem) * 1.2);
+
+}
+
+.markdown-source-view.mod-cm6 .cm-header-5 {
+
+    font-size: calc(var(--h5-size, 1.125rem) * 1.2);
+
+}
+
+.markdown-source-view.mod-cm6 .cm-header-6 {
+
+    font-size: calc(var(--h6-size, 1rem) * 1.2);
+
+}

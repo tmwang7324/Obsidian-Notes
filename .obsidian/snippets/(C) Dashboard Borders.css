@@ -1,0 +1,31 @@
+/* === (C) Dashboard Borders ===
+   Mocha-coloured card borders that separate each dashboard widget.
+   Scoped to notes with `cssclasses: dashboard` (i.e. (C) Dashboard.md).
+   Change --dash-border below to recolour every border at once. */
+
+.dashboard {
+  --dash-border: #C2A492;          /* mocha (light) */
+  --dash-border-width: 2px;
+  --dash-radius: 12px;
+}
+
+/* mocha separator under the clock (the `---` between clock and widgets) */
+
+/* 1 — clock widget (the .dash-clock div is created by the dataviewjs block) */
+
+
+/* 2 — each column of the multi-column row (Today's Plan / Recent).
+   Overrides MCL's `border: 0` on [!blank] sub-callouts. */
+.dashboard .callout[data-callout="multi-column"] .callout[data-callout*="blank"] {
+  border: var(--dash-border-width) solid var(--dash-border) !important;
+  border-radius: var(--dash-radius);
+  padding: 0.4em 1em;
+}
+
+/* 3 — Projects (Bases) widget */
+.dashboard .block-language-base {
+  border: var(--dash-border-width) solid var(--dash-border);
+  border-radius: var(--dash-radius);
+  padding: 0.4em 1em;
+  margin-block: 0.6em;
+}
