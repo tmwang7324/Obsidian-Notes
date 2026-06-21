@@ -2,8 +2,8 @@
 type: entity
 aliases: ["Firebase"]
 tags: [firebase, baas, auth, tool]
-updated: 2026-06-02
-sources: 2
+updated: 2026-06-16
+sources: 3
 ---
 
 # Firebase
@@ -49,6 +49,10 @@ auth = {
 ```
 
 It automatically detects whether an email sent via a POST registration would duplicate an already-registered account.
+
+## Local dev gotcha — serve over `http://localhost`, not `file://`
+
+Opening `index.html` directly from disk gives the page an origin of `null`, and browsers **block module/CDN fetches from a `null` origin for CORS reasons** — so the Firebase SDK won't load. Fix: serve the folder over `http://localhost` (VS Code **Live Server**, or any static server like `npx serve`), never double-click the HTML file. Project bootstrap is `npm init -y` → `npm i firebase` → create the project in the Firebase console → import only the SDKs you need.
 
 ## Role in Doculyze
 

@@ -8,6 +8,14 @@ grep "^## \[" log.md | tail -5
 
 ---
 
+## [2026-06-19] ingest | DSA pattern pages (trees/two-pointers/stack) + 2 ADRs
+
+Swept the source layers since the 2026-06-16 manifest. **Noted a OneDrive bulk timestamp-bump** on every journal (all stamped 2026-06-18 13:xx) — treated as noise, not reprocessed (all were already "nothing durable"). Authored three DSA concept pages from Google Interview Prep `Ideas/`: [[(C) Tree Traversal|Tree Traversal]] (preorder/inorder/postorder + BFS level, recursive + iterative dive/`last_visited`), [[(C) Two Pointers|Two Pointers]] (sorted opposite-ends + 3Sum duplicate-skip), [[(C) Stack and Monotonic Stack|Stack & Monotonic Stack]] (LIFO + monotonic next-greater). Added [[(C) Python List Methods|Python List Methods]] (append vs extend) and re-stamped [[(C) Heaps|Heaps]] (Top K Frequent Words changed; already covered). Authored two ADRs: [[(C) Front-Load Graphs and DP|Front-Load Graphs and DP]] (Google Prep roadmap reorder — refines Curriculum Strategy, cites the Goals roadmap; resolves the 06-19 progress link) and [[(C) Daily Note Frontmatter|Daily Note Frontmatter]] (Obsidian Configs, from the `(DECISION)`-marked note). Updated both project overviews + Obsidian Configs Architecture (daily-notes current-state). **Skipped unfinished fragments:** `Containing Most Water`, `Two Sum II`, `Daily Temperatures` (stubs), empty `2026-06-18` journal. **Reported, not synthesized:** the 06-17 journal's "Mom's Project" idea (AI facial-analysis app) — fleeting, no project yet. 49 → 55 pages.
+
+## [2026-06-13] query | Python zip & enumerate usage (interview-prep sweep)
+
+Captured during a Google Interview Prep array/hashmap/sliding-window calibration sweep (working Top K Frequent Words). Authored [[(C) Python Iteration Helpers|Python Iteration Helpers]] covering `zip` (lockstep iteration, the four interview uses — dict-build, unzip via `*`, adjacent-pair window, matrix transpose — plus shortest-stop/tuple/one-pass gotchas) and `enumerate` (index+value, `start=`, killing the `range(len(...))` anti-pattern). Cross-linked to [[(C) Python Dictionaries]] and [[(C) Python Counter]]. 43 → 44 pages.
+
 ## [2026-06-11] ingest | dashboard design cluster + CSS-mechanism concept pages
 
 Swept the source layers since the 2026-06-06 manifest. Authored four Obsidian concept pages — [[(C) cssclasses Containment|cssclasses Containment]], [[(C) Callout Metadata|Callout Metadata]], [[(C) MCL Multi-Column Layout|MCL Multi-Column Layout]], [[(C) Bases Launcher|Bases Launcher]] — splitting the dashboard's CSS stack into independently-retrievable topics. Authored three Obsidian Configs ADRs from the `(DECISION)`-marked dashboard notes: [[(C) Dashboard v1 Design|Dashboard v1 Design]] (1 main), [[(C) Pomodoro Timer Placement|Pomodoro Timer Placement]] and [[(C) Recent Files Widget Scope|Recent Files Widget Scope]] (2 focused). Updated `(C) Architecture.md` (dashboard current-state, `(DECISION)` in capture flow, new ADRs), folded the theming how-tos (custom background, widened interface) into the `(C) Obsidian Configs` overview, and added the `ar9av/obsidian-wiki` reference to [[(C) LLM Wiki Pattern|LLM Wiki Pattern]] from the 06-07 journal. Confirmed `Wiki Structure (DONE)` / `Should Progress (DONE)` were already captured in the 06-08 [[(C) Decisions in the Wiki]] ADR (manifest re-stamped, not re-synthesized). Skipped empty/narrative sources (Doculyze Firebase note; journals 06-08/06-10/06-11). 30 → 37 pages.
@@ -64,7 +72,7 @@ Sweep processed 5 durable sources; skipped 4 empty/journal-only files and re-sta
 
 Established the vault-wide **Progress** workflow (root `CLAUDE.md`): `Progress/` = changelog, `Iteration Logs/` = fix backlog, daily `type: progress` files synthesizing journal + working notes. Registered `type: progress`; wired the convention into all three projects + the `new-project` skill.
 
-- **Created** first progress file [[(C) 2026-06-04]] (Obsidian Configs) from `01 Journals/…/2026-06-04.md` + [[Theme Customization]].
+- **Created** first progress file [[(C) 2026-06-04]] (Obsidian Configs) from `01 Journals/…/2026-06-04.md` + [[Theme Customization (NOTE)]].
 - **Created** Iteration Log [[(C) Nested Folder Rainbow Labels]] for the carried-forward defect.
 - **Added** `Progress/(C) Progress Log.md` — Dataview changelog table (test run).
 
@@ -130,3 +138,42 @@ Test of the ingest workflow on an existing raw source, `raw/notes/Counter.md`.
 - **Logged** this entry.
 
 Result: full ingest loop (read → compile → index → log) verified working.
+
+## [2026-06-12] query | How to use Python Counter
+
+## [2026-06-12] ingest | Python Dictionaries + Google Interview Prep setup
+
+Swept 2 new sources since the 2026-06-11 run (all other sources unchanged).
+
+- **`raw/notes/Dictionaries.md`** → created [[(C) Python Dictionaries|Python Dictionaries]] (dicts as SipHash hash tables, `dict()`/`zip()` init, hashing intro). Skipped its empty `## Defaultdict` stub — reported for completion.
+- **`Projects/Google Interview Prep/Chats/(C) Setup Google Interview Prep Project.md`** → created the project overview [[(C) Google Interview Prep|Google Interview Prep]]; the [[(C) Curriculum Strategy|Curriculum Strategy]] ADR (inferred decision: NeetCode 150 spine, DP 2-week block, skip low-yield, no system design); and two new DSA concept pages [[(C) Dynamic Programming|Dynamic Programming]] and [[(C) Trie|Trie]]. Also extracted the git gotcha → [[(C) Gitignore and Tracked Files|Gitignore and Tracked Files]].
+- **New wiki domain:** `Data Structures & Algorithms/`. **Updated** `index.md` (37 → 43 pages). **Stamped** the manifest.
+
+Result: 6 pages created across a new project + DSA/Programming domains; the dated curriculum calendar deliberately kept out of the wiki (lives in `Goals/`).
+
+## [2026-06-13] ingest | Counter complexity; held heaps + left personal notes in raw
+
+Swept 9 new/changed sources since the 2026-06-12 run.
+
+- **`raw/notes/Counter.md`** (changed) → added a **Time & space complexity** section to [[(C) Python Counter|Python Counter]] (build O(n); `most_common()` O(n log n), `most_common(k)` O(n log k), `most_common(1)` O(n)).
+- **Held (user's call):** `Top K Frequent Elements.md` + `Top K Frequent Words.md` carry durable heapq patterns, but per the user these stay consolidated in the `raw/Clippings/Heap queue or heapq in Python.md` reference until more heap problems are solved — no wiki page this run. Not stamped, so they resurface when ready.
+- **Left in raw (personal):** `(C) Helena Repair — Open Questions for Tomorrow.md`, `Lock in Gotta Save Helena.md`, `relationship_conflict_repair_chat_compilation.md` — personal relationship-repair notes; not synthesized to the wiki by choice, stamped so they stop reappearing.
+- **Skipped:** `Heaps/Heapq.md` (empty stub), `Doculyze MVP.md` (intent note — already in Iteration Logs + Progress), `Get Ready Alerts.md` (idea — already an Iteration Log).
+- **Updated** `index.md` (count unchanged at 44). **Stamped** the manifest.
+
+Result: 1 existing page enriched; no new pages. Heaps synthesis deferred at the user's request.
+
+## [2026-06-16] ingest | Doculyze data-layer + MVP ADRs, Heaps, Dataview, dashboard refinements
+
+Swept the new/changed sources since the 2026-06-13 run (18 candidates; personal `raw/` notes left in place per standing rule).
+
+- **Doculyze decisions authored** (the two flagged last session): [[(C) Two-Store Data Layer|Two-Store Data Layer]] (Firestore ownership + local ChromaDB index; single collection + `userId` filter; no separate chunks collection) and [[(C) Doculyze MVP Scope|Doculyze MVP Scope]] (two tiers, hard-gated; Tier 1 frozen, Tier 2 improved-RAG gated behind DSA). Created the project's [[(C) Architecture|Architecture]] map (with the **open** Node-vs-Python backend thread) and refreshed [[(C) Doculyze|the overview]]. Sources: `Chats/(C) Data Layer.md`, `Chats/(C) Doculyze MVP - Scoped.md`, `Ideas/Finishing DocuLyze/Doculyze MVP.md`.
+- **Heaps synthesized** (deferred on 06-13, now unblocked by more solved problems): created [[(C) Heaps|Heaps]] from `Heaps/Heapq.md` + `Top K Frequent Elements.md` + `Top K Frequent Words.md` — heap-is-not-sorted, tuple ordering + negate trick, heapify O(n) vs push O(n log n), top-K via `nsmallest` O(n log k).
+- **Dataview** → created [[(C) Dataview|Dataview]] (DQL `LIST`/`TABLE`, the `#progress` rollup pattern, block refs) from `Ideas/Dataview/Overview.md`; skipped the note's many broken in-progress query drafts.
+- **Dashboard v1 Design** → added a dated **Refinements** section (project-progress widget, bounded embeds, Contribution Graph plugin, pin-as-home); rationale left frozen. Sources: `Creating a Dashboard (IN PROGRESS)`, `Reducing Embedded Content (NOTE)`.
+- **Firebase** → added the local-dev CORS gotcha (`file://` origin `null` → serve over `http://localhost`) from `raw/notes/Firebase/Firebase.md`.
+- **Journals (06-13 → 06-16):** narrative/problem-time logs — nothing durable beyond what's in `Progress/`. The 06-15 calendar-alerts spec stays in the Get Ready Alerts iteration log, not the wiki.
+- **Skipped:** `Track Daily Progress Ideas` (new "Progress Logs" bit is an unfinished fragment; rest already synthesized), `Get Ready Alerts` (still a backlog idea).
+- **Updated** `index.md` (44 → 49 pages). **Stamped** the manifest.
+
+Result: 5 new pages (2 Doculyze ADRs + Architecture, Heaps, Dataview); 3 pages enriched.

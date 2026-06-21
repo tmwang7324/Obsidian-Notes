@@ -94,4 +94,4 @@ Just me (solo project).
 **Open threads**
 - Session cookie split into refresh/access tokens — considered and **rejected**; Firebase ID tokens already serve as short-lived access tokens (see [[(C) Firebase ID Token|Firebase ID Token]]).
 - "Learn what hydration means fully" — open learning task (see [[(C) Rendering Strategies|Rendering Strategies]]).
-- Backend language for the AI/document layer undecided (ChromaDB↔FastAPI / LangChain↔Python).
+- Backend language for the AI/document layer **decided 2026-06-20 → Python**: LangChain + RAG in a small FastAPI service alongside Express (see [[(C) AI Layer Backend Language (DECISION)|decision]]).

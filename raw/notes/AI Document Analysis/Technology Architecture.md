@@ -1,5 +1,5 @@
 ### Frontend 
-- [[Next[[Next.js]].js]] with zustrand state management for frontend.should
+- [[Next[[raw/notes/AI Document Analysis/Next.js]].js]] with zustrand state management for frontend.should
 - 
 ### Backend 
 * Server actions in "app/actions.tsx"

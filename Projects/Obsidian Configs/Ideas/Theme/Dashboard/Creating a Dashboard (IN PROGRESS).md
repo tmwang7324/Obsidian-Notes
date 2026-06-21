@@ -1,4 +1,4 @@
-
+For the love of God, please PIN the dashboard as the default home page upon app start.
 # What should be on my Dashboard? (DECISION)
 
 ### Central Widgets 
@@ -17,6 +17,16 @@
 This field should also be a focal point of the dashboard. It pulls the project listed as this week's focus project in the root Goal.md, and allows me to edit the focus project upon click.
 * Try to automate saving the answer to this prompt to GOAL.md using QuickAdd and Templater (DIFFICULT).
 
+### Daily Contribution Graph
+**Contribution Graph** plugin. Color it based on characters written in Daily Journal + Ideas.
+
+### Project Progress (DECISION)
+Instead of simply displaying a base of my Projects, I want to display the top 2 recent entries in each Progress Log in addition to the linked overviews on the Projects widget on my dashboard.
+I already know what each of my projects are. I specifically want to know where I am at for each project when I start up the day.
+
+Can't use standard `Dataview` due to the global `LIMIT` constraint as well as
+
+### Limiting 
 
 I want to base my design off this. 
 [[gave-my-obsidian-vault-a-notion-style-dashboard-v0-tsujictrx4qg1.webp]]. It is primarily written in dataviewjs [[Dashboard-Komorebi]].

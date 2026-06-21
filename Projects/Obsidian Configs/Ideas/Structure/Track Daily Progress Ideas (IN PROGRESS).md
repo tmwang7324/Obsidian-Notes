@@ -11,4 +11,8 @@
 	*Archive them using a LRU Cache. Deleting breaks wikilinks and causes gaps in the knowledge base.*
  * Context reduction. Are there any improvements I can make so that the /record-progress skill does not need to ingest the entire text of each Project Idea file?
 
+# Progress Logs
+Each 
+
+
 Revise the design for the skill based on these bullet points.

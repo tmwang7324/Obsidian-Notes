@@ -55,7 +55,7 @@ window._dashClockId = setInterval(tick, 1000);
 >> }
 >> ```
 >
->> [!blank]
+>> [!blank|wide-2]
 >> **📓 Today's Journal**
 >>
 >> ```dataviewjs
@@ -64,10 +64,15 @@ window._dashClockId = setInterval(tick, 1000);
 >>                 "07 July", "08 August", "09 September", "10 October", "11 November", "12 December"];
 >> const now = new Date();
 >> const pad = n => String(n).padStart(2, "0");
->> const ymd = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+>> const ymd = dt => `${dt.getFullYear()}-${pad(dt.getMonth() + 1)}-${pad(dt.getDate())}`;
+>> const today = ymd(now);
+>> const dow = (now.getDay() + 6) % 7;               // 0 = Monday
+>> const monday = new Date(now);
+>> monday.setDate(now.getDate() - dow);
 >> const yearFolder = `01 Journals/${now.getFullYear()} Journals`;
 >> const monthFolder = `${yearFolder}/${MONTHS[now.getMonth()]}`;
->> const path = `${monthFolder}/${ymd}.md`;
+>> const weekFolder = `${monthFolder}/Week of ${ymd(monday)}`;   // journals nest by Monday-based week
+>> const path = `${weekFolder}/${today}.md`;
 >> if (app.vault.getAbstractFileByPath(path)) {
 >>   dv.paragraph(`![[${path}]]`).onclick = () => {
 >> 	  app.workspace.openLinkText(path, "", false);
@@ -77,10 +82,22 @@ window._dashClockId = setInterval(tick, 1000);
 >>   const btn = dv.container.createEl("button", { text: "📓 Create today's journal" });
 >>   btn.style.cursor = "pointer";
 >>   btn.onclick = async () => {
->>     if (!app.vault.getAbstractFileByPath(yearFolder))  { try { await app.vault.createFolder(yearFolder); }  catch (e) {} }
->>     if (!app.vault.getAbstractFileByPath(monthFolder)) { try { await app.vault.createFolder(monthFolder); } catch (e) {} }
->>     await app.vault.create(path, "");
->>     app.workspace.openLinkText(path, "", false);
+>>     // Ensure the Monday-nested week folders exist before creating the note
+>>     for (const f of [yearFolder, monthFolder, weekFolder]) {
+>>       if (!app.vault.getAbstractFileByPath(f)) { try { await app.vault.createFolder(f); } catch (e) {} }
+>>     }
+>>     // Create from the Templater template so <% %> tags resolve in the new file's context
+>>     const tmplPath = "Templates/(C) Daily Note Template.md";
+>>     const tmpl = app.vault.getAbstractFileByPath(tmplPath);
+>>     const folder = app.vault.getAbstractFileByPath(weekFolder);
+>>     const tp = app.plugins.plugins["templater-obsidian"];
+>>     if (tp && tmpl) {
+>>       await tp.templater.create_new_note_from_template(tmpl, folder, today, true);
+>>     } else {
+>>       // Fallback if Templater is unavailable: empty file
+>>       await app.vault.create(path, "");
+>>       app.workspace.openLinkText(path, "", false);
+>>     }
 >>   };
 >> }
 >> ```
@@ -124,3 +141,10 @@ views:
       - property: note.updated
         direction: DESC
 ```
+---
+**Project Progress**
+```dataview
+TABLE WITHOUT ID list(rows.file.link[0], rows.file.link[1]) AS entry, list(rows.summary[0], rows.summary[1]) AS summary, project FROM #progress WHERE project != null SORT date DESC GROUP BY project
+FLATTEN entry
+``` 
+ 

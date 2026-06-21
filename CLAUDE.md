@@ -151,4 +151,4 @@ Next-step (Iteration Logs) frontmatter: `type: next-step`, `project`, `status: o
 
 ## Current state
 
-See `index.md` for the page catalog and `log.md` for recent activity. As of 2026-06-04: three active projects — **Doculyze** (full-stack dev / auth), **Obsidian Configs** (vault infrastructure / maintenance), and **Golf** (deliberate practice across driving, irons, short game, and putting) — and 17 wiki pages. Each project lives in `Projects/<name>/` with its own `CLAUDE.md` + `COMMANDS.md`.
+See `index.md` for the page catalog and `log.md` for recent activity. As of 2026-06-12: four active projects — **Doculyze** (full-stack dev / auth), **Obsidian Configs** (vault infrastructure / maintenance), **Golf** (deliberate practice across driving, irons, short game, and putting), and **Google Interview Prep** (topic-by-topic DSA / system-design prep toward a New Grad SWE offer, targeting interview-readiness before the July 27, 2026 Barclays start) — and 17 wiki pages. Each project lives in `Projects/<name>/` with its own `CLAUDE.md` + `COMMANDS.md`.

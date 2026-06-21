@@ -20,4 +20,4 @@ A collection of the wit and wisdom of **Charlie Munger** — Warren Buffett's ri
 - [[(C) Vocabulary|Vocabulary]]
 
 ---
-*Source: `01 Journals/2026 Journals/06 June/2026-06-03.md` (reading notes, pp. 1–14). Incomplete draft passages in the source were left in the journal to finish later.*
+*Source: `01 Journals/2026 Journals/06 June/Week of 2026-06-01/2026-06-03.md` (reading notes, pp. 1–14). Incomplete draft passages in the source were left in the journal to finish later.*

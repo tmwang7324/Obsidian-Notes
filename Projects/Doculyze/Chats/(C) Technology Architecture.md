@@ -21,7 +21,7 @@ The planned frontend/backend shape of [[CLAUDE|Doculyze]]. Companion to [[(C) Au
 - Route Handlers.
 - [[(C) Express|Express]] + [[(C) Firebase Admin SDK|Firebase Admin SDK]] for authoritative session handling.
 
-> Open question from the notes: because ChromaDB only supports FastAPI and LangChain is primarily Python, the backend language for the document-analysis/AI layer is still undecided.
+> ~~Open question from the notes: because ChromaDB only supports FastAPI and LangChain is primarily Python, the backend language for the document-analysis/AI layer is still undecided.~~ **Resolved 2026-06-20 → Python**: the AI/document layer is a small FastAPI service running LangChain alongside Express. See [[(C) AI Layer Backend Language (DECISION)|the decision]].
 
 ## Authentication flow (summary)
 

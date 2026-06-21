@@ -8,11 +8,13 @@ updated: 2026-06-04
 # (C) Progress Log — Obsidian Configs
 
 Rolling changelog of daily progress files (`Week of …/(C) YYYY-MM-DD.md`), newest first, plus the open next-steps backlog. Auto-generated from frontmatter — requires the **Dataview** plugin.
+Create an application on my computer that integrates with an LLM in order to spam me with reminder emails to get ready at a specific time that takes into account transportation time, and my preparation time.
+Attach it to the calendar.
 
 ## Daily progress
 
 ```dataview
-TABLE WITHOUT ID file.link AS Entry, date AS Date, goals AS Advances
+TABLE WITHOUT ID file.link AS Entry, date AS Date, summary AS Summary, goals AS Advances
 FROM #progress
 WHERE project = "Obsidian Configs"
 SORT date DESC
