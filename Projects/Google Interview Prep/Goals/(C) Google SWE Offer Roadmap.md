@@ -30,14 +30,14 @@ sources: 0
 
 > **Reordered 2026-06-19 — front-loaded on graphs + DP.** A graph question sank a *previous* Google interview, so graphs (the evidenced weakness, not a hypothetical one) and DP (the boss fight) now own the peak-energy middle instead of waiting until the old Weeks 3–5. The comfortable topics (arrays, sliding window, two pointers, trees, heaps, BST, linked lists) drop out of dedicated study and become **timed confirmation sweeps + ~30 min/day spaced review** — staying warm without eating the hard-topic budget. This is the cure for the busy-work relapse, not a retreat into it. Trees keeps a short 2–3 day wrap *only* because tree recursion is the DP on-ramp (recursion → memo → table).
 
-| Block | Dates | Focus | Why |
-| ----- | ----- | ----- | --- |
-| **Trees wrap** | now–Jun 21 | Finish trees: timed confirmation + the recursion→memo bridge | Don't let it sprawl — already versed; this exists to seed DP recursion, nothing more. |
-| **Graphs (deep)** | Jun 22–Jul 1 | BFS/DFS, matrix/grid, topo sort, union-find | **The wound.** Biggest block, peak energy. Ends with a *cold, timed* graph medium — no "done on feel," since feel lied here last time. |
-| **DP** | Jul 2–Jul 16 | 1-D framework → knapsack contrast → subsequence → 2-D/grid (see ladder below) | The boss fight, now with full runway — the whole point of accelerating. |
-| **Mop-up** | Jul 17–21 | Backtracking (Google medium-hard staple), intervals, greedy, advanced graphs | Backtracking earns real time — *not* in the comfort zone. |
-| **Mocks + behavioral** | Jul 22–26 | Timed random mediums/hards out loud; STAR stories; spaced review of everything shaky | Unchanged — the final-week dress rehearsal. |
-| **Throughout** | every day | ~30 min spaced review of comfortable topics (arrays, sliding window, trees, heaps) | Keeps the known stuff sharp without burning a dedicated week on it. |
+| Block                  | Dates        | Focus                                                                                | Why                                                                                                                                    |
+| ---------------------- | ------------ | ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| **Trees wrap**         | now–Jun 21   | Finish trees: timed confirmation + the recursion→memo bridge                         | Don't let it sprawl — already versed; this exists to seed DP recursion, nothing more.                                                  |
+| **Graphs (deep)**      | Jun 22–Jul 1 | BFS/DFS, matrix/grid, topo sort, union-find                                          | **The wound.** Biggest block, peak energy. Ends with a *cold, timed* graph medium — no "done on feel," since feel lied here last time. |
+| **DP**                 | Jul 2–Jul 16 | 1-D framework → knapsack contrast → subsequence → 2-D/grid (see ladder below)        | The boss fight, now with full runway — the whole point of accelerating.                                                                |
+| **Mop-up**             | Jul 17–21    | Backtracking (Google medium-hard staple), intervals, greedy, advanced graphs         | Backtracking earns real time — *not* in the comfort zone.                                                                              |
+| **Mocks + behavioral** | Jul 22–26    | Timed random mediums/hards out loud; STAR stories; spaced review of everything shaky | Unchanged — the final-week dress rehearsal.                                                                                            |
+| **Throughout**         | every day    | ~30 min spaced review of comfortable topics (arrays, sliding window, trees, heaps)   | Keeps the known stuff sharp without burning a dedicated week on it.                                                                    |
 
 **Confirmation-only (no study block, swept timed):** heaps/PQ, BST, linked lists, sliding window, two pointers, arrays/hashing — known territory; *prove* they're airtight, don't grind them. The trap: "moderately versed" quietly becoming "under-confirmed" — so master-check gates get **stricter** for the front-loaded topics, not looser.
 **Gambled (lower-yield, deliberately skimmed):** Tries (light), and Bit Manipulation / Math-Geometry (mostly dropped) — Google asks these rarely; the time is protected for graphs and DP.

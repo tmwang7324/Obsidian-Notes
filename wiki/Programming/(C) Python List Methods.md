@@ -38,4 +38,4 @@ a.extend([3, 4])   # → [1, 2, 3, 4]     (flattened in)
 
 ## Sources
 
-- [[Very Important Methods]] — list-method cheat sheet (extend/append/clear/pop).
+- [[Projects/Google Interview Prep/Ideas/Leetcode/Arrays/Very Important Methods]] — list-method cheat sheet (extend/append/clear/pop).
