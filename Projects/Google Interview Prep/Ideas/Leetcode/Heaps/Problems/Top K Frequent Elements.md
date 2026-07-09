@@ -8,7 +8,8 @@ Return only the first element in each tuple in an array.
 from collections import Counter
 class Solution:
 	def topK(self, nums: List[int]) -> List[int]:
-	
+		word_freq = Counter(nums)
+		return [for t[1] for t in word_freq.most_common(k)]
 	
 
 ```

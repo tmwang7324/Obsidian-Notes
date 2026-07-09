@@ -8,6 +8,7 @@ However, the values from deeper nodes should propagate up in the graph or tree, 
 [[Maximum Tree Depth]]
 [[Minimum Tree Depth]]
 [[Same Tree]]
+[[Lowest Common Ancestor]]
 
 
 

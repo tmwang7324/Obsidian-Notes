@@ -1,12 +1,15 @@
 ---
 project: Google Interview Prep
 difficulty: Medium
+leetcode: 15
+solved: 2026-06-15
+solve_time: 55m 4s
 ---
 This question is a classic three pointer problem. 
 # My Approach
-First, I sorted the input array `nums`. This is essential because without sorting, the three pointer solution would not work. Furthermore, since the three pointer solution is O(n^2), a O(n log n) operation is alright to use.
+First, I sorted the input array `nums`. This is essential because without sorting, the three pointer solution would not work. Furthermore, since the three pointer solution is $O(n^2)$, a $O(n  log n)$ operation is alright to use.
 
-I wrote in my notebook: A hash table solution would be minimum O(n^2) because one must traverse the list an additional time before using the table to find the complement **(0 - i - tj).**
+I wrote in my notebook: A hash table solution would be minimum O(n^2) because one must traverse the list an additional time before using the table to find the complement **(0 - nums[i] - nums[tj]).**
 
 Much like [[Two Sum II]], our solution hinges on specific pointers moving when the sum of the numbers they point to is greater or less than **target = 0.**
 Now, let's set *l* = 0,

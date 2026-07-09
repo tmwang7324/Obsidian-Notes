@@ -36,8 +36,8 @@ import heapq
 from collections import Counter
 class Solution:
 	def topKFrequent(self, words: List[str], k: int) -> List[str]:
-	words.sort() # O (n log n)
-	return [t[1] for t in Counter(words).most_common(k)]
+		words.sort() # O (n log n)
+		return [t[1] for t in Counter(words).most_common(k)]
 	 
 ```
 

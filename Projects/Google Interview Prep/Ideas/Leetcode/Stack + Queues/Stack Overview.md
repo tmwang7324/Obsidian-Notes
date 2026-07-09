@@ -28,4 +28,6 @@ class Stack<T> {
 # Monotonic Stack
 This is a very common and useful design pattern for stacks. It involves maintaining a strictly increasing order of elements within the stack but from right to left.
 
-If an incoming element is greater than the top, pop the top of the stack until the incoming element is less than the top or the stack is empty. Append the incoming element.
+If an incoming element is greater than the previous element, pop the top of the stack until the incoming element is less than the top or the stack is empty. Append the incoming element.
+
+

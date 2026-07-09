@@ -147,4 +147,12 @@ views:
 TABLE WITHOUT ID list(rows.file.link[0], rows.file.link[1]) AS entry, list(rows.summary[0], rows.summary[1]) AS summary, project FROM #progress WHERE project != null SORT date DESC GROUP BY project
 FLATTEN entry
 ``` 
- 
+
+---
+**🧮 LeetCode Tracker**
+```dataview
+TABLE WITHOUT ID file.link AS Problem, difficulty AS Difficulty, solve_time AS "⏱ Solve time", runtime_beats AS "⚡ Runtime", memory_beats AS "💾 Memory", solved AS Solved
+FROM "Projects/Google Interview Prep/Ideas/Leetcode"
+WHERE solved
+SORT solved DESC
+```

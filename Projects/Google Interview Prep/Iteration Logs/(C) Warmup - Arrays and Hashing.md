@@ -1,10 +1,12 @@
 ---
 type: next-step
 project: Google Interview Prep
-status: open
+status: done
 goal: "[[(C) Google SWE Offer Roadmap]]"
 effort: M
-tags: [next-step, google-prep]
+tags:
+  - next-step
+  - google-prep
 ---
 
 # (C) Warm-up — Arrays & Hashing (timed calibration)
@@ -19,3 +21,7 @@ tags: [next-step, google-prep]
 - [x] Longest Consecutive Sequence (M)
 
 **Master-check:** can you state the hashing/prefix trick for each *before* coding? If any felt slow, jot it in `Ideas/` for a spaced-review pass.
+
+---
+
+**Done** — resolved by [[(C) 2026-06-19|2026-06-19 progress]].

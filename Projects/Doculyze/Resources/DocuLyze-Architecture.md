@@ -28,14 +28,14 @@ status: in-progress
 
 ## Tech stack
 
-| Layer | Choice | Version | Where |
-|---|---|---|---|
-| Framework | Next.js (App Router) | 16.2.6 | `doculyze/` |
-| UI | React | 19.2.4 | `app/`, `components/` |
-| Styling | Tailwind | v4 | `globals.css` |
-| Language | TypeScript | ^5 | everywhere (`.tsx`) |
-| Auth (client) | Firebase JS SDK | ^12.13 | `_lib/firebase.tsx` |
-| Auth (server) | Firebase Admin SDK | ^13.10 | `_lib/admin.tsx` |
+| Layer               | Choice                 | Version      | Where                 |
+| ------------------- | ---------------------- | ------------ | --------------------- |
+| Framework           | Next.js (App Router)   | 16.2.6       | `doculyze/`           |
+| UI                  | React                  | 19.2.4       | `app/`, `components/` |
+| Styling             | Tailwind               | v4           | `globals.css`         |
+| Language            | TypeScript             | ^5           | everywhere (`.tsx`)   |
+| Auth (client)       | Firebase JS SDK        | ^12.13       | `_lib/firebase.tsx`   |
+| Auth (server)       | Firebase Admin SDK     | ^13.10       | `_lib/admin.tsx`      |
 | Doc store (started) | Firestore (client SDK) | via firebase | `upload_document.tsx` |
 
 > [!note] Planned but absent

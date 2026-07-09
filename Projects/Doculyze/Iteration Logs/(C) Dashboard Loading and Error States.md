@@ -1,10 +1,13 @@
 ---
 type: next-step
 project: Doculyze
-status: open
+status: done
 effort: S
-aliases: [Dashboard Loading and Error States]
-tags: [next-step, doculyze]
+aliases:
+  - Dashboard Loading and Error States
+tags:
+  - next-step
+  - doculyze
 updated: 2026-06-25
 ---
 
@@ -17,3 +20,5 @@ updated: 2026-06-25
 
 - **Effort:** S — two small scaffold files, no new logic.
 - **Surfaced by:** server-component rewrite of the dashboard (2026-06-25 session).
+
+
