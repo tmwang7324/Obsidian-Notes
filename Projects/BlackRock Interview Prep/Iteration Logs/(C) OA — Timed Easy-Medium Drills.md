@@ -35,6 +35,23 @@ format output within a realistic time budget, twice in a row without a harness b
 **"2027 BlackRock 贝莱德 VI+Coding 真题":**
 ![[2027 BlackRock 贝莱德 VI+Coding真题_5_加布职研社 _ Gabu Career Lab_来自小红书网页版.jpg]]
 
+4. More reported OA questions (小红书 / Xiaohongshu screenshots, imported 2026-07-10):
+
+**"blackrock OA搞定，先解决代码再给思路！" — Corporate Ladder** (tree/graph): read a list of `employee/manager` pairs, build the org hierarchy, and count how many levels exist between any two given names (they may sit in different subtrees — LCA-style traversal, not a direct managerial line).
+![[blackrock OA搞定，先解决代码再给思路！_1_mathitdd教育_来自小红书网页版.jpg]]
+
+**"blackrock OA搞定，先解决代码再给思路！" — Happy Numbers** (simulation + cycle detection): for each integer N from stdin, repeatedly replace it with the sum of the squares of its digits; print `1` if it reaches 1, else `0` (detect the loop with a seen-set / Floyd).
+![[blackrock OA搞定，先解决代码再给思路！_2_mathitdd教育_来自小红书网页版.jpg]]
+
+**"BlackRock OA+三轮Onsite，难度比较高" — two Java questions:** Q1 **Reverse Spell** (string): reverse the input, lower-case it, hyphen-separate each alphanumeric char, ignore all other chars (`Hip, hip, hooray!` → `y-a-r-o-o-h-p-i-h-p-i-h`). Q2 **Cash Register** (greedy, OOP): given fixed note/coin denominations, read `PP;CH` lines and print the change using the fewest notes/coins — `Zero` if exact, `ERROR` if `CH < PP`.
+![[BlackRock OA+三轮Onsite，难度比较高_4_数据Gold矿工咨询_来自小红书网页版 (2).jpg]]
+
+**"BlackRock OA+三轮Onsite，难度比较高" — Currency Arbitrage** (math / weighted cycle, akin to **Evaluate Division**): three directional quotes USD/EUR, EUR/GBP, GBP/USD. Starting from $100,000 USD, convert USD→EUR→GBP→USD; if the round-trip yields a gain, print the arbitrage profit truncated to whole dollars, else `0`. Input: first line `N` = number of quotes, then `N` lines of three space-separated floats; the function receives the lines as a string array (parse them yourself).
+![[BlackRock OA+三轮Onsite，难度比较高_2_数据Gold矿工咨询_来自小红书网页版 (1).jpg]]
+
+**"BlackRock OA+三轮Onsite，难度比较高" — Portfolio Manager** (tree DP = **House Robber III**, LC 337): given a binary tree serialized in level-order with `#` as a null/path-terminator (`1 2 3 # # 4 # # 5`), each node's int = investable cash. Pick nodes maximizing total cash such that no two *directly-related* (parent–child) nodes are both chosen; print the max. Parse the serialized string into a tree first, then post-order DP returning `(rob, skip)` per node.
+![[BlackRock OA+三轮Onsite，难度比较高_3_数据Gold矿工咨询_来自小红书网页版 (1).jpg]]
+
 ---
 
 ### Recommended Drill Set — Python, easy → medium
