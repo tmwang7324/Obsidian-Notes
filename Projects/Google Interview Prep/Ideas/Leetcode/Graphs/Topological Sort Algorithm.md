@@ -1,4 +1,4 @@
-# Overview
+ # Overview
 A **topological ordering** is an ordering of the nodes in a Directed Acyclic Graph **DAG** where for each directed edge from node A to node B, node A appears before node B in ordering. 
 Able to find a way to align all nodes in a straight line with all directed edges pointing to the right.
 **IMPORTANT:** There can be multiple valid topological orderings. However, a cyclic directed graph has **NO** topological orderings.
@@ -7,7 +7,13 @@ Able to find a way to align all nodes in a straight line with all directed edges
 
 
 # Kahn's Algorithm
-Kahn's Algorithm is a simple [[Breadth-First Search (BFS)]]-based topological sort algorithm that can find a topological sort and detect cycles in **O(V+E)** time.
+Kahn's Algorithm is a simple [[Breadth-First Search (BFS)]]-based topological sort algorithm that can find a topological sort and detect cycles in $O(V+E)$ time and $O(V)$ space ($O(V+E)$ if including the adjacency list).
+
+**IMPORTANT:** The reason why Kahn's Algorithm takes $O(V+E)$ time is because each node is added and popped off the queue. Each edge is processed by decrementing the indegree array.
+
+**IMPORTANT:** 
+
+
 First, create an indegree array or map that keeps track of how many edges point towards a specific node. *Note: There can be an early termination in this portion if bfs or dfs detects any cycle.* 
 Then, enqueue all nodes with an indegree of 0. While the queue is not empty, `popleft()` the `queue`, retrieving the first appended node, let's call it `ele`, and its neighbors. Record the node in `ordered.`
 For each neighboring node visited, decrement its indegree by 1. If its indegree reaches 0, append it to the `queue`.
@@ -41,6 +47,9 @@ def khans_algorithm(graph) -> List[node]:
 ```
 
 # DFS Topological Sort Algorithm
+The depth-first search topological sort algorithm finds a valid topological sort and detects cycles if present in $O(V + E)$ time
+
+
 ```python
 def topological_sort_with_dfs(graph): # Assuming graph is based on an adjacency list
 	# one pass subgraph dfs with two-state cycle detection

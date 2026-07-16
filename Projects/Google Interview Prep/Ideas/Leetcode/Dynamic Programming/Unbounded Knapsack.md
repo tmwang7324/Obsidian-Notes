@@ -1,0 +1,1 @@
+I am given a knapsack with a certain capacity and a list of objects that have certain non-negative weights and profits. What is the maximum profit I can achieve in my knapsack?

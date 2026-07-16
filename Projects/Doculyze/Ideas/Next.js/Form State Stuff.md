@@ -42,6 +42,9 @@ export default function LoginForm() {
 Now, I can call *formState* to get the current user's inputs in the form as well as see if the user input passed all the validation checks by viewing the *message* field inside *formState*.
 
 ## useFormStatus()
-A Next.js react hook that returns a status object containing properties like `pending`, `data`, `method`, and `action`. 
-I primarily used this hook to retrieve the `pending` status so that I can disable my submit button while the account is logged into or created.
+> A Next.js react hook that returns a status object containing properties like `pending`, `data`, `method`, and `action`. 
+
+**IMPORTANT:** It must be called on a child component of a `form` element.
+
+> I primarily used this hook to retrieve the `pending` status so that I can disable my submit button while the account is logged into or created.
 
