@@ -31,10 +31,10 @@ How something goes from idea to done in this project:
 
 ## Key People
 
-- **Anupma Rathore** — my **People's Leader**. **Director — Head of Enterprise Data Platforms**, Barclays NY (since Jan 2023). Previously VP, Service Manager — **USCB** Technology Service Management at Barclays (2022–23); 8 years at ANZ in technical support (Melbourne); Infosys developer → integration testing lead → project lead (2004–10). ~22 years, started as a developer. ITIL Foundation (2015), Agile PM + Google Cloud Digital Leader (2021–22). Returned from a 3.5-year career gap at VP, made Director within a year.
+- **Anupma Rathore** — my **direct manager / People's Leader** (**confirmed on the 2026-07-17 intro call** — she is my direct line, not a level up). **Director — Head of Enterprise Data Platforms**, Barclays NY (since Jan 2023). Previously VP, Service Manager — **USCB** Technology Service Management at Barclays (2022–23); 8 years at ANZ in technical support (Melbourne); Infosys developer → integration testing lead → project lead (2004–10). ~22 years, started as a developer. ITIL Foundation (2015), Agile PM + Google Cloud Digital Leader (2021–22). Returned from a 3.5-year career gap at VP, made Director within a year.
   - **Her domain is data platforms** — lineage, pipelines, where data lives and how it moves. Her public About line ("Technology Manager with Service Management expertise") and `itsm-nyc` profile slug are **stale**; don't be misled by them, as I was on 2026-07-16.
   - **My Barclays intern dataflow mapping of Cards and Payments is her actual domain** — and **USCB = US Consumer Bank = Cards and Payments**, the org she ran service management for at roughly the time I interned there.
-  <!-- TODO: she's a Director — confirm she's my direct People's Leader vs. a level or two up, and what team I'm actually joining. -->
+  - **Her career shape matters to me:** developer → integration testing → 8 years technical support → service management → Director running data platforms. She walked the operational road to the top of a platform org. She is both the proof that path exists here *and* the person who decides what I do next.
 
 <!-- TODO: add teammates, skip-level, and onboarding buddy once I meet them. -->
 
@@ -63,14 +63,18 @@ How something goes from idea to done in this project:
 
 ## Current Status
 
-> **Last updated:** 2026-07-16
-> **Status:** Just created — **11 days pre-start**. Start date **2026-07-27**. First contact: intro call with Anupma Rathore on **2026-07-17, 1:30–1:55pm** (prep note in `Ideas/`).
+> **Last updated:** 2026-07-17
+> **Status:** **10 days pre-start.** Start date **2026-07-27**. Intro call with Anupma Rathore **done (2026-07-17)** — first contact made.
+
+**What the intro call established**
+- **Anupma is my direct manager**, confirmed — not a level or two up.
+- **My team: Risk Management, run-the-bank (RTB).** Not what I was hoping for — I want to build, and RTB is on paper the opposite. See `Goals/(C) First 90 Days.md` for the strategic read: I'm judging a label, not a job, and the thing that decides how this goes is how I show up, not the assignment.
 
 **Open threads**
-- Intro call with Anupma tomorrow — talking points drafted, pitch being revised (cut "scalable"; lead with the honest-framing decision).
-- No `Goals/` files yet — the three horizons (90 days / year one / promotion path) are unwritten.
+- **Debrief not fully captured** — the call's details (what she said "good" looks like, whether the lineage story landed, stack/service model) are still only in my head and decaying. Log a `Progress/` entry.
+- `Goals/`: first-90-days written 2026-07-17. **Year one and promotion path still unwritten** — both need what I learn after starting.
 - 401(k): Barclays matches 6% (see `../../raw/notes/401k.md`). Election not yet made; **vesting schedule unknown**.
-- Team, stack, and service model all unknown until start.
+- Stack and service model still unknown until start.
 
-<!-- TODO: write the first-90-days Goals file. -->
 <!-- TODO: confirm 401(k) vesting schedule and enrollment deadline. -->
+<!-- TODO: "Claude's Role" and "Translate, don't pitch" both frame the audience as data platforms (her domain). Now that my actual team is Risk RTB, the operational/ITSM framing partly comes back — for the *work*, if not for *her*. Revisit both once I know what the job really is. -->
