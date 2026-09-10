@@ -1,13 +1,13 @@
 ---
 title: "Improving RAG accuracy: 10 techniques that actually work"
-source: https://redis.io/blog/10-techniques-to-improve-rag-accuracy/
+source: "https://redis.io/blog/10-techniques-to-improve-rag-accuracy/"
 author:
-  - "[[Strategies]]"
+  - "[[Redis]]"
 published: 2025-07-22
 created: 2026-06-15
-description: Boost RAG accuracy with 10 proven techniques like hybrid search and semantic caching. Improve your pipeline. Try it today.
+description: "Boost RAG accuracy with 10 proven techniques like hybrid search and semantic caching. Improve your pipeline. Try it today."
 tags:
-  - clippings
+  - "clippings"
 ---
 Resource Center
 

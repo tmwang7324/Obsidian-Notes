@@ -12,12 +12,6 @@ See this blog for techniques: [[Improving RAG accuracy 10 techniques that actual
 
 Use Ragas for testing.
 
-# Grill For Final Product
-> /grill-me I want you to grill the heck out of me about my vision of a production-ready Doculyze. So, my current
-  vision of an end-to-end dataflow is: containerized frontend -> document upload -> job of embedding uploaded document
-  thru RabbitMQ -> containerized FastAPI -> runs LangChain with embedding API -> inserts chunk by chunk into ChromaDB
-  (properly indexed) -> Gives finished signal to Rabbit -> holds embeddings in Redis? (unsure about this part) ->
-
 # Final Plan
 ![[(C) Doculyze MVP - Scoped]]
 ## RAG Capabilities

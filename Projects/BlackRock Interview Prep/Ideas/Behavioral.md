@@ -1,0 +1,3 @@
+## If you could have used an AI based approach for one of the previous questions, how would you decide whether or not to use AI? Walk us through the key factors you would consider.
+I said that I would use AI to generate scaffolded code and generate tests for edge cases. However, I would refrain from using it to reason through the problem.
+For example, in [[(C) Valid Parentheses]], I would use it to generate the pair map
