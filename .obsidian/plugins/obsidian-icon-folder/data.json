@@ -6,11 +6,11 @@
     "emojiStyle": "native",
     "iconColor": null,
     "recentlyUsedIcons": [
-      "LiBrainCircuit",
-      "LiChrome",
-      "LiPictureInPicture",
-      "SiObsidian",
-      "🏌️‍♂️"
+      "SiBarclays",
+      "🪨",
+      "LiBriefcaseBusiness",
+      "SiGoogle",
+      "LiBrainCircuit"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -46,5 +46,8 @@
   "Projects/Obsidian Configs": "SiObsidian",
   "raw/assets": "LiPictureInPicture",
   "raw/Clippings": "LiChrome",
-  "raw/notes": "LiBrainCircuit"
+  "raw/notes": "LiBrainCircuit",
+  "Projects/NYC Neighborhood Commercial Analysis": "LiBriefcaseBusiness",
+  "Projects/Barclays": "SiBarclays",
+  "Projects/Interview Prep": "SiGoogle"
 }

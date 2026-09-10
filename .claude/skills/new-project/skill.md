@@ -56,7 +56,7 @@ Projects/<ProjectName>/
 
 Create all folders, even if the user has no content yet. Use PowerShell:
 ```powershell
-$base = "C:\Users\jw300\OneDrive\Documents\Obsidian Vault\Projects\<ProjectName>"
+$base = "C:\Obsidian Vault\Projects\<ProjectName>"
 $folders = @("Chats", "Goals", "Ideas", "Iteration Logs", "Progress", "Resources", "Skills", "System")
 foreach ($f in $folders) { New-Item -ItemType Directory -Path "$base\$f" -Force | Out-Null }
 ```

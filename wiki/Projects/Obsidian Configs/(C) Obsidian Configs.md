@@ -2,8 +2,8 @@
 type: overview
 aliases: ["Obsidian Configs"]
 tags: [project, vault, meta, infrastructure]
-updated: 2026-06-11
-sources: 12
+updated: 2026-06-19
+sources: 14
 ---
 
 # Obsidian Configs
@@ -40,16 +40,16 @@ The grill is **complete** — every branch resolved (Q1–Q11), design locked, s
 ## Theme & appearance
 
 - **Style Settings plugin** installed — the control surface for theme tweaks. **Themes the user rates highly:** **AnuPpucin**, **Minimal**, and **Obsidianite** (the last for its code color scheme and horizontal rules). (Source: `Ideas/Obsidian Notes.md`.)
-- **Rainbow folder labels** are on — now **unique across nested child folders too**, not just root folders (the earlier limitation is resolved). Fancy separators / code snippets and folder icons (Iconize) also enabled. (Source: `Ideas/Theme/Theme Customization.md`.)
+- **Rainbow folder labels** are on — now **unique across nested child folders too**, not just root folders (the earlier limitation is resolved). Fancy separators / code snippets and folder icons (Iconize) also enabled. (Source: `Ideas/Theme/Theme Customization (NOTE).md`.)
 - **Custom horizontal rules via CSS snippets** — drop a `.css` file in `.obsidian/snippets/`, then **Settings → Appearance → CSS Snippets** and toggle it on to apply. (Source: `01 Journals/.../2026-06-05.md`.)
-- **Custom background** — enable the AnuPpuccin custom-background snippet, then in **Style Settings → AnuPpuccin Custom Background** toggle "Enable Custom Background" (Colorful Frame off) and point it at an image URL (the user hosts on **catbox.moe**). Adjust brightness/blur/opacity; set Workspace layout to "Border" or "Cards" for a transparent sidebar. (Source: `Ideas/Theme/Theme Customization.md`.)
-- **Widening the note interface** — toggle **off** "Readable Line Length" under **Editor → Display** so notes stretch sidebar-to-sidebar (used for the dashboard). (Source: `Ideas/Theme/Theme Customization.md`.)
+- **Custom background** — enable the AnuPpuccin custom-background snippet, then in **Style Settings → AnuPpuccin Custom Background** toggle "Enable Custom Background" (Colorful Frame off) and point it at an image URL (the user hosts on **catbox.moe**). Adjust brightness/blur/opacity; set Workspace layout to "Border" or "Cards" for a transparent sidebar. (Source: `Ideas/Theme/Theme Customization (NOTE).md`.)
+- **Widening the note interface** — toggle **off** "Readable Line Length" under **Editor → Display** so notes stretch sidebar-to-sidebar (used for the dashboard). (Source: `Ideas/Theme/Theme Customization (NOTE).md`.)
 - **Dashboard** — design **locked (v1)** and being built: a single `cssclasses: dashboard` note on [[(C) MCL Multi-Column Layout|MCL multi-column]] callouts + `dataviewjs`, with a [[(C) Bases Launcher|Bases]] projects launcher; pomodoro lives in a separate sidebar note. Full design: [[(C) Dashboard v1 Design|Dashboard v1 Design]]. The CSS mechanisms it rests on: [[(C) cssclasses Containment|cssclasses containment]] + [[(C) Callout Metadata|callout metadata]].
 
 ## Architecture & decisions
 
 - **Current-state map:** [[(C) Architecture|Obsidian Configs Architecture]] — the three layers, the maintaining skills, the capture flow.
-- **Decision records (ADRs):** [[(C) Decisions in the Wiki]] · [[(C) Decision Capture Pipeline]] · [[(C) Archive Not Delete]] — the 2026-06-08 design making decisions+rationale durable wiki content. Dashboard set: [[(C) Dashboard v1 Design]] · [[(C) Pomodoro Timer Placement]] · [[(C) Recent Files Widget Scope]].
+- **Decision records (ADRs):** [[(C) Decisions in the Wiki]] · [[(C) Decision Capture Pipeline]] · [[(C) Archive Not Delete]] — the 2026-06-08 design making decisions+rationale durable wiki content. Dashboard set: [[(C) Dashboard v1 Design]] · [[(C) Pomodoro Timer Placement]] · [[(C) Recent Files Widget Scope]]. Daily notes: [[(C) Daily Note Frontmatter]].
 
 ## Where the detail lives
 

@@ -36,6 +36,8 @@ The ID token is the `accessToken` inside the Firebase client `User` object's `st
 
 Because the Firebase ID Token already behaves as a short-lived access token, the idea of splitting the backend session into separate refresh/access tokens was **rejected** — it would duplicate what Firebase already provides.
 
+> **Read that precisely:** Firebase does not *remove* the dual-token system — Firebase **is** one, operated by Google (the `refreshToken` + `accessToken` pair above is exactly that). What was rejected was building a **second, custom** pair on top of it. Note also that Firebase's pair is **browser-faced and JS-readable** (IndexedDB, not HttpOnly) — which is why the [[(C) Session Cookies|session cookie]] pattern exists. See [[(C) Token Verification and Revocation|Token Verification and Revocation]].
+
 ## Identity Provider tokens (distinct)
 
 Federated providers (Google, Facebook) issue their own tokens — often OAuth 2.0 access tokens. Apps verify those, then convert them into Firebase credentials. These are *not* the same as Firebase ID tokens.

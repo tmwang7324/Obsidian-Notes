@@ -16,6 +16,8 @@ Identity frameworks use token-based strategies to secure access — e.g. OAuth 2
 
 A short-lived credential that grants **direct** access to resources and APIs. In Doculyze, the [[(C) Firebase ID Token|Firebase ID Token]] *is* the access token — which is why the plan to split the session into separate access/refresh tokens was dropped (see [[(C) Firebase ID Token|Firebase ID Token]]).
 
+> **Why the split exists at all — revocation, not identity.** A refresh token is *not* what lets access tokens carry the user ID; a JWT carries `sub` on its own. The split exists because a stateless JWT **cannot be revoked**, so you make access tokens short-lived and put the revocable, stateful credential behind them. Full mechanics — storage vs transport, the XSS↔CSRF tradeoff, and why access-token checks are cheap — in [[(C) Token Verification and Revocation|Token Verification and Revocation]].
+
 ## Token types in play
 
 - [[(C) JWT|JWT]] — the signed format Firebase ID tokens use.

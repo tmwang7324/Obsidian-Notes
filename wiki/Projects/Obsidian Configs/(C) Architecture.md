@@ -2,8 +2,8 @@
 type: overview
 aliases: ["Obsidian Configs Architecture"]
 tags: [architecture, obsidian-configs, meta]
-updated: 2026-06-11
-sources: 5
+updated: 2026-06-19
+sources: 6
 ---
 
 # Obsidian Configs — Architecture
@@ -33,9 +33,14 @@ Markers in source notes drive everything: `**Important**` (force-synthesize), `*
 
 A landing surface, **designed and being built** as the vault's morning-glance home: a single `cssclasses: dashboard` note built on [[(C) MCL Multi-Column Layout|MCL multi-column]] callouts (static layout) + `dataviewjs` (live clock, focus project), with a [[(C) Bases Launcher|Bases launcher]] for projects. The pomodoro timer is **not** on the dashboard — it lives in a pinned sidebar note. Full design in [[(C) Dashboard v1 Design]].
 
+## Daily notes (current state)
+
+Daily journal notes are generated from a **Daily Note Template** (Settings → Daily notes): structured frontmatter (`date`, `tags`, `mood`, `productivity`, `goals`), prev/next nav arrows, and an `## Agenda` embed of the day's daily-plan file (visible in the journal, edited in its own file). Wired into the [[(C) MCL Multi-Column Layout|dashboard]]/[[(C) Dashboard v1 Design|Progress loop]] as the narrative source. Design + rationale: [[(C) Daily Note Frontmatter]].
+
 ## Decisions
 
 - [[(C) Decisions in the Wiki]] — decisions + rationale are durable wiki content; per-project folders; ADR shape.
+- [[(C) Daily Note Frontmatter]] — structured daily-note template (frontmatter + nav arrows + embedded editable daily plan).
 - [[(C) Decision Capture Pipeline]] — the `**Decision**` / `(DECISION)` marker, `synthesize` as sole ADR author, `record-progress` links up.
 - [[(C) Archive Not Delete]] — never delete source notes; archive fully-processed ones to `Ideas/Archive/`.
 - [[(C) Dashboard v1 Design]] — substrate (MCL + `dataviewjs`), v1 widget set, layout, Bases launcher.

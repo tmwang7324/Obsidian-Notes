@@ -1,0 +1,1173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Python Half of Issue #4 — Claim, Precheck, Sandbox</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --panel: #171a21;
+    --panel-2: #1e222b;
+    --border: #2a2f3a;
+    --text: #dfe3ea;
+    --text-dim: #9aa3b2;
+    --accent: #6fb3ff;
+    --accent-2: #7ee0b6;
+    --warn: #f2a65a;
+    --bad: #f26d6d;
+    --good: #7ee0b6;
+    --code-bg: #0b0d12;
+    --shadow: 0 6px 24px rgba(0,0,0,0.35);
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f6f7fb;
+      --panel: #ffffff;
+      --panel-2: #f0f2f8;
+      --border: #dde1ea;
+      --text: #1b2130;
+      --text-dim: #5b6472;
+      --accent: #1c66c9;
+      --accent-2: #0f8a5f;
+      --warn: #b3690a;
+      --bad: #c23a3a;
+      --good: #0f8a5f;
+      --code-bg: #f1f2f6;
+      --shadow: 0 6px 24px rgba(20,24,40,0.08);
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 2.5rem 1.25rem 6rem; }
+  header.hero {
+    padding: 3rem 1.25rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, var(--panel-2), transparent);
+  }
+  header.hero h1 {
+    font-size: 1.9rem;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  header.hero p.sub {
+    color: var(--text-dim);
+    max-width: 640px;
+    margin: 0 auto;
+    font-size: 1.02rem;
+  }
+  header.hero .meta {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+  h2 {
+    font-size: 1.5rem;
+    margin-top: 3rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border);
+    scroll-margin-top: 1rem;
+  }
+  h3 {
+    font-size: 1.15rem;
+    margin-top: 2rem;
+    color: var(--text);
+    scroll-margin-top: 1rem;
+  }
+  h4 { font-size: 1rem; margin-top: 1.5rem; color: var(--accent); }
+  p { margin: 0.9rem 0; }
+  a { color: var(--accent); }
+  .toc {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin: 2rem auto;
+    box-shadow: var(--shadow);
+  }
+  .toc h2 { margin-top: 0; border: none; padding-top: 0; font-size: 1.1rem; }
+  .toc ol { margin: 0.5rem 0 0; padding-left: 1.2rem; }
+  .toc li { margin: 0.35rem 0; }
+  .toc a { text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .callout {
+    border-left: 4px solid var(--accent);
+    background: var(--panel-2);
+    border-radius: 0 10px 10px 0;
+    padding: 0.9rem 1.1rem;
+    margin: 1.3rem 0;
+  }
+  .callout.warn { border-left-color: var(--warn); }
+  .callout.good { border-left-color: var(--good); }
+  .callout .label {
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-dim);
+    margin-bottom: 0.35rem;
+  }
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  code {
+    font-family: "SF Mono", "Cascadia Code", Consolas, Menlo, monospace;
+    font-size: 0.88em;
+    background: var(--code-bg);
+    padding: 0.1em 0.35em;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+  }
+  pre code { background: none; border: none; padding: 0; }
+  .filepath {
+    display: inline-block;
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 0.78rem;
+    color: var(--accent-2);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    padding: 0.15rem 0.55rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2rem 0;
+    font-size: 0.9rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.7rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: var(--panel-2); }
+  td code { white-space: nowrap; }
+
+  /* Diagrams */
+  .diagram {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    box-shadow: var(--shadow);
+    overflow-x: auto;
+  }
+  .diagram .caption {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-top: 0.9rem;
+    text-align: center;
+  }
+  .flow {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 0;
+    min-width: 560px;
+  }
+  .flow .node {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.83rem;
+    text-align: center;
+    min-width: 110px;
+  }
+  .flow .node.py { border-color: var(--accent); }
+  .flow .node .t { font-weight: 700; display: block; margin-bottom: 0.15rem; }
+  .flow .node .d { color: var(--text-dim); font-size: 0.74rem; }
+  .flow .arrow {
+    flex: 0 0 auto;
+    padding: 0 0.5rem;
+    color: var(--text-dim);
+    font-size: 1.1rem;
+  }
+  .flow.wrap-rows { flex-direction: column; align-items: stretch; min-width: 0; }
+  .flow.wrap-rows .node { width: 100%; }
+  .flow.wrap-rows .arrow { align-self: center; transform: rotate(90deg); }
+
+  .states {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+    min-width: 620px;
+  }
+  .pill {
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    background: var(--panel-2);
+  }
+  .pill.uploaded { color: var(--accent); border-color: var(--accent); }
+  .pill.processing { color: var(--warn); border-color: var(--warn); }
+  .pill.ready { color: var(--good); border-color: var(--good); }
+  .pill.failed { color: var(--bad); border-color: var(--bad); }
+  .pill.pending { color: var(--text-dim); }
+  .states .arrow-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0.7rem;
+    color: var(--text-dim);
+    font-size: 0.72rem;
+  }
+  .states .arrow-label .glyph { font-size: 1.1rem; line-height: 1; }
+
+  .claim-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.8rem;
+    margin-top: 1rem;
+  }
+  .claim-card {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+  }
+  .claim-card .tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 0.15rem 0.5rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+  }
+  .claim-card.claimed .tag { background: rgba(111,179,255,0.18); color: var(--accent); }
+  .claim-card.rerun .tag { background: rgba(242,166,90,0.18); color: var(--warn); }
+  .claim-card.skip .tag { background: rgba(126,224,182,0.18); color: var(--good); }
+  .claim-card.absent .tag { background: rgba(154,163,178,0.18); color: var(--text-dim); }
+  .claim-card p { margin: 0.3rem 0 0; font-size: 0.85rem; color: var(--text-dim); }
+
+  .sandbox-diagram {
+    display: flex;
+    gap: 1.2rem;
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+  .sandbox-box {
+    flex: 1 1 260px;
+    border-radius: 10px;
+    padding: 1rem;
+    border: 1px solid var(--border);
+  }
+  .sandbox-box.parent { background: var(--panel-2); }
+  .sandbox-box.child {
+    background: var(--code-bg);
+    border-style: dashed;
+    border-color: var(--warn);
+  }
+  .sandbox-box h5 { margin: 0 0 0.5rem; font-size: 0.88rem; }
+  .sandbox-box ul { margin: 0.4rem 0 0; padding-left: 1.1rem; font-size: 0.83rem; color: var(--text-dim); }
+  .sandbox-mid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    min-width: 90px;
+  }
+
+  /* Quiz */
+  .quiz-q {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.3rem 1.4rem;
+    margin: 1.3rem 0;
+    box-shadow: var(--shadow);
+  }
+  .quiz-q h4 { margin-top: 0; color: var(--text); font-size: 1rem; }
+  .quiz-opts { list-style: none; padding: 0; margin: 0.9rem 0 0; }
+  .quiz-opts li { margin: 0.5rem 0; }
+  .quiz-opts button {
+    width: 100%;
+    text-align: left;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.65rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .quiz-opts button:hover { border-color: var(--accent); }
+  .quiz-opts button.correct { background: rgba(126,224,182,0.15); border-color: var(--good); }
+  .quiz-opts button.incorrect { background: rgba(242,109,109,0.15); border-color: var(--bad); }
+  .quiz-opts button:disabled { cursor: default; }
+  .quiz-feedback {
+    margin-top: 0.8rem;
+    padding: 0.75rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.87rem;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.correct { background: rgba(126,224,182,0.12); border: 1px solid var(--good); }
+  .quiz-feedback.incorrect { background: rgba(242,109,109,0.12); border: 1px solid var(--bad); }
+
+  .badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.1rem 0.5rem;
+    border-radius: 6px;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    margin-left: 0.4rem;
+  }
+
+  footer {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 600px) {
+    header.hero h1 { font-size: 1.5rem; }
+    .wrap { padding: 1.5rem 1rem 4rem; }
+    .diagram { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>The Python Half of Issue #4</h1>
+  <p class="sub">
+    How a pointer envelope becomes a parsed document: claiming, magic-number
+    prechecking, and sandboxed parsing inside <code>ingest-worker/</code>.
+  </p>
+  <p class="meta">Commit <code>1eb9073</code> · Issue #4 · 2026-07-20</p>
+</header>
+
+<div class="wrap">
+
+<nav class="toc" id="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#background">Background</a>
+      <ol>
+        <li><a href="#bg-deep">For beginners: queues, magic bytes, sandboxes, transactions</a></li>
+        <li><a href="#bg-narrow">Where the Python worker picks up</a></li>
+      </ol>
+    </li>
+    <li><a href="#intuition">Intuition: three gates a document must pass</a></li>
+    <li><a href="#code">Code walkthrough</a>
+      <ol>
+        <li><a href="#c-config">Configuration and the canonical path</a></li>
+        <li><a href="#c-claim">Claiming a document (the replay rules)</a></li>
+        <li><a href="#c-precheck">The magic-number precheck</a></li>
+        <li><a href="#c-sandbox">Parsing inside a subprocess sandbox</a></li>
+        <li><a href="#c-job">Tying it together: <code>run_ingest_job</code></a></li>
+        <li><a href="#c-consumer">The pika consumer shell</a></li>
+      </ol>
+    </li>
+    <li><a href="#quiz">Quiz</a></li>
+  </ol>
+</nav>
+
+<section id="background">
+<h2>Background</h2>
+
+<h3 id="bg-deep">For beginners: queues, magic bytes, sandboxes, transactions</h3>
+
+<p>
+You already know how the Next.js half enqueues an envelope. Before diving into
+the Python side, it's worth pinning down four ideas the worker leans on
+heavily — skip this subsection if any of them are old hat.
+</p>
+
+<p>
+<strong>Message queues and workers.</strong> A message queue like RabbitMQ sits
+between two processes that don't need to know about each other. A
+<em>producer</em> drops a small message onto a named <em>queue</em>; a
+<em>consumer</em> pulls messages off that queue one at a time and does work.
+The upside is decoupling — the producer (Next.js, in this repo) doesn't block
+on the consumer (the Python worker) being up, fast, or even alive. If the
+consumer crashes mid-message, a well-behaved queue can redeliver that message
+once the consumer reconnects, so no work is silently dropped — but this means
+the consumer has to be able to handle the <em>same message twice</em> without
+corrupting anything. That property is called <strong>idempotency</strong>, and
+a good chunk of this worker's design exists purely to guarantee it.
+</p>
+
+<p>
+<strong>Magic bytes.</strong> File formats often begin with a fixed, distinctive
+byte sequence so that a program can identify the format without trusting the
+file extension. A real PDF always begins with the ASCII bytes <code>%PDF-</code>;
+a ZIP-based format (like a modern <code>.docx</code>) begins with
+<code>PK\x03\x04</code>; the old Microsoft Compound File Binary format (legacy
+<code>.doc</code>, <code>.xls</code>, <code>.ppt</code>) begins with the byte
+sequence <code>D0 CF 11 E0 A1 B1 1A E1</code>. Checking these first few bytes —
+"sniffing the magic number" — is a cheap, dependency-free way to catch a file
+that's been mislabeled or is simply garbage, before you spend real work trying
+to parse it as if it were valid.
+</p>
+
+<p>
+<strong>Subprocess sandboxing.</strong> Parsing an untrusted file — one a
+stranger uploaded to your server — is dangerous in the same process as the
+rest of your application: parser libraries have parsed enough malformed input
+over the years to be reasonably hardened, but "reasonably hardened" is not the
+same as "provably safe," and a bad file can still hang a parser in an infinite
+loop or exhaust memory. The standard defense is to run the parser in a
+<strong>separate child process</strong> with a hard <strong>timeout</strong>.
+If the child hangs, crashes, or takes too long, the parent simply kills it and
+moves on — the parent process, which is doing the important job of staying
+alive to consume the next message, is never at risk.
+</p>
+
+<p>
+<strong>Firestore transactions.</strong> Firestore lets you read a document,
+decide what to do based on what you read, and write back — all atomically, as
+a single transaction. If two processes run a transaction against the same
+document concurrently, Firestore guarantees only one of them "wins": the
+other's transaction is retried against the now-updated document. This is
+exactly the primitive you need to answer the question "has anyone already
+started processing this document?" without a race condition.
+</p>
+
+<h3 id="bg-narrow">Where the Python worker picks up</h3>
+
+<p>
+One sentence of recap, since you already know this half: <code>finalizeUpload</code>
+writes a Firestore record at status <code>uploaded</code> and then publishes a
+tiny envelope — exactly <code>{"uid": "...", "docId": "..."}</code>, nothing
+else, never file bytes — onto the durable queue <code>doc.ingest</code>.
+</p>
+
+<p>
+From here on, everything lives in <code>ingest-worker/</code>, a standalone
+Python 3.12 project with its own <code>src/ingest/</code> package and its own
+<code>pytest</code> suite. It's a <em>separate OS process</em>, typically
+running in its own Docker container with no published ports — the broker
+envelope is its only door in. The worker re-reads everything it needs from
+Firestore using just the <code>uid</code>/<code>docId</code> pointer; the
+envelope is deliberately "pointer-only" so it can never disagree with the
+record it points at.
+</p>
+
+<div class="callout">
+  <div class="label">Repo invariant this ticket refines</div>
+  The worker's <strong>only writes are Firestore status transitions</strong>.
+  Storage is strictly read-only to it — a rejected or corrupt file is flagged
+  <code>failed</code>, never deleted. This is also why it's safe, in dev, to
+  point the worker's Firestore at an emulator while it still reads real GCS
+  bytes: an emulated-Firestore worker can never touch production storage.
+</div>
+
+<p>
+The status vocabulary is the same <code>DocStatus</code> you already know from
+the frontend: <code>pending → uploaded → processing → ready | failed</code>.
+This ticket owns exactly two of those arrows — <code>uploaded → processing</code>
+and <code>processing → failed</code>. Reaching <code>ready</code> is deliberately
+out of scope (that's ticket #5): a successfully parsed file in this codebase
+ends at <code>processing</code>, with its extracted text held in memory and
+then simply discarded when the worker moves on to the next envelope.
+</p>
+
+</section>
+
+<section id="intuition">
+<h2>Intuition: three gates a document must pass</h2>
+
+<p>
+Once you strip away the infrastructure, the whole worker is one function —
+<code>run_ingest_job(envelope)</code> — pushing a single document through
+three gates in strict order. Each gate can only make the outcome worse, never
+better: a document that fails gate one never reaches gate two.
+</p>
+
+<div class="diagram">
+  <div class="flow wrap-rows">
+    <div class="node py">
+      <span class="t">Gate 1 — Claim</span>
+      <span class="d">Firestore transaction: is anyone already working on this doc? Am I allowed to?</span>
+    </div>
+    <div class="arrow">&#8595;</div>
+    <div class="node py">
+      <span class="t">Gate 2 — Precheck</span>
+      <span class="d">Do the first bytes on disk actually match the contentType Firestore says this file is?</span>
+    </div>
+    <div class="arrow">&#8595;</div>
+    <div class="node py">
+      <span class="t">Gate 3 — Sandboxed parse</span>
+      <span class="d">Can a real parser extract text from this file inside 20 seconds, in a disposable child process?</span>
+    </div>
+  </div>
+  <p class="caption">All three gates live inside <code>run_ingest_job</code> — the broker never sees any of this.</p>
+</div>
+
+<p>
+Let's walk a toy example through all three gates, using the exact fixtures the
+test suite uses: <code>uid = "user-a"</code>, <code>docId = "doc-1"</code>.
+</p>
+
+<h3>Case A — a well-formed PDF</h3>
+<p>
+Firestore has a record at <code>users/user-a/documents/doc-1</code> with
+<code>status: "uploaded"</code> and <code>contentType: "application/pdf"</code>.
+The object at <code>users/user-a/documents/doc-1</code> in Storage really does
+start with <code>%PDF-</code> and is a valid one-page PDF.
+</p>
+<div class="diagram">
+  <div class="claim-grid">
+    <div class="claim-card claimed">
+      <span class="tag">GATE 1: CLAIMED</span>
+      <p>Transaction sees <code>uploaded</code>, flips it to <code>processing</code>, stamps <code>claimedAt</code>. Proceed.</p>
+    </div>
+    <div class="claim-card claimed">
+      <span class="tag">GATE 2: PASS</span>
+      <p><code>data.startswith(b"%PDF-")</code> is true for the declared <code>contentType</code>. Proceed.</p>
+    </div>
+    <div class="claim-card claimed">
+      <span class="tag">GATE 3: PASS</span>
+      <p>Child process runs pypdf, extracts text, exits 0 inside the 20s budget. Record stays at <code>processing</code>.</p>
+    </div>
+  </div>
+  <p class="caption">Good file: ends at <code>processing</code>, not <code>ready</code> — text is held in memory and discarded.</p>
+</div>
+
+<h3>Case B — text bytes mislabeled as a PDF</h3>
+<p>
+Same starting record, but Storage actually holds the bytes
+<code>b"just text pretending to be a pdf"</code> under
+<code>contentType: "application/pdf"</code> (this is one of the repo's own
+test fixtures, <code>test_mismatched_bytes_fail_and_object_is_retained</code>).
+</p>
+<div class="diagram">
+  <div class="claim-grid">
+    <div class="claim-card claimed">
+      <span class="tag">GATE 1: CLAIMED</span>
+      <p>Same as before — claiming doesn't know or care what the bytes are.</p>
+    </div>
+    <div class="claim-card absent">
+      <span class="tag">GATE 2: REJECT</span>
+      <p><code>data.startswith(b"%PDF-")</code> is false. <code>precheck()</code> returns <code>False</code> before any parser ever runs.</p>
+    </div>
+    <div class="claim-card absent">
+      <span class="tag">GATE 3: never reached</span>
+      <p><code>mark_failed()</code> flips the record straight to <code>failed</code>. The Storage object is left alone — only the flag changes.</p>
+    </div>
+  </div>
+  <p class="caption">Mismatches are caught cheaply, in-process, before spending a subprocess spawn on them.</p>
+</div>
+
+<h3>Case C — valid header, garbage body</h3>
+<p>
+Storage holds <code>b"%PDF-1.7" + &lt;a few KB of random bytes&gt;</code>. The
+magic number is genuinely correct, so gate 2 passes — but the file isn't a
+real PDF, so pypdf will choke on it.
+</p>
+<div class="diagram">
+  <div class="claim-grid">
+    <div class="claim-card claimed"><span class="tag">GATE 1: CLAIMED</span><p>Unaffected.</p></div>
+    <div class="claim-card claimed"><span class="tag">GATE 2: PASS</span><p>The header genuinely says PDF — precheck can't see past the first few bytes.</p></div>
+    <div class="claim-card absent"><span class="tag">GATE 3: REJECT</span><p>The child process raises inside pypdf; <code>sandbox.py</code> turns that into a <code>ParseError</code>. <code>mark_failed()</code> runs.</p></div>
+  </div>
+  <p class="caption">This is exactly why parsing has to be a <em>second</em>, independent gate — magic bytes alone can't prove a file is well-formed.</p>
+</div>
+
+<h3>Case D — the same envelope, delivered twice</h3>
+<p>
+This is the case the whole "claim" design exists for. Imagine the worker
+finishes Case A, but crashes (power loss, OOM-kill, whatever) a split second
+before it would have sent the acknowledgment back to RabbitMQ. The broker,
+having never heard an ack, redelivers the exact same <code>{uid, docId}</code>
+envelope to the next worker that connects.
+</p>
+<div class="diagram">
+  <div class="states">
+    <span class="pill uploaded">uploaded</span>
+    <span class="arrow-label"><span class="glyph">&#8594;</span>CLAIMED</span>
+    <span class="pill processing">processing</span>
+    <span class="arrow-label"><span class="glyph">&#8594;</span>redelivery finds it already <code>processing</code></span>
+    <span class="pill processing">RERUN</span>
+  </div>
+  <p class="caption">Second delivery re-claims (refreshing <code>claimedAt</code>) and reprocesses from scratch — safe, because the only side effect either run has is a status write.</p>
+</div>
+
+<p>
+Compare that to a redelivery arriving <em>after</em> the document reached
+<code>ready</code> or <code>failed</code> — those are terminal, so the claim
+function reports <code>SKIP</code> and nothing happens. That asymmetry —
+<code>processing</code> reprocesses, <code>ready</code>/<code>failed</code>
+never regress — is the whole idempotency story in one sentence, and it's
+enforced by a single Firestore transaction you'll meet in the code walkthrough.
+</p>
+
+</section>
+
+<section id="code">
+<h2>Code walkthrough</h2>
+
+<p>
+The package is <code>ingest-worker/src/ingest/</code>, and the modules read
+almost exactly in dependency order — each one imports only the ones before it.
+We'll walk them in that order: configuration, claiming, prechecking, sandboxed
+parsing, the orchestrator that ties them together, and finally the thin
+broker shell around all of it.
+</p>
+
+<h3 id="c-config">Configuration and the canonical path</h3>
+<div class="filepath">ingest-worker/src/ingest/config.py</div>
+<p>
+<code>config.py</code> reads everything from environment variables and
+initializes <code>firebase_admin</code> exactly once, lazily, the first time
+anything asks for a Firestore client or Storage bucket:
+</p>
+<pre><code>def firebase_app():
+    global _app
+    if _app is None:
+        bucket = os.environ["FIREBASE_STORAGE_BUCKET"]  # required; fail loudly
+        _app = firebase_admin.initialize_app(
+            credentials.ApplicationDefault(), {"storageBucket": bucket}
+        )
+        log.info(
+            "firebase initialized: firestore=%s storage=%s bucket=%s",
+            os.environ.get("FIRESTORE_EMULATOR_HOST") or "REAL",
+            os.environ.get("STORAGE_EMULATOR_HOST") or "REAL",
+            bucket,
+        )
+    return _app</code></pre>
+<p>
+That boot log is a small but deliberate safety net: because a misconfigured
+<code>FIRESTORE_EMULATOR_HOST</code> is exactly the kind of mistake that would
+otherwise fail silently (every envelope just looks <code>ABSENT</code> and
+gets acked away), the very first log line the worker ever prints says plainly
+which Firestore and which bucket it resolved.
+</p>
+
+<div class="filepath">ingest-worker/src/ingest/paths.py</div>
+<p>
+Right next to it sits the smallest file in the package — and one of the most
+important, because of what it's <em>not</em> allowed to do:
+</p>
+<pre><code>def document_storage_path(uid: str, doc_id: str) -> str:
+    """4th caller of the ONE canonical path formula.
+
+    Mirrors documentStoragePath() in doculyze/_lib/database.tsx — the signer,
+    the finalize verify, and the Firestore record all use the same shape. Do
+    not derive paths any other way.
+    """
+    return f"users/{uid}/documents/{doc_id}"</code></pre>
+<p>
+This is a straight reimplementation of the same formula you already know from
+<code>_lib/database.tsx</code> — Python and TypeScript can't literally share a
+function, so the discipline is social: this is the <em>one place</em> the path
+gets built on the Python side, and every other module calls it rather than
+formatting the string itself.
+</p>
+
+<h3 id="c-claim">Claiming a document (the replay rules)</h3>
+<div class="filepath">ingest-worker/src/ingest/firestore_status.py</div>
+
+<p>
+This module is the answer to "what happens when the same envelope arrives
+twice." It exposes one enum and two functions. The enum names the four
+possible outcomes of trying to claim a document:
+</p>
+
+<pre><code>class Claim(Enum):
+    CLAIMED = "claimed"  # uploaded -> processing, proceed to parse
+    RERUN = "rerun"      # already processing (crash-after-claim redelivery) -> re-parse
+    SKIP = "skip"        # ready/failed -> ack, no-op (no regression)
+    ABSENT = "absent"    # pending or missing -> log warning, ack</code></pre>
+
+<p>
+<code>claim_for_processing</code> wraps the read-decide-write sequence in a
+single <code>@firestore.transactional</code> function, so the whole thing is
+atomic even if two workers are racing:
+</p>
+
+<pre><code>@firestore.transactional
+def txn(tx) -> Claim:
+    snap = ref.get(transaction=tx)
+    if not snap.exists:
+        return Claim.ABSENT
+    status = snap.get("status")
+    if status == "uploaded":
+        tx.update(ref, {"status": "processing", "claimedAt": firestore.SERVER_TIMESTAMP})
+        return Claim.CLAIMED
+    if status == "processing":
+        # Guarded re-claim, not a read-only peek: keeps contention behavior
+        # correct when consumers multiply.
+        tx.update(ref, {"claimedAt": firestore.SERVER_TIMESTAMP})
+        return Claim.RERUN
+    if status in ("ready", "failed"):
+        return Claim.SKIP
+    return Claim.ABSENT  # "pending" or unknown</code></pre>
+
+<p>
+The subtle design choice here is that <code>RERUN</code> still performs a
+write — it refreshes <code>claimedAt</code> — rather than just reading the
+status and returning. With exactly one consumer and prefetch 1 (more on that
+in the consumer section), nothing is actually racing today, so that write
+looks unnecessary. But it costs nothing, and it means that if this worker is
+ever scaled out to multiple consumers, the transaction already serializes them
+correctly — no redesign needed later, per the commit's design-grill notes.
+</p>
+
+<p>
+The companion function is a one-liner that never touches Storage:
+</p>
+<pre><code>def mark_failed(db, uid: str, doc_id: str) -> None:
+    """processing -> failed, flag-only. Never touches Storage (bytes retained)."""
+    _doc_ref(db, uid, doc_id).update({"status": "failed"})</code></pre>
+
+<p>
+The test suite (<code>test_firestore_status.py</code>) nails down exactly the
+behavior you'd expect: calling <code>claim_for_processing</code> twice on the
+same <code>uploaded</code> record yields <code>CLAIMED</code> then
+<code>RERUN</code>, never two <code>CLAIMED</code>s; and both
+<code>ready</code> and <code>failed</code> always come back <code>SKIP</code>
+— a resolved record can never be knocked backwards by a stray redelivery.
+</p>
+
+<h3 id="c-precheck">The magic-number precheck</h3>
+<div class="filepath">ingest-worker/src/ingest/precheck.py</div>
+
+<p>
+<code>precheck()</code> is a pure, dependency-free function — no I/O, no
+Firestore, no subprocess — that takes the record's stored
+<code>contentType</code> (the one the Next.js upload flow already derived from
+the file extension) and the raw bytes downloaded from Storage, and answers a
+single yes/no question: <em>do these bytes actually look like that type?</em>
+</p>
+
+<table>
+  <thead><tr><th>contentType</th><th>Check</th></tr></thead>
+  <tbody>
+    <tr><td><code>application/pdf</code></td><td>starts with <code>%PDF-</code></td></tr>
+    <tr><td>docx (OOXML)</td><td>starts with <code>PK\x03\x04</code> <strong>and</strong> the zip's entries include <code>[Content_Types].xml</code></td></tr>
+    <tr><td><code>application/msword</code> (.doc)</td><td>starts with the CFB signature <code>D0 CF 11 E0 A1 B1 1A E1</code></td></tr>
+    <tr><td>text family (plain/json/js/ts/md/html/css/xml)</td><td>decodes as clean UTF-8, no NUL byte, and doesn't start with any of the binary signatures above</td></tr>
+    <tr><td>anything else</td><td><code>False</code> — an unknown contentType should never have been signed in the first place</td></tr>
+  </tbody>
+</table>
+
+<p>
+The docx check is worth lingering on, because <code>PK\x03\x04</code> alone
+would be too weak — a <code>.docx</code>, a <code>.zip</code>, and a
+<code>.xlsx</code> all share that same four-byte ZIP signature. So the check
+goes one step further and actually opens the zip's central directory (using
+Python's built-in <code>zipfile</code> module — still dependency-free) and
+confirms a specific entry, <code>[Content_Types].xml</code>, is present. That
+file is a required part of every valid OOXML package, so its presence is a
+much stronger signal than the raw ZIP magic bytes alone.
+</p>
+
+<pre><code>def _zip_has_entry(data: bytes, name: str) -> bool:
+    try:
+        with zipfile.ZipFile(io.BytesIO(data)) as z:
+            return name in z.namelist()
+    except zipfile.BadZipFile:
+        return False</code></pre>
+
+<div class="callout warn">
+  <div class="label">Known, accepted limitation</div>
+  The CFB signature is shared by <em>every</em> legacy Office format —
+  <code>.doc</code>, <code>.xls</code>, and <code>.ppt</code> all start with
+  the same eight bytes. So a spreadsheet renamed to end in <code>.doc</code>
+  sails through <code>precheck()</code> and only gets caught later, when
+  antiword chokes on it and gate 3 fails instead. The design accepts this: the
+  precheck is a cheap first filter, not the only filter — the parser is
+  always the second, more expensive gate behind it.
+</div>
+
+<h3 id="c-sandbox">Parsing inside a subprocess sandbox</h3>
+<div class="filepath">ingest-worker/src/ingest/parsers.py, sandbox.py, parse_entry.py</div>
+
+<p>
+Three small files cooperate here, and it's worth seeing how they fit before
+reading each one:
+</p>
+
+<div class="diagram">
+  <div class="sandbox-diagram">
+    <div class="sandbox-box parent">
+      <h5>Parent process (the worker)</h5>
+      <ul>
+        <li><code>sandbox.py::run_parser_sandboxed()</code></li>
+        <li>never imports pypdf / python-docx itself</li>
+        <li>spawns the child, writes bytes to its stdin</li>
+        <li>waits up to <code>PARSE_TIMEOUT_S</code> (default 20s)</li>
+        <li>reads text back from stdout</li>
+      </ul>
+    </div>
+    <div class="sandbox-mid">
+      <div>bytes in &#8594;</div>
+      <div style="font-size:1.4rem;">&#8646;</div>
+      <div>&#8592; text or exit&ne;0</div>
+    </div>
+    <div class="sandbox-box child">
+      <h5>Child process (disposable)</h5>
+      <ul>
+        <li><code>python -m ingest.parse_entry &lt;parser_name&gt;</code></li>
+        <li><code>parsers.py</code> does the actual pypdf / python-docx / antiword work</li>
+        <li>any exception &#8594; caught, printed to stderr, exit 1</li>
+        <li>killed outright if it exceeds the timeout</li>
+      </ul>
+    </div>
+  </div>
+  <p class="caption">The parent's contract with the child never changes: bytes in on stdin, extracted text out on stdout, non-zero exit or a timeout means "this file is bad."</p>
+</div>
+
+<p>
+<code>sandbox.py</code> is the parent-side half — it shells out via
+<code>subprocess.run</code> and converts every failure mode into one
+exception type:
+</p>
+<pre><code>def run_parser_sandboxed(parser_name, object_bytes, timeout_s=None) -> str:
+    if timeout_s is None:
+        timeout_s = parse_timeout_s()
+    try:
+        proc = subprocess.run(
+            [sys.executable, "-m", "ingest.parse_entry", parser_name],
+            input=object_bytes,
+            capture_output=True,
+            timeout=timeout_s,
+            env=_child_env(),
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise ParseError(f"{parser_name} timed out after {timeout_s}s") from exc
+    if proc.returncode != 0:
+        raise ParseError(
+            f"{parser_name} exited {proc.returncode}: "
+            f"{proc.stderr.decode('utf-8', 'replace')[:300]}"
+        )
+    return proc.stdout.decode("utf-8", errors="replace")</code></pre>
+
+<p>
+Both a hang (caught as <code>TimeoutExpired</code>) and a crash (non-zero
+exit code) collapse into the exact same <code>ParseError</code> — the caller
+one layer up (<code>job.py</code>) doesn't need to know or care which one
+happened; either way, the document is bad and gets marked <code>failed</code>.
+</p>
+
+<p>
+<code>parse_entry.py</code> is the child's own entrypoint — deliberately tiny,
+because it's the part of the codebase that actually touches untrusted bytes
+with real parsing libraries:
+</p>
+<pre><code>def main() -> int:
+    parser_name = sys.argv[1]
+    data = sys.stdin.buffer.read()
+    try:
+        text = PARSERS[parser_name](data)
+    except Exception as exc:  # any failure is a parse failure
+        print(f"parse failed ({parser_name}): {exc}", file=sys.stderr)
+        return 1
+    sys.stdout.buffer.write(text.encode("utf-8"))
+    return 0</code></pre>
+
+<p>
+And <code>parsers.py</code> holds the actual extraction logic plus a small
+dispatch table (<code>parser_for()</code>) that maps a canonical
+<code>contentType</code> to a parser name — a pure lookup, safe to call from
+anywhere, since it never touches file bytes itself:
+</p>
+<pre><code>_PARSER_BY_TYPE = {
+    "application/pdf": "pdf",
+    DOCX_TYPE: "docx",
+    "application/msword": "doc",
+    **{ct: "text" for ct in TEXT_FAMILY},
+}</code></pre>
+
+<p>
+Three of the four parsers are short and unsurprising — pypdf for PDFs,
+python-docx for docx, a plain UTF-8 decode for the text family. The fourth,
+<code>.doc</code> via <code>antiword</code>, needs a small workaround worth
+calling out, because it breaks the otherwise-uniform "bytes in on stdin" model:
+</p>
+<pre><code>def _parse_doc(data: bytes) -> str:
+    # antiword reads a file PATH, not stdin — write the bytes to a temp file
+    # inside this sandboxed child; it dies with the child.
+    tmp = tempfile.NamedTemporaryFile(suffix=".doc", delete=False)
+    try:
+        tmp.write(data)
+        tmp.close()
+        proc = subprocess.run(["antiword", tmp.name], capture_output=True)
+        if proc.returncode != 0:
+            raise RuntimeError(f"antiword exited {proc.returncode}: {proc.stderr[:200]!r}")
+        return proc.stdout.decode("utf-8", errors="replace")
+    finally:
+        os.unlink(tmp.name)</code></pre>
+<p>
+<code>antiword</code> is a command-line tool that only knows how to read a
+file path, not standard input, so this function writes the bytes to a
+temporary file first. Two details matter here: <code>delete=False</code>
+plus a manual <code>os.unlink()</code> in a <code>finally</code> block (rather
+than the more common <code>with tempfile.NamedTemporaryFile() as tmp:</code>
+pattern) exists because Windows won't let a second process — <code>antiword</code>
+— open a file that's still held open by the first. And because this all runs
+<em>inside the sandboxed child</em>, the temp file's entire lifetime is
+scoped to that disposable subprocess; it's gone the moment the child exits,
+sandboxed one level deeper via a nested <code>subprocess.run</code> call to
+antiword itself.
+</p>
+
+<h3 id="c-job">Tying it together: <code>run_ingest_job</code></h3>
+<div class="filepath">ingest-worker/src/ingest/job.py</div>
+
+<p>
+This is the module every test in <code>ingest-worker/tests/</code> ultimately
+calls, and it's also literally the entire pipeline from the intuition section,
+laid out top to bottom with no broker in sight:
+</p>
+
+<pre><code>def run_ingest_job(envelope: dict) -> None:
+    uid, doc_id = envelope["uid"], envelope["docId"]
+    db = firestore_client()
+
+    decision = claim_for_processing(db, uid, doc_id)
+    if decision in (Claim.SKIP, Claim.ABSENT):
+        log.info("skip/absent for %s/%s: %s", uid, doc_id, decision.value)
+        return
+    # CLAIMED or RERUN: the record is now `processing`.
+
+    snap = db.collection("users").document(uid) \
+             .collection("documents").document(doc_id).get()
+    content_type = snap.get("contentType")
+    data = storage_bucket().blob(document_storage_path(uid, doc_id)).download_as_bytes()
+
+    if not precheck(content_type, data):
+        mark_failed(db, uid, doc_id)  # object retained (flag-only)
+        return
+
+    try:
+        text = run_parser_sandboxed(parser_for(content_type), data)
+    except ParseError as exc:
+        mark_failed(db, uid, doc_id)  # object retained
+        return
+
+    # Good file: ENDS at `processing` (ticket #5 takes it to `ready`).
+    log.info("parsed %s/%s: %d chars (held in memory only)", uid, doc_id, len(text))</code></pre>
+
+<p>
+Notice what this function does <em>not</em> do: it never raises for a bad
+document. A precheck rejection and a parse failure both return normally, after
+quietly writing <code>failed</code>. The only way <code>run_ingest_job</code>
+raises is an actual infrastructure problem — Firestore or Storage being
+unreachable, for instance — and that distinction (document-level failure
+returns cleanly; infrastructure failure raises) is exactly what the consumer
+shell uses next to decide between an ack and a nack.
+</p>
+
+<h3 id="c-consumer">The pika consumer shell</h3>
+<div class="filepath">ingest-worker/src/ingest/consumer.py</div>
+
+<p>
+Everything above this point is broker-agnostic — you could call
+<code>run_ingest_job</code> from a cron job, a CLI, or a test, and it wouldn't
+know the difference. <code>consumer.py</code> is the one module that actually
+knows RabbitMQ exists, and it's kept deliberately thin:
+</p>
+
+<pre><code>def on_message(channel, method, properties, body) -> None:
+    try:
+        envelope = json.loads(body)
+        run_ingest_job(envelope)
+        channel.basic_ack(delivery_tag=method.delivery_tag)
+    except Exception:  # infra failure / bad JSON / bug
+        log.exception("infra failure; dead-lettering delivery")
+        channel.basic_nack(delivery_tag=method.delivery_tag, requeue=False)</code></pre>
+
+<p>
+Read this against what you just learned about <code>run_ingest_job</code>: a
+bad file (precheck or parse failure) already returned normally, so control
+reaches <code>basic_ack</code> — the message is done, successfully, even
+though the <em>document</em> ended up <code>failed</code>. Only something
+<code>run_ingest_job</code> couldn't handle itself — malformed JSON, a
+Firestore/Storage outage, an unexpected bug — falls into the <code>except</code>
+branch, which <code>nack</code>s with <code>requeue=False</code>. Because the
+queue was declared with a dead-letter exchange, that nack routes the message
+to <code>doc.ingest.dead</code> instead of looping it back onto the live
+queue — a poison message gets one shot, then waits for a human, rather than
+spinning forever.
+</p>
+
+<pre><code>channel.basic_qos(prefetch_count=1)
+channel.basic_consume(queue=queue, on_message_callback=on_message, auto_ack=False)</code></pre>
+
+<p>
+<code>prefetch_count=1</code> plus manual acking (<code>auto_ack=False</code>)
+is what makes Case D from the intuition section — the crash-mid-job scenario
+— actually safe in practice. RabbitMQ only ever hands this worker one
+unacknowledged message at a time; if the process dies before acking, the
+broker notices the connection drop and redelivers that same message once a
+consumer reconnects. That redelivery lands right back in
+<code>claim_for_processing</code>, which by now sees the record sitting at
+<code>processing</code> and returns <code>RERUN</code> instead of blowing up
+or double-processing something already finished.
+</p>
+
+<p>
+Finally, <code>declare_topology</code> asserts the exact same queue, exchange,
+and binding shape that the Node producer declares on its side:
+</p>
+<pre><code>def declare_topology(channel, queue: str) -> None:
+    channel.exchange_declare(exchange=DLX, exchange_type="direct", durable=True)
+    channel.queue_declare(queue=DEAD_QUEUE, durable=True)
+    channel.queue_bind(queue=DEAD_QUEUE, exchange=DLX, routing_key=queue)
+    channel.queue_declare(
+        queue=queue, durable=True, arguments={"x-dead-letter-exchange": DLX}
+    )</code></pre>
+<p>
+RabbitMQ hard-fails an <code>assertQueue</code>/<code>queue_declare</code>
+call if the arguments don't match an already-declared queue of the same name
+— so if the Node and Python sides ever drift on this shape, you find out
+immediately and loudly, rather than via some subtler runtime mismatch later.
+</p>
+
+</section>
+
+<section id="quiz">
+<h2>Quiz</h2>
+<p>Five questions to check the mental model actually stuck. Click an answer to see feedback.</p>
+
+<div id="quiz-root"></div>
+
+</section>
+
+<footer>
+  Generated explanation for commit <code>1eb9073</code> — issue #4, ingest-worker Python side.
+</footer>
+
+</div>
+
+<script>
+const QUESTIONS = [
+  {
+    q: "In consumer.py, why does the message get ACKed (not NACKed) when precheck() rejects a mismatched file?",
+    options: [
+      "Because RabbitMQ can't distinguish document failures from infra failures",
+      "Because run_ingest_job already handled the failure itself — it wrote status 'failed' and returned normally, so the message-level job is done",
+      "Because ACKing is required before Firestore writes are allowed to commit",
+      "Because precheck failures are considered transient and might succeed on redelivery",
+    ],
+    correct: 1,
+    feedback: "run_ingest_job never raises for a document-level problem — a precheck or parse rejection writes 'failed' to Firestore and returns cleanly. From the consumer's point of view, that's a successful job execution, so it acks. Only an unhandled exception (bad JSON, Firestore/Storage unreachable, a bug) reaches the except branch and gets nacked to the dead-letter queue.",
+  },
+  {
+    q: "A worker claims a document (status flips to 'processing') and then crashes before finishing the parse. RabbitMQ redelivers the same envelope. What happens?",
+    options: [
+      "claim_for_processing raises an error because the document is already 'processing'",
+      "The document is silently skipped forever since it's stuck at 'processing'",
+      "claim_for_processing returns RERUN, refreshing claimedAt, and the job reprocesses the document from scratch",
+      "A second, duplicate Firestore record gets created for the same docId",
+    ],
+    correct: 2,
+    feedback: "The claim transaction treats 'processing' as a legal thing to re-claim (RERUN), not an error or a dead end. It refreshes claimedAt and lets the caller reprocess — safe because the only side effect of a run is the status write itself, so redoing it doesn't corrupt anything. Only 'ready' and 'failed' are treated as terminal (SKIP).",
+  },
+  {
+    q: "Why does the .doc parser write bytes to a temp file instead of piping them over stdin like the pdf, docx, and text parsers do?",
+    options: [
+      "antiword is only able to read from a file path on disk, not from standard input",
+      "Temp files are required by the sandbox timeout mechanism",
+      "CFB-format files are too large to fit in a subprocess's stdin buffer",
+      "It's a workaround for a bug in python-docx",
+    ],
+    correct: 0,
+    feedback: "antiword is a command-line tool that takes a file path argument — it has no stdin mode. The parent's contract with the sandboxed child (bytes in via stdin) stays uniform for pdf/docx/text; only inside the .doc branch does parse_entry write the received bytes to a NamedTemporaryFile so antiword has something it can open by path. The temp file's lifetime is scoped to the disposable child process.",
+  },
+  {
+    q: "Why does the worker run parsers (pypdf, python-docx, antiword) inside a spawned subprocess instead of just calling them directly in the main worker process?",
+    options: [
+      "Because Firestore transactions require a fresh process for each attempt",
+      "Because pypdf and python-docx don't support being imported more than once",
+      "Because a crash, hang, or resource blowout in an untrusted-file parser can then be killed at a timeout without taking down the worker process that needs to stay alive to consume the next message",
+      "Because subprocess calls are faster than in-process function calls",
+    ],
+    correct: 2,
+    feedback: "Parsing arbitrary uploaded bytes is inherently risky — a malformed file could hang a parser or blow up memory. Running it in a child process with a hard timeout (PARSE_TIMEOUT_S, default 20s) means the worst that can happen is that one child gets killed and the job is marked 'failed'; the parent process, whose job is to keep consuming the queue, is never at risk.",
+  },
+  {
+    q: "Why does precheck() check the bytes against the contentType already stored in Firestore, rather than trying to independently guess the file's type from the raw bytes?",
+    options: [
+      "Guessing from raw bytes is computationally more expensive than a lookup",
+      "The contentType was already derived from the file extension on the Next.js side (Policy B) — the worker's job is to verify those bytes actually match that claim, not to redecide the type from scratch",
+      "Firestore doesn't allow reading a document without also reading its declared contentType",
+      "Byte-sniffing for the allowlist happens earlier, in the browser",
+    ],
+    correct: 1,
+    feedback: "The canonical contentType is decided once, on the Next.js side, from the file's extension (Policy B, resolved before this ticket). The worker's precheck isn't trying to classify the file from nothing — it's answering a narrower question: do these bytes look like what the record claims they are? That's what lets a text-under-pdf mismatch get caught immediately, before any parser runs.",
+  },
+];
+
+const root = document.getElementById("quiz-root");
+QUESTIONS.forEach((item, qi) => {
+  const card = document.createElement("div");
+  card.className = "quiz-q";
+
+  const h4 = document.createElement("h4");
+  h4.textContent = `${qi + 1}. ${item.q}`;
+  card.appendChild(h4);
+
+  const ul = document.createElement("ul");
+  ul.className = "quiz-opts";
+
+  const feedback = document.createElement("div");
+  feedback.className = "quiz-feedback";
+
+  item.options.forEach((opt, oi) => {
+    const li = document.createElement("li");
+    const btn = document.createElement("button");
+    btn.textContent = opt;
+    btn.addEventListener("click", () => {
+      const allBtns = ul.querySelectorAll("button");
+      allBtns.forEach(b => b.disabled = true);
+      if (oi === item.correct) {
+        btn.classList.add("correct");
+      } else {
+        btn.classList.add("incorrect");
+        allBtns[item.correct].classList.add("correct");
+      }
+      feedback.classList.add("show");
+      feedback.classList.add(oi === item.correct ? "correct" : "incorrect");
+      feedback.textContent = (oi === item.correct ? "Correct. " : "Not quite. ") + item.feedback;
+    });
+    li.appendChild(btn);
+    ul.appendChild(li);
+  });
+
+  card.appendChild(ul);
+  card.appendChild(feedback);
+  root.appendChild(card);
+});
+</script>
+
+</body>
+</html>

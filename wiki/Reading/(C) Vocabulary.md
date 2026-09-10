@@ -31,4 +31,4 @@ A plan item the skill *generates* (rather than pulling verbatim from the backlog
 - [[(C) Obsidian Configs|Obsidian Configs]] — *Backlog* / *Derived Task* originate from the vault's `/daily-plan` design.
 
 ---
-*Sources: `01 Journals/2026 Journals/06 June/2026-06-03.md` (Social Security Act, FICA, Stentorian Admonishment); `Projects/Obsidian Configs/Ideas/Notes.md` (Backlog, Derived Task). Some incomplete bullet points in the 06-03 source were skipped pending completion.*
+*Sources: `01 Journals/2026 Journals/06 June/Week of 2026-06-01/2026-06-03.md` (Social Security Act, FICA, Stentorian Admonishment); `Projects/Obsidian Configs/Ideas/Notes.md` (Backlog, Derived Task). Some incomplete bullet points in the 06-03 source were skipped pending completion.*

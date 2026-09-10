@@ -1,12 +1,12 @@
 ---
 type: next-step
 project: Obsidian Configs
-status: open
+status: done
 goal: "[[(C) Vault is Pleasant to Use]]"
 effort: M
 aliases: [Journal Folder Auto-Nesting]
 tags: [next-step, obsidian-configs, journals]
-updated: 2026-06-09
+updated: 2026-06-15
 ---
 
 # (C) Journal Folder Auto-Nesting
@@ -27,3 +27,15 @@ The core daily-notes plugin (and the Calendar plugin, which reads the same confi
 - **Surfaced by:** dashboard grill 2026-06-09 · `.obsidian/daily-notes.json`
 
 **Recommendation:** (b) — reuse the dashboard's create-if-missing path logic so journals and the dashboard share one nesting rule. When done, flip `status: done` and note the resolving progress entry.
+
+---
+
+## Resolution (2026-06-15) — option (b), extended to week-nesting
+
+Journals were reorganized into **Monday-based week subfolders** (`{MM Month}/Week of {YYYY-MM-DD}/`), a level deeper than this note's original month-only scheme, to match the vault's `Plans/` and `Progress/` convention. Implemented (b) by making the **dashboard journal opener the canonical, create-if-missing creator**:
+
+- **`(C) Dashboard.md`** journal widget now computes `…/{MM Month}/Week of {Mon}/{date}.md` and creates the year → month → week folders on demand.
+- **`record-progress` scanner** (`scan_day.ps1`) reads the week-nested path, with a fallback to the flat month path for any un-migrated journal.
+- The 9 existing June journals were moved into `Week of 2026-06-01/` and `Week of 2026-06-08/`; manifest + wiki citations repointed.
+
+**Residual caveat (the original limitation persists):** core **daily-notes** / **Calendar** can still only target one fixed `folder`, so it can't auto-nest. It's now pointed at the *current* week folder (`…/06 June/Week of 2026-06-15`) — correct for this week but a **weekly** manual touch-point (worse cadence than the monthly one this note assumed). **Use the dashboard "Create today's journal" button** (self-sustaining) rather than Calendar to avoid it; or disable Calendar-based creation. Reopen if you want this fully automated (e.g. a Templater script or QuickAdd capture computing the nested path).

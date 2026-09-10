@@ -1,2 +1,18 @@
 _fit/
 .obsidian/plugins/fit/
+
+# AI tool local state
+.codex/
+
+# Backup files
+CLAUDE.md.bak
+
+# Scratch / untitled notes
+Untitled *.md
+\{\{yesterday\}\}.md
+
+# Sensitive / personal content
+raw/notes/Finances/
+raw/notes/401k.md
+raw/notes/Gotta Lock In Save Helena/
+raw/notes/relationship_conflict_repair_chat_compilation.md

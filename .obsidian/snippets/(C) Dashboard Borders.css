@@ -29,3 +29,25 @@
   padding: 0.4em 1em;
   margin-block: 0.6em;
 }
+
+/* 4 — Project Progress (Dataview) widget — match the Bases card above */
+.dashboard .block-language-dataview {
+  border: var(--dash-border-width) solid var(--dash-border);
+  border-radius: var(--dash-radius);
+  padding: 0.4em 1em;
+  margin-block: 0.6em;
+  overflow-x: auto;
+}
+
+/* tidy the table inside so it sits on the mocha theme */
+.dashboard .block-language-dataview table.dataview {
+  width: 100%;
+  border-collapse: collapse;
+}
+.dashboard .block-language-dataview table.dataview th {
+  text-align: left;
+  border-bottom: 1px solid var(--dash-border);
+}
+.dashboard .block-language-dataview table.dataview td {
+  vertical-align: top;
+}

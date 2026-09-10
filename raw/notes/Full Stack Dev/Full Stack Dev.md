@@ -22,7 +22,7 @@ app.use(express.urlencoded{extended: true});
 "use server";
 ```
 
-With SSR, when a user visits a URL, the server runs the code, fetches the necessary data, constructs the HTML on the fly, and sends the fully rendered page to the browser (hydrates the page). 
+With SSR, when a user visits a URL, the server runs the code, fetches the necessary data, constructs the HTML on the fly, and sends the fully rendered page to the browser. 
 	**Pros:** 
 		* Content is always completely fresh and can adapt to the user making the request (e.g., showing their specific shopping cart or account details).
 		* Fast initial loading
@@ -35,7 +35,7 @@ With SSR, when a user visits a URL, the server runs the code, fetches the necess
 
 In modern frameworks like Next.js (App Router), Client Components are always pre-rendered into static HTML on the server during build time or initial request, before being sent to the browser.
 
-Client-side rendering is the process of building UIs in the browser
+Client-side rendering is the process of building UIs in the browser (hydration).
 
 #### How Client Components Work
 * Server Pre-rendering: The framework generates a static HTML snapshot of the Client Component on the server.

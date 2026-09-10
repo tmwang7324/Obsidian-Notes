@@ -15,6 +15,6 @@ updated: 2026-06-06
 
 - **Advances:** [[(C) Vault is Pleasant to Use]]
 - **Effort:** M — likely a custom CSS snippet targeting nested `.nav-folder` depth, beyond what Style Settings exposes.
-- **Surfaced by:** [[2026-06-04|2026-06-04 progress]] · [[Theme Customization]]
+- **Surfaced by:** [[2026-06-04|2026-06-04 progress]] · [[Theme Customization (NOTE)]]
 
 **Resolved** 2026-06-06 — nested folders now get distinct rainbow labels. See [[(C) 2026-06-06]].

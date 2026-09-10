@@ -12,7 +12,7 @@ Recruit into an entry-level Software Engineer role at a FAANG company (Google) o
 - **DJing:** No progress yet.
 
 ## The Plan
-1. Deploy my already made nyc-commercial-analysis app onto my own Vercel account + Include in Resume.
+1. ~~Deploy my already made nyc-commercial-analysis app onto my own Vercel account~~ ✅ **deployed 2026-08-08** — still to do: get it onto the resume.
 2. Finish and deploy Doculyze manually.
 3. Comprehensively practice every major data structure and algorithm cluster on LeetCode (>300 questions), with an emphasis on Dynamic Programming. Target: tackle any new question within 30 minutes.
 4. Research and curate a list of top postgraduate machine learning / data science programs I'd like to attend, to send to my Numerical Computing professor — she's writing my recommendation letter.
@@ -23,16 +23,35 @@ Recruit into an entry-level Software Engineer role at a FAANG company (Google) o
 9. Develop this Vault with everything I do in a day.
 
 ## Operating Principle
-**One project per week.** No multi-project sprawl — the rabbit holes cost me invaluable time.
+**A ranked priority list, re-ranked weekly.** Not one frozen project per week — rank has to move when deadlines move. But not sprawl either: the day is anchored on **P1** (both original daily goals) and borrows **at most one** item from **P2**. Everything from P3 down waits its turn.
+
+Three rules that make this work instead of becoming a to-do pile:
+1. **The list is ordered, not tiered.** No ties. If two things feel equal, one of them still goes second.
+2. **Re-rank on evidence, not mood.** Reorder at the weekly update, or when a real external deadline moves. Not mid-day because something else got interesting — that's the rabbit hole wearing a new hat.
+3. **Below the line is a real place.** Anything parked there gets zero hours until it's promoted. Naming it beats pretending I'll "get to it."
+
+## Priority List
+> **Re-ranked:** 2026-08-08
+
+1. **Apply for Jobs** - Create cover letters send to at least 2 new grad jobs per day.
+2. **Barclays** — the day job, and the first 90 days set the ceiling on everything that follows there. Plan entries stay generic: **never log Barclays-internal specifics** — this vault is a git repo.
+3. **Doculyze** — finish and deploy the MVP. My remaining unfinished resume artifact; largest open backlog.
+4. **Golf** — one deliberate rep a week. Cheap to maintain, expensive to restart.
+
+—— below the line (zero scheduled hours until promoted) ——
+- **Obsidian Configs** — maintenance only. This is the sunk-cost tinkering trap; building the system is not doing the work.
+- **Grad School** — deliberately deferred to September.
+- **DJing** — not started; promote once Doculyze ships.
+
+—— done ——
+- **NYC Neighborhood Commercial Analysis** — ✅ deployed (2026-08-08). Off the list.
+
+**Intensity:** Very high
 
 ## Risks / Time Pressure
 - Time with girlfriend, friends, and trips with parents.
 - My recurring failure mode: getting sidetracked into research rabbit holes and sunk-cost tinkering.
-
-## This Week
-**Google Interview Prep**
-
-**Intensity:** Very high
+- **New failure mode this system introduces:** re-ranking as procrastination. Reordering the list is not progress on it.
 ## Weekly Update
 - What's working:
 - What's not working:

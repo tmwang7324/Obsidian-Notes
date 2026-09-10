@@ -32,4 +32,4 @@ Contrast with the **CSRF token** cookie, which is deliberately *readable* — se
 
 ## Related
 
-- [[(C) CSRF Protection|CSRF Protection]] · [[(C) Firebase ID Token|Firebase ID Token]] · [[(C) Auth Architecture|Auth Architecture]] · [[(C) Express|Express]]
+- [[(C) CSRF Protection|CSRF Protection]] · [[(C) Firebase ID Token|Firebase ID Token]] · [[(C) Token Verification and Revocation|Token Verification and Revocation]] · [[(C) Auth Architecture|Auth Architecture]] · [[(C) Express|Express]]

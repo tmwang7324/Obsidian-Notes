@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explaining commit 1eb9073 — Pull-based ingest: RabbitMQ + the sandboxed worker</title>
+<style>
+  :root {
+    --bg: #fbfaf7;
+    --bg-alt: #f2f0ea;
+    --ink: #2a2620;
+    --ink-soft: #5a5347;
+    --accent: #a8481f;
+    --accent-soft: #d97b4a;
+    --line: #ddd6c7;
+    --card: #ffffff;
+    --code-bg: #2b2620;
+    --code-ink: #f1ead9;
+    --good: #2e6b3e;
+    --bad: #a8321f;
+    --queue: #3d6b8a;
+    --radius: 10px;
+    --maxw: 880px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1a16;
+      --bg-alt: #24211c;
+      --ink: #ece6d8;
+      --ink-soft: #b8b0a0;
+      --accent: #e08a4f;
+      --accent-soft: #c9673a;
+      --line: #3a352c;
+      --card: #24211c;
+      --code-bg: #14120f;
+      --code-ink: #eee6d4;
+      --good: #7fbf8f;
+      --bad: #e08a7a;
+      --queue: #7fb6d9;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Georgia, "Iowan Old Style", serif;
+    line-height: 1.65;
+  }
+  .wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 2.2rem 1.3rem 6rem;
+  }
+  header.hero {
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 1.6rem;
+    margin-bottom: 2rem;
+  }
+  header.hero h1 {
+    font-size: 1.9rem;
+    line-height: 1.25;
+    margin: 0 0 0.5rem;
+    font-family: Georgia, "Iowan Old Style", serif;
+  }
+  header.hero .meta {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-family: "SFMono-Regular", Consolas, Menlo, monospace;
+  }
+  header.hero .meta code {
+    background: var(--bg-alt);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+  }
+  header.hero .dek {
+    margin-top: 0.9rem;
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  nav.toc {
+    background: var(--bg-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.4rem;
+    margin-bottom: 2.6rem;
+  }
+  nav.toc h2 {
+    margin: 0 0 0.6rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+  }
+  nav.toc ol { margin: 0; padding-left: 1.3rem; }
+  nav.toc li { margin: 0.25rem 0; }
+  nav.toc a { color: var(--accent); text-decoration: none; }
+  nav.toc a:hover { text-decoration: underline; }
+  section { margin-bottom: 3.2rem; }
+  h2.section-title {
+    font-size: 1.55rem;
+    border-left: 5px solid var(--accent);
+    padding-left: 0.75rem;
+    margin: 0 0 1.3rem;
+    font-family: Georgia, "Iowan Old Style", serif;
+  }
+  h3 {
+    font-size: 1.18rem;
+    margin: 1.8rem 0 0.7rem;
+    color: var(--accent);
+  }
+  h4 {
+    font-size: 1.02rem;
+    margin: 1.3rem 0 0.5rem;
+  }
+  p { margin: 0.85rem 0; }
+  a { color: var(--accent); }
+  .lead {
+    font-size: 1.05rem;
+  }
+  .callout {
+    background: var(--bg-alt);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--accent-soft);
+    border-radius: 6px;
+    padding: 0.9rem 1.1rem;
+    margin: 1.2rem 0;
+  }
+  .callout .label {
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.35rem;
+  }
+  .callout.good { border-left-color: var(--good); }
+  .callout.good .label { color: var(--good); }
+  .callout.warn { border-left-color: var(--bad); }
+  .callout.warn .label { color: var(--bad); }
+  .beginner {
+    background: var(--card);
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+  }
+  .beginner summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+  .beginner[open] summary { color: var(--accent); }
+  .beginner .body { margin-top: 0.7rem; }
+  pre {
+    background: var(--code-bg);
+    color: var(--code-ink);
+    padding: 0.9rem 1.05rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  code {
+    font-family: "SFMono-Regular", Consolas, Menlo, monospace;
+    font-size: 0.9em;
+  }
+  p code, li code { background: var(--bg-alt); padding: 0.1rem 0.32rem; border-radius: 4px; }
+  .filecap {
+    font-family: "SFMono-Regular", Consolas, Menlo, monospace;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    margin: 1rem 0 0.35rem;
+  }
+  ul, ol { padding-left: 1.4rem; }
+  li { margin: 0.35rem 0; }
+
+  /* ---- Diagram system ---- */
+  .diagram {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.1rem;
+    margin: 1.4rem 0;
+    overflow-x: auto;
+  }
+  .diagram .cap {
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    margin-top: 0.9rem;
+  }
+  .flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    min-width: 620px;
+    flex-wrap: nowrap;
+  }
+  .flow.wrap-ok { flex-wrap: wrap; min-width: 0; }
+  .node {
+    border: 2px solid var(--line);
+    border-radius: 8px;
+    padding: 0.6rem 0.8rem;
+    background: var(--bg-alt);
+    font-size: 0.82rem;
+    text-align: center;
+    min-width: 92px;
+  }
+  .node .t { font-weight: 700; display: block; margin-bottom: 0.15rem; }
+  .node .s { color: var(--ink-soft); font-size: 0.74rem; display: block; }
+  .node.browser { border-color: var(--ink-soft); }
+  .node.server { border-color: var(--accent); }
+  .node.queue { border-color: var(--queue); background: color-mix(in srgb, var(--queue) 12%, var(--bg-alt)); }
+  .node.worker { border-color: var(--good); }
+  .node.store { border-color: var(--ink-soft); border-style: dashed; }
+  .arrow {
+    font-size: 1.3rem;
+    color: var(--ink-soft);
+    flex-shrink: 0;
+  }
+  .arrow .lab {
+    display: block;
+    font-size: 0.68rem;
+    font-family: "SFMono-Regular", Consolas, Menlo, monospace;
+    color: var(--ink-soft);
+    text-align: center;
+    margin-bottom: 0.15rem;
+  }
+
+  .envelope {
+    display: inline-block;
+    background: var(--code-bg);
+    color: var(--code-ink);
+    font-family: "SFMono-Regular", Consolas, Menlo, monospace;
+    font-size: 0.78rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    margin: 0.5rem 0;
+  }
+
+  /* State machine */
+  .states {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    justify-content: center;
+    align-items: center;
+  }
+  .state {
+    border: 2px solid var(--line);
+    border-radius: 999px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: var(--bg-alt);
+  }
+  .state.terminal-good { border-color: var(--good); color: var(--good); }
+  .state.terminal-bad { border-color: var(--bad); color: var(--bad); }
+  .state.active { border-color: var(--queue); color: var(--queue); }
+
+  table.decision {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2rem 0;
+    font-size: 0.86rem;
+  }
+  table.decision th, table.decision td {
+    border: 1px solid var(--line);
+    padding: 0.55rem 0.7rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  table.decision th { background: var(--bg-alt); }
+  table.decision code { white-space: nowrap; }
+
+  /* Quiz */
+  .quiz-item {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.3rem;
+    margin: 1.3rem 0;
+  }
+  .quiz-item .q {
+    font-weight: 700;
+    margin-bottom: 0.9rem;
+  }
+  .quiz-item .opts {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .quiz-item button.opt {
+    text-align: left;
+    background: var(--bg-alt);
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    padding: 0.6rem 0.85rem;
+    cursor: pointer;
+    font-size: 0.92rem;
+    color: var(--ink);
+    font-family: inherit;
+    transition: border-color 0.15s ease;
+  }
+  .quiz-item button.opt:hover:not(:disabled) { border-color: var(--accent-soft); }
+  .quiz-item button.opt.correct { border-color: var(--good); background: color-mix(in srgb, var(--good) 15%, var(--bg-alt)); }
+  .quiz-item button.opt.incorrect { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 15%, var(--bg-alt)); }
+  .quiz-item button.opt:disabled { cursor: default; opacity: 0.85; }
+  .quiz-item .feedback {
+    margin-top: 0.8rem;
+    padding: 0.7rem 0.9rem;
+    border-radius: 7px;
+    font-size: 0.88rem;
+    display: none;
+  }
+  .quiz-item .feedback.show { display: block; }
+  .quiz-item .feedback.right { background: color-mix(in srgb, var(--good) 18%, transparent); color: var(--good); }
+  .quiz-item .feedback.wrong { background: color-mix(in srgb, var(--bad) 18%, transparent); color: var(--bad); }
+
+  footer {
+    margin-top: 3rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--line);
+    color: var(--ink-soft);
+    font-size: 0.82rem;
+    text-align: center;
+  }
+
+  @media (max-width: 560px) {
+    header.hero h1 { font-size: 1.5rem; }
+    .flow { min-width: 0; flex-wrap: wrap; }
+    .node { min-width: 76px; font-size: 0.74rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>Uploaded files no longer just sit there: teaching DocuLyze to notice its own documents</h1>
+  <div class="meta">
+    commit <code>1eb90738dcfa</code> · Thomas Wang · Sun Jul 19 2026 · 32 files changed, 1314 insertions(+)
+    &nbsp;·&nbsp; issue&nbsp;#4, "pull-based ingest"
+  </div>
+  <p class="dek">A RabbitMQ broker and a sandboxed Python worker arrive in one commit, and together
+  they close a loop that has been open since the very first upload: a file lands in Storage, a
+  Firestore record says <code>uploaded</code> — and then, until this commit, absolutely nothing
+  happens next.</p>
+</header>
+
+<nav class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#background">Background</a></li>
+    <li><a href="#intuition">Intuition</a></li>
+    <li><a href="#code">Code walkthrough</a></li>
+    <li><a href="#quiz">Quiz</a></li>
+  </ol>
+</nav>
+
+<section id="background">
+  <h2 class="section-title">Background</h2>
+
+  <p class="lead">Before this commit, DocuLyze could accept a document and forget about it in the
+  same breath. That sounds worse than it is — the forgetting was deliberate, a placeholder for work
+  not yet built — but it's the right place to start, because the commit we're studying exists
+  entirely to fill that gap.</p>
+
+  <details class="beginner">
+    <summary>New to message queues and sandboxed workers? Start here (skip if you already know this).</summary>
+    <div class="body">
+      <p>Most web apps do work in the same request that asked for it: you click "save," the server
+      saves, you get a response. That's fine when the work is fast. It falls apart when the work is
+      slow or unreliable — parsing a PDF can take seconds, hang on a malformed file, or crash outright,
+      and you don't want a user's upload button to sit there spinning while that happens, let alone
+      have one bad PDF take down your whole server process.</p>
+      <p>The standard fix is a <strong>message queue</strong>: instead of doing the slow work inline,
+      the web server writes a short note — "please process document 42" — onto a queue and returns
+      immediately. A completely separate process, the <strong>worker</strong>, sits there pulling notes
+      off the queue one at a time and doing the slow work at its own pace. If the worker crashes, the
+      queue still has the note (or can be told to redeliver it); the web server never even notices.
+      <strong>RabbitMQ</strong> is one of the most common pieces of software used to host such a queue —
+      it durably stores messages, hands them to workers, and can track acknowledgments so a message
+      isn't lost if a worker dies mid-job.</p>
+      <p>Two more terms worth knowing: a <strong>sandboxed subprocess</strong> means "run this risky
+      code (like parsing an untrusted file) in a separate child process," so that if it crashes, hangs,
+      or misbehaves, only that child dies — the parent process that spawned it keeps running and can
+      just try the next job. A <strong>magic-number check</strong> (or "magic byte sniff") means peeking
+      at the first few bytes of a file to see if they match a known file-format signature — real PDFs
+      start with the literal bytes <code>%PDF-</code>, for instance — as a cheap way to catch files that
+      are lying about what they are before you spend real effort trying to parse them.</p>
+    </div>
+  </details>
+
+  <h3>What already existed: upload without a destination</h3>
+  <p>DocuLyze's upload flow (built in earlier commits, and unchanged in spirit by this one) works like
+  this: the browser asks the server for a signed URL, PUTs the file's bytes straight to Google Cloud
+  Storage, and then calls the <code>finalizeUpload</code> server action, which checks the bytes really
+  landed and writes a Firestore record. That record — a <code>DocumentRecord</code> in
+  <code>doculyze/_lib/database.tsx</code> — has always carried a <code>status</code> field typed as:</p>
+  <pre>export type DocStatus = "uploaded" | "processing" | "ready" | "failed" | "pending" | "";</pre>
+  <p>Look closely at that list. <code>"pending"</code> and <code>"uploaded"</code> were reachable —
+  the upload flow set them. But <code>"processing"</code>, <code>"ready"</code>, and the
+  parse-triggered flavor of <code>"failed"</code> were pure fiction: types that existed in the code
+  because someone had already sketched out the future lifecycle of a document, with nothing anywhere
+  that could actually produce them. A document could get uploaded and just... rest at
+  <code>uploaded</code> forever. This commit is what makes <code>processing</code> a real, observable
+  state for the first time.</p>
+
+  <h3>The one-formula rule</h3>
+  <p>One convention from the upload work carries forward and matters a lot here:
+  <code>documentStoragePath(uid, docId)</code> in <code>_lib/database.tsx</code> is the
+  <strong>single place</strong> the path formula <code>users/{uid}/documents/{docId}</code> is allowed
+  to live. Every piece of code that needs to find a document's bytes in Storage — the URL signer, the
+  finalize-time existence check, and now, with this commit, a brand-new Python process — calls that
+  same formula rather than reinventing it. The commit's <code>ingest-worker/src/ingest/paths.py</code>
+  is explicit about being <em>the fourth caller</em> of that one formula, reimplemented (Python can't
+  literally import a TypeScript function) but kept byte-for-byte identical in shape. That's the kind of
+  detail that looks trivial until the two copies drift and documents silently stop being found.</p>
+
+  <h3>What this commit is scoped to (and, just as importantly, what it isn't)</h3>
+  <p>The implementation guide behind issue #4 draws the boundary tightly: a document that parses
+  successfully should end this pipeline at <code>processing</code>, with its extracted text held only
+  in memory and then discarded. Getting from <code>processing</code> to <code>ready</code> — actually
+  persisting the parsed text, chunking it, embedding it — is explicitly ticket #5's job, not this one's.
+  So don't go looking for a vector store or a "ready" transition in this diff; it isn't there on
+  purpose. What <em>is</em> here is the plumbing that gets a document's bytes from "sitting in Storage,
+  unexamined" to "downloaded, sniffed, and parsed by something," reliably and safely, with nothing lost
+  if any single piece of that chain falls over.</p>
+</section>
+
+<section id="intuition">
+  <h2 class="section-title">Intuition</h2>
+
+  <p class="lead">The core idea is small enough to say in one sentence: <strong>after a successful
+  upload, the server actions drops a tiny note on a queue, and a completely separate, sandboxed
+  process picks that note up and does the risky work.</strong> Everything else in this commit is
+  making that one sentence trustworthy under failure.</p>
+
+  <h3>The note, not the package</h3>
+  <p>The single most important design choice is what goes <em>into</em> that note. It would be
+  tempting to hand the worker everything it needs up front — filename, content type, size, maybe even
+  the bytes themselves. This commit does the opposite: the envelope that crosses the broker is
+  exactly two fields, nothing else.</p>
+  <div class="envelope">{ "uid": "user-a", "docId": "aB3xQ9k2" }</div>
+  <p>Think of it like a coat-check ticket, not the coat. The ticket doesn't describe your coat's
+  color or material — it's just a claim number. Whoever holds the ticket goes to the counter (Firestore)
+  and asks "what do you have for this number?", and the counter is the only source of truth. If the
+  ticket said <em>"black coat, size L"</em> directly, and someone swapped your coat in storage, the
+  ticket would now be lying. By making the ticket a pure pointer, it can never disagree with the
+  record — the worker always re-reads the real <code>contentType</code> from Firestore rather than
+  trusting whatever the envelope might have claimed. This is called out explicitly in the code as
+  "pointer-only," and it's why the consumer is written to tolerate — even ignore — extra unknown keys:
+  the contract can only grow, never drift.</p>
+
+  <h3>The whole trip, with example data</h3>
+  <p>Here's the shape of one document's journey through the new pipeline, with a concrete (fictional)
+  example threaded through it.</p>
+  <div class="diagram">
+    <div class="flow">
+      <div class="node browser"><span class="t">Browser</span><span class="s">PUTs notes.pdf</span></div>
+      <div class="arrow"><span class="lab">finalizeUpload()</span>&#8594;</div>
+      <div class="node server"><span class="t">Next.js action</span><span class="s">flips status</span></div>
+      <div class="arrow"><span class="lab">publish</span>&#8594;</div>
+      <div class="node queue"><span class="t">doc.ingest</span><span class="s">durable queue</span></div>
+      <div class="arrow"><span class="lab">consume</span>&#8594;</div>
+      <div class="node worker"><span class="t">Python worker</span><span class="s">claim &#8594; sniff &#8594; parse</span></div>
+    </div>
+    <p class="cap">Envelope carried on the queue: <code>{"uid":"user-a","docId":"aB3xQ9k2"}</code> —
+    never the PDF's bytes, never its filename.</p>
+  </div>
+
+  <p>Walking through it with that example doc:</p>
+  <ol>
+    <li>The browser has already PUT <code>notes.pdf</code>'s bytes directly to Storage (that part
+      predates this commit). <code>finalizeUpload</code> confirms the bytes exist, checks the size,
+      and writes the Firestore record's status to <code>uploaded</code>.</li>
+    <li><em>Only after</em> that write succeeds, <code>finalizeUpload</code> calls
+      <code>publishIngestJob("user-a", "aB3xQ9k2")</code>. This is the "flip-then-publish" rule you'll
+      see mentioned repeatedly in the code comments: a record must already be safely
+      <code>uploaded</code> before anything is published about it.</li>
+    <li>The envelope lands, durably, on the <code>doc.ingest</code> queue. If nobody's listening yet,
+      it just waits there — RabbitMQ persists it to disk because both the queue and the message are
+      marked durable/persistent.</li>
+    <li>The Python worker, which has been blocked waiting on that queue, receives the envelope,
+      claims the document (flips Firestore from <code>uploaded</code> to <code>processing</code>
+      inside a transaction), downloads the actual bytes from Storage at
+      <code>users/user-a/documents/aB3xQ9k2</code>, magic-byte-checks them against the
+      <code>contentType</code> Firestore says they should be, and — if that check passes — hands the
+      bytes to a sandboxed <code>pypdf</code> subprocess to extract text.</li>
+    <li>If everything above succeeds, the document simply <em>stays</em> at <code>processing</code>
+      (with the extracted text sitting in the worker's memory, about to be thrown away) — that's the
+      commit's designed stopping point. If the file is a corrupt PDF, or claims to be a PDF but is
+      actually a `.txt` file, the worker marks it <code>failed</code> instead, and — importantly —
+      never deletes the underlying object. A failed parse means "we couldn't read this," not "this
+      file is gone."</li>
+  </ol>
+
+  <h3>What happens when things go wrong (this is most of the actual code)</h3>
+  <p>A tracer bullet like this earns its complexity almost entirely from the failure paths, not the
+  happy path. Three different "what if" questions each get their own small, deliberate answer:</p>
+
+  <div class="callout">
+    <span class="label">What if the broker is unreachable, or not even configured?</span>
+    A plain <code>npm run dev</code> without Docker running must not error-storm on every single
+    upload. If <code>RABBITMQ_URL</code> is unset, the producer never even attempts to connect — it
+    logs one quiet informational line, once, and returns. If the broker <em>is</em> configured but
+    happens to be down, the publish attempt fails, gets caught, and gets logged — but never re-thrown.
+    Either way, the already-<code>uploaded</code> record is untouched. The user's upload still
+    succeeds from their point of view; the document is just "stuck but recoverable," a state a future,
+    separate sweep (ticket #9, explicitly out of scope here) is meant to reconcile later.
+  </div>
+
+  <div class="callout">
+    <span class="label">What if the worker crashes mid-parse, or the same envelope gets delivered twice?</span>
+    This is what the little <code>Claim</code> enum in <code>firestore_status.py</code> exists to
+    answer. It's a state machine with exactly four outcomes for "I received an envelope for this
+    docId — what should I do?":
+  </div>
+
+  <div class="diagram">
+    <div class="states">
+      <div class="state active">uploaded &#8594; CLAIMED</div>
+      <div class="state active">processing &#8594; RERUN</div>
+      <div class="state terminal-good">ready &#8594; SKIP</div>
+      <div class="state terminal-bad">failed &#8594; SKIP</div>
+      <div class="state">pending / missing &#8594; ABSENT</div>
+    </div>
+    <p class="cap">Every branch is decided inside one Firestore transaction, so two workers racing
+    the same envelope can never both get CLAIMED.</p>
+  </div>
+
+  <p>The interesting branch is <code>RERUN</code>: if a worker crashes <em>after</em> claiming a
+  document (flipping it to <code>processing</code>) but <em>before</em> finishing the parse, the
+  message was never acknowledged, so RabbitMQ redelivers it — maybe to the same worker after it
+  restarts, maybe to another one. That redelivery finds the record already at <code>processing</code>
+  and, rather than treating that as an error, just... reprocesses it from scratch. Nothing about this
+  ticket's side effects are non-idempotent (the only Firestore write is the status field), so redoing
+  the work is always safe. Contrast that with <code>ready</code> or <code>failed</code>: those are
+  terminal, and a redelivered or manually-replayed envelope for either one is a pure no-op — the
+  system refuses to regress a resolved document back into an earlier state.</p>
+
+  <div class="callout">
+    <span class="label">What if the file itself is malicious, corrupt, or lying about its type?</span>
+    Two independent gates, in order. First, <code>precheck.py</code> looks at the first few bytes —
+    does a file claiming to be <code>application/pdf</code> actually start with the bytes
+    <code>%PDF-</code>? This is cheap and dependency-free, and it catches the "renamed a .txt to
+    .pdf" case before any real parsing library ever touches the bytes. Second, even bytes that pass
+    the magic-number check get handed to the actual parser (pypdf, python-docx, antiword) inside a
+    <strong>separate subprocess with a hard 20-second timeout</strong>. A parser that segfaults, hangs
+    forever on a decompression bomb, or throws some exotic exception can only take down that one
+    disposable child process — the parent worker, still waiting on the queue for the next envelope,
+    is never at risk.
+  </div>
+
+  <h3>Two matching blueprints that must never drift</h3>
+  <p>One subtlety worth calling out explicitly: the "topology" of the queue — its name, its
+  durability, its dead-letter routing — has to be declared <em>identically</em> by the Node producer
+  and the Python consumer. RabbitMQ's <code>assertQueue</code>/<code>queue_declare</code> calls are
+  written to hard-<em>fail</em> if two callers try to declare the same queue with different arguments.
+  That's treated as a feature, not a bug — the code comments call it "the drift alarm we want." Rather
+  than trusting two people (or two future edits) to keep a shared config file in sync by hand, the
+  system is built so that an actual mismatch between the TypeScript and Python declarations blows up
+  loudly at connect time instead of silently misbehaving.</p>
+</section>
+
+<section id="code">
+  <h2 class="section-title">Code walkthrough</h2>
+
+  <p class="lead">The commit touches 32 files, but it decomposes cleanly into a handful of groups:
+  the Docker infrastructure that wires broker and worker together, the two-file Node producer, and
+  seven small, single-purpose Python modules on the consumer side — each with its own pytest file.
+  We'll walk them roughly in the order data flows through them.</p>
+
+  <h3>1. Infrastructure: docker-compose.yml + docker-compose.dev.yml</h3>
+  <p class="filecap">docker-compose.yml (new, repo root)</p>
+  <p>Two services on an internal bridge network called <code>ingest</code>. The RabbitMQ service
+  binds its AMQP and management-UI ports to <code>127.0.0.1</code> only — reachable from the host
+  machine, never from outside it. The worker service, by contrast, declares <em>no</em>
+  <code>ports:</code> mapping at all — it is only reachable by anything else on the internal
+  <code>ingest</code> network, which in practice means only RabbitMQ. Its only way to be triggered is
+  a broker envelope; there is no HTTP endpoint, no exposed anything, for the outside world to hit.</p>
+  <pre>ingest-worker:
+  build: ./ingest-worker
+  environment:
+    RABBITMQ_URL: amqp://doculyze:${RABBITMQ_PASS:-devpass}@rabbitmq:5672
+    ...
+  volumes:
+    - ./doculyze/serviceAccount.json:/run/secrets/serviceAccount.json:ro
+  networks: [ingest]      # no `ports:` — internal only
+  depends_on:
+    rabbitmq:
+      condition: service_healthy</pre>
+  <p>Credentials arrive by a read-only volume mount, never baked into the image — the same
+  discipline the rest of the repo already follows for <code>serviceAccount.json</code>.</p>
+
+  <p class="filecap">docker-compose.dev.yml (new, repo root)</p>
+  <p>A companion override file solving a real local-development snag: <code>npm run dev</code> writes
+  Firestore records to the <em>emulator</em>, but the containerized worker, by default, would talk to
+  <em>production</em> Firestore and see every document as simply absent. This override redirects the
+  worker's <code>FIRESTORE_EMULATOR_HOST</code> to <code>host.docker.internal:8085</code> — the host
+  machine's emulator, reached through Docker's internal DNS name for "the machine running this
+  container." It's a separate file rather than baked into the base compose file specifically so that
+  emulator wiring can never accidentally ship in a "real" deployment; you have to opt into it with an
+  extra <code>-f</code> flag. A one-line change in <code>doculyze/firebase.json</code> makes this
+  possible at all — the Firestore emulator has to bind <code>0.0.0.0</code> instead of the default
+  loopback-only <code>127.0.0.1</code>, or a container's connection (which arrives over a virtual
+  network adapter, not loopback) simply can't reach it.</p>
+
+  <h3>2. The Node producer: rabbitmq.ts and ingest_broker.ts</h3>
+  <p class="filecap">doculyze/_lib/rabbitmq.ts (new)</p>
+  <p>This file owns exactly one thing: a live, reusable connection to RabbitMQ. The design here is
+  worth pausing on because it's easy to get subtly wrong. <code>createChannel()</code> is written as
+  a plain (non-<code>async</code>) function on purpose:</p>
+  <pre>export function createChannel(): Promise&lt;amqp.ConfirmChannel | null&gt; {
+  const url = process.env.RABBITMQ_URL;
+  if (!url) {
+    if (!warnedDisabled) {
+      console.info("RABBITMQ_URL unset — ingest disabled; uploads rest at 'uploaded'.");
+      warnedDisabled = true;
+    }
+    return Promise.resolve(null);
+  }
+  if (!channelPromise) {
+    channelPromise = connect(url).catch((err) =&gt; {
+      channelPromise = null; // don't cache a rejected promise; next call retries
+      throw err;
+    });
+  }
+  return channelPromise;
+}</pre>
+  <p>Being synchronous up to the point where <code>channelPromise</code> gets assigned matters: if two
+  uploads finalize in the same tick of the event loop, both calls see the freshly-assigned promise
+  <em>before</em> either one has had a chance to <code>await</code> anything, so they share a single
+  in-flight connection attempt instead of racing to open two. Note also what's cached: the
+  <em>promise</em>, not the eventually-resolved channel. That distinction is what makes reconnection
+  work — <code>connect()</code> attaches <code>'error'</code> and <code>'close'</code> listeners on
+  both the connection and the channel that null out <code>channelPromise</code> the moment either one
+  drops, so the very next publish attempt transparently reconnects rather than reusing a dead handle
+  forever. (Those listeners aren't just cleanup — amqplib re-throws an unhandled <code>'error'</code>
+  event and crashes the Node process, so attaching them is load-bearing, not decorative.)</p>
+  <p>The channel it hands back is a <strong>confirm channel</strong>
+  (<code>createConfirmChannel()</code>), not a plain one — the difference matters and shows up in the
+  next file. <code>connect()</code> also declares the full queue topology (the durable
+  <code>doc.ingest</code> queue, its dead-letter exchange, and the <code>doc.ingest.dead</code> queue
+  behind it) every time it establishes a fresh connection, so the topology is always in place before
+  any publish is attempted.</p>
+
+  <p class="filecap">doculyze/_lib/ingest_broker.ts (new)</p>
+  <p>This is the file that actually gets called from the upload flow — one exported function,
+  <code>publishIngestJob(uid, docId)</code>. Its job is to turn "I have a channel" into "the broker
+  has durably accepted this message," which is a stronger and more useful guarantee than it sounds:</p>
+  <pre>await new Promise&lt;void&gt;((resolve, reject) =&gt; {
+  const timer = setTimeout(
+    () =&gt; reject(new Error("ingest publish confirm timed out")),
+    CONFIRM_TIMEOUT_MS,
+  );
+  ch.sendToQueue(
+    QUEUE,
+    body,
+    { persistent: true, contentType: "application/json" },
+    (err) =&gt; {
+      clearTimeout(timer);
+      if (err) reject(err);
+      else resolve();
+    },
+  );
+});</pre>
+  <p>A plain <code>sendToQueue</code> call on an ordinary channel returns a boolean about whether the
+  local write buffer accepted the write — it says nothing about whether the broker actually received
+  and durably stored the message. On a confirm channel, that trailing callback only fires once the
+  broker itself has acknowledged a persistent message landed on the durable queue. The 5-second
+  timeout wrapped around it exists so a stalled broker can never hang the user's browser mid-upload;
+  past that window, the code treats the outcome as merely <em>unknown</em> rather than a hard failure,
+  because the message may well have landed anyway — retrying blind here would risk a duplicate, and
+  the code comments are explicit that recovering from an unknown outcome is the future sweep's job
+  (issue #9), not this function's.</p>
+
+  <p class="filecap">doculyze/app/actions/document/upload_document.tsx (modified)</p>
+  <p>The wiring into the existing upload action is deliberately narrow — one new import, and a small
+  block appended <em>after</em> the function's existing try/catch, not inside it:</p>
+  <pre>await finalizeDocumentRecord({ docId, ..., status: "uploaded" });
+revalidatePath('/dashboard');
+} catch (error) {
+  console.error("Error finalizing upload:", error);
+  throw error;
+}
+// Flip-then-publish, swallow-and-log ...
+try {
+  await publishIngestJob(uid, docId);
+} catch (err) {
+  console.error("ingest enqueue failed; doc stuck at uploaded:", docId, err);
+}</pre>
+  <p>Placement here is the whole point. The <em>existing</em> catch block rethrows — a genuine upload
+  failure (missing object, size mismatch) must still surface as an error to the caller. The
+  <em>new</em> catch block does the opposite: it swallows. By the time execution reaches the publish
+  call, the Firestore record has already, successfully, been written as <code>uploaded</code> — so a
+  broker hiccup at this point is purely an ingest-pipeline problem, never an upload problem, and the
+  code is careful not to conflate the two. The commit also threads a new <code>contentType</code>
+  parameter through <code>finalizeUpload</code> and the one call site in
+  <code>upload_form.tsx</code> that invokes it — a small plumbing fix so the worker (and the Firestore
+  record it reads) gets the server-resolved, trusted content type rather than re-deriving it a second
+  time inside <code>finalizeUpload</code>.</p>
+
+  <h3>3. Worker skeleton: config.py and paths.py</h3>
+  <p class="filecap">ingest-worker/src/ingest/config.py (new)</p>
+  <p>All environment-variable reading and the one-time Firebase Admin SDK initialization live here.
+  Nothing exciting on its own, except for one habit worth noting: the boot log prints which Firestore
+  and which Storage bucket the process actually resolved —</p>
+  <pre>log.info(
+    "firebase initialized: firestore=%s storage=%s bucket=%s",
+    os.environ.get("FIRESTORE_EMULATOR_HOST") or "REAL",
+    os.environ.get("STORAGE_EMULATOR_HOST") or "REAL",
+    bucket,
+)</pre>
+  <p>— which sounds like a minor logging nicety until you remember the dev-E2E wiring above: a
+  mis-set environment variable here would otherwise fail silently as "every document looks absent,"
+  and this one line is what makes a misconfiguration visible in the very first lines of the worker's
+  logs instead of as a mystery an hour later.</p>
+
+  <p class="filecap">ingest-worker/src/ingest/paths.py (new)</p>
+  <p>Eight lines, and the whole point is that it's <em>only</em> eight lines:</p>
+  <pre>def document_storage_path(uid: str, doc_id: str) -> str:
+    """4th caller of the ONE canonical path formula. ..."""
+    return f"users/{uid}/documents/{doc_id}"</pre>
+  <p>This is the "one-formula rule" from the Background section, reimplemented in a second language
+  because Python obviously can't import a TypeScript function. It has to be kept in lockstep with
+  <code>documentStoragePath()</code> in <code>_lib/database.tsx</code> by convention and code review,
+  not by the compiler — a real, accepted cost of a polyglot system, made as small as possible by
+  keeping the duplicated logic to a single, trivial function.</p>
+
+  <h3>4. Claim state machine: firestore_status.py</h3>
+  <p class="filecap">ingest-worker/src/ingest/firestore_status.py (new)</p>
+  <p>The <code>Claim</code> enum from the Intuition section is implemented as one
+  <code>@firestore.transactional</code> function, <code>claim_for_processing</code>. Running the read
+  and the conditional write inside a single Firestore transaction is what gives the "exactly one
+  worker gets CLAIMED" guarantee — Firestore itself serializes any two transactions that touch the
+  same document, so if two consumers raced to claim the same envelope, one transaction would
+  automatically retry and see the already-updated <code>processing</code> status the second time
+  through.</p>
+  <pre>if status == "processing":
+    # Guarded re-claim, not a read-only peek: keeps contention behavior
+    # correct when consumers multiply.
+    tx.update(ref, {"claimedAt": firestore.SERVER_TIMESTAMP})
+    return Claim.RERUN</pre>
+  <p>Note that even the "do nothing new" branches (<code>RERUN</code>) still perform a write —
+  refreshing a <code>claimedAt</code> timestamp — rather than just reading and returning. With a
+  single worker and prefetch 1 this is currently belt-and-suspenders, but it means a future
+  multi-worker deployment inherits correct contention behavior without anyone having to revisit this
+  function.</p>
+
+  <h3>5. Magic-number precheck: precheck.py</h3>
+  <p class="filecap">ingest-worker/src/ingest/precheck.py (new)</p>
+  <p>Deliberately dependency-free — no third-party library, just raw byte comparisons and the Python
+  standard library's <code>zipfile</code> module (since a <code>.docx</code> is, under the hood, a
+  zip archive):</p>
+  <pre>def precheck(content_type: str, data: bytes) -> bool:
+    if content_type == "application/pdf":
+        return data.startswith(PDF_MAGIC)
+    if content_type == DOCX_TYPE:
+        return data.startswith(ZIP_MAGIC) and _zip_has_entry(data, "[Content_Types].xml")
+    if content_type == "application/msword":
+        return data.startswith(CFB_MAGIC)
+    if content_type in TEXT_FAMILY:
+        if any(data.startswith(sig) for sig in BINARY_SIGS):
+            return False
+        if b"\x00" in data:
+            return False
+        try:
+            data.decode("utf-8")
+        except UnicodeDecodeError:
+            return False
+        return True
+    return False  # unknown contentType never should have been signed</pre>
+  <p>Each branch checks the bytes against the record's <em>stored</em> <code>contentType</code> — not
+  a fresh re-sniff used to decide the allowlist, since that decision was already made once, correctly,
+  back when the upload was first signed. For the text-family branch, three separate checks stack: it
+  must not start with any of the known binary signatures (catching, say, a PDF renamed to
+  <code>.txt</code>), it must not contain a NUL byte, and it must decode cleanly as UTF-8. The
+  function's own docstring is candid about a known, accepted gap: the CFB signature checked for
+  <code>.doc</code> is shared by every legacy Office format, so a <code>.xls</code> renamed to
+  <code>.doc</code> sails through this check and only gets caught two steps later, when antiword
+  itself rejects it.</p>
+
+  <h3>6. Sandboxed parsing: parsers.py, sandbox.py, parse_entry.py</h3>
+  <p>These three files split cleanly by responsibility: <code>parsers.py</code> knows <em>how</em> to
+  extract text from each format; <code>sandbox.py</code> knows how to run that extraction safely;
+  <code>parse_entry.py</code> is the tiny, disposable program that <code>sandbox.py</code> actually
+  spawns.</p>
+
+  <p class="filecap">ingest-worker/src/ingest/sandbox.py (new)</p>
+  <pre>def run_parser_sandboxed(
+    parser_name: str, object_bytes: bytes, timeout_s: float | None = None
+) -&gt; str:
+    ...
+    try:
+        proc = subprocess.run(
+            [sys.executable, "-m", "ingest.parse_entry", parser_name],
+            input=object_bytes,
+            capture_output=True,
+            timeout=timeout_s,
+            env=_child_env(),
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise ParseError(f"{parser_name} timed out after {timeout_s}s") from exc
+    if proc.returncode != 0:
+        raise ParseError(
+            f"{parser_name} exited {proc.returncode}: {proc.stderr.decode('utf-8', 'replace')[:300]}"
+        )
+    return proc.stdout.decode("utf-8", errors="replace")</pre>
+  <p>The untrusted bytes travel over the child's <strong>stdin</strong>, and extracted text comes back
+  over its <strong>stdout</strong> — a narrow, well-understood interface between parent and child. A
+  timeout (20 seconds by default, a <code>config.py</code> knob) turns a hang into a raised
+  <code>ParseError</code> instead of a stuck worker; a non-zero exit code (any exception inside the
+  child) does the same. Either way, the parent process — the one still holding the RabbitMQ
+  connection and waiting for the next envelope — never blocks indefinitely and never dies alongside a
+  bad file.</p>
+
+  <p class="filecap">ingest-worker/src/ingest/parse_entry.py (new)</p>
+  <pre>def main() -&gt; int:
+    parser_name = sys.argv[1]
+    data = sys.stdin.buffer.read()
+    try:
+        text = PARSERS[parser_name](data)
+    except Exception as exc:
+        print(f"parse failed ({parser_name}): {exc}", file=sys.stderr)
+        return 1
+    sys.stdout.buffer.write(text.encode("utf-8"))
+    return 0</pre>
+  <p>This is the entire child program — read bytes, try to parse, print text or exit non-zero. Note
+  the bare <code>except Exception</code>: inside this specific, disposable, sandboxed child, catching
+  everything is exactly correct, because the whole point of this file's existence is to convert
+  <em>any possible failure mode</em> of an untrusted parser into a single, uniform "exit 1" signal
+  that <code>sandbox.py</code> already knows how to handle.</p>
+
+  <p class="filecap">ingest-worker/src/ingest/parsers.py (new)</p>
+  <p>A lookup table from content type to parser name, plus the four actual extraction functions —
+  <code>pypdf</code> for PDFs, <code>python-docx</code> for <code>.docx</code>, a plain
+  <code>.decode("utf-8")</code> for the text family, and a small wrapper around the
+  <code>antiword</code> command-line tool for legacy <code>.doc</code> files. The <code>.doc</code>
+  case has its own small wrinkle, called out directly in the code: <code>antiword</code> reads a file
+  <em>path</em>, not stdin, so that one branch writes the bytes to a temporary file first —</p>
+  <pre>tmp = tempfile.NamedTemporaryFile(suffix=".doc", delete=False)
+try:
+    tmp.write(data)
+    tmp.close()
+    proc = subprocess.run(["antiword", tmp.name], capture_output=True)
+    ...
+finally:
+    os.unlink(tmp.name)</pre>
+  <p>— using <code>delete=False</code> plus a manual <code>os.unlink</code> in a <code>finally</code>
+  block, because on Windows a file opened by <code>NamedTemporaryFile</code> can't be reopened by a
+  second process while the first handle is still open. Since this whole function is already running
+  inside the sandboxed child, the temp file's lifetime is naturally scoped to that child's lifetime
+  too — it dies (is cleaned up) right alongside it.</p>
+
+  <h3>7. Tying it together: job.py</h3>
+  <p class="filecap">ingest-worker/src/ingest/job.py (new)</p>
+  <p>This is the seam the implementation guide calls out as the most important one to get right —
+  <code>run_ingest_job(envelope)</code> is a broker-free, pure function of <code>(uid, docId)</code>
+  against Firestore and Storage, and it's what the tests drive directly, with no RabbitMQ involved at
+  all:</p>
+  <pre>def run_ingest_job(envelope: dict) -&gt; None:
+    uid, doc_id = envelope["uid"], envelope["docId"]
+    db = firestore_client()
+
+    decision = claim_for_processing(db, uid, doc_id)
+    if decision in (Claim.SKIP, Claim.ABSENT):
+        log.info("skip/absent for %s/%s: %s", uid, doc_id, decision.value)
+        return
+    # CLAIMED or RERUN: the record is now `processing`.
+
+    snap = ...get()
+    content_type = snap.get("contentType")
+    data = storage_bucket().blob(document_storage_path(uid, doc_id)).download_as_bytes()
+
+    if not precheck(content_type, data):
+        log.warning("precheck rejected %s/%s (%s)", uid, doc_id, content_type)
+        mark_failed(db, uid, doc_id)
+        return
+
+    try:
+        text = run_parser_sandboxed(parser_for(content_type), data)
+    except ParseError as exc:
+        log.warning("parse failed for %s/%s: %s", uid, doc_id, exc)
+        mark_failed(db, uid, doc_id)
+        return
+
+    log.info("parsed %s/%s: %d chars (held in memory only)", uid, doc_id, len(text))</pre>
+  <p>Read top to bottom, this function <em>is</em> the pipeline from the Intuition diagram: claim,
+  download, precheck, parse, and (silently) stop. Notice what it deliberately does <em>not</em> do —
+  there's no call that persists <code>text</code> anywhere, and no write that sets status to
+  <code>ready</code>. That absence is the scope boundary from the Background section made concrete in
+  code: a good file's variable named <code>text</code> gets logged (its length, not its content) and
+  then simply falls out of scope when the function returns, exactly as the implementation guide
+  specifies. A bare Python exception raised anywhere in here (a Firestore outage, a Storage timeout)
+  is <em>not</em> caught locally — it's allowed to propagate up to the consumer, which is the signal
+  that distinguishes "this document is bad" (handled here, ends in <code>failed</code>) from "our
+  infrastructure is broken" (handled one layer up, ends in the dead-letter queue).</p>
+
+  <h3>8. The broker-aware shell: consumer.py</h3>
+  <p class="filecap">ingest-worker/src/ingest/consumer.py (new)</p>
+  <p>Everything else in the worker is deliberately broker-agnostic; this file is the one place that
+  actually imports <code>pika</code> and talks AMQP. Its <code>on_message</code> callback is short
+  enough to read as a single decision:</p>
+  <pre>def on_message(channel, method, properties, body) -&gt; None:
+    try:
+        envelope = json.loads(body)
+        run_ingest_job(envelope)
+        channel.basic_ack(delivery_tag=method.delivery_tag)
+    except Exception:  # infra failure / bad JSON / bug
+        log.exception("infra failure; dead-lettering delivery")
+        channel.basic_nack(delivery_tag=method.delivery_tag, requeue=False)</pre>
+  <p>Recall that <code>run_ingest_job</code> already converts every <em>document-level</em> problem
+  (bad magic bytes, a corrupt parse) into a Firestore <code>failed</code> write and a clean return —
+  so if it returns normally at all, the message gets acknowledged (<code>basic_ack</code>), full stop,
+  regardless of whether the document itself turned out good or bad. It's only an actual raised
+  exception — malformed JSON, Firestore or Storage unreachable, an honest-to-goodness bug — that falls
+  into the <code>except</code> branch, which <code>nack</code>s with <code>requeue=False</code>. Given
+  the dead-letter exchange declared at connect time, that single flag is what routes the message to
+  <code>doc.ingest.dead</code> instead of looping it back into <code>doc.ingest</code> forever. The
+  code comments are blunt about the resulting invariant: a message that ends up in the dead queue
+  always means the <em>worker or infrastructure</em> malfunctioned, never that a user uploaded a bad
+  file — so an operator watching that queue's depth is watching a pure alarm signal, not user
+  behavior.</p>
+  <p>One more detail worth surfacing: <code>channel.basic_qos(prefetch_count=1)</code> combined with
+  manual acknowledgment is what makes crash recovery work at all. If the worker process dies partway
+  through a job, the unacknowledged message simply stays claimed by nobody once the connection drops,
+  RabbitMQ redelivers it (to this worker on restart, or another one), and — as covered in the
+  Intuition section — <code>claim_for_processing</code> sees the record already at
+  <code>processing</code> and returns <code>RERUN</code> rather than treating the redelivery as an
+  error.</p>
+
+  <h3>9. Tests</h3>
+  <p>The commit ships tests at both of the seams the implementation guide called out by name.
+  <code>doculyze/tests/upload/ingest-enqueue.test.ts</code> (new) drives
+  <code>finalizeUpload</code> with <code>publishIngestJob</code> faked out at the module boundary
+  (<code>vi.mock("@/_lib/ingest_broker", ...)</code>) and asserts three things: a successful finalize
+  publishes exactly one envelope, a failed (size-mismatch) finalize publishes none, and — the one that
+  most directly encodes the swallow-and-log decision — a publish that <em>rejects</em> still lets
+  <code>finalizeUpload</code> resolve normally with the record left at <code>uploaded</code>. On the
+  Python side, five new test files (<code>test_firestore_status.py</code>, <code>test_precheck.py</code>,
+  <code>test_sandbox.py</code>, <code>test_job.py</code>, plus a shared <code>conftest.py</code> and
+  <code>support.py</code> harness) exercise the <code>Claim</code> transitions, every precheck branch,
+  the sandbox's crash/timeout behavior, and — in <code>test_job.py</code> — the full
+  <code>run_ingest_job</code> seam end to end: good PDF, good DOCX, good text, mismatched bytes,
+  corrupt-but-well-signed bytes, and replay idempotency, all staged against the real Firestore and
+  Storage emulators rather than mocks.</p>
+
+  <table class="decision">
+    <tr><th>Outcome</th><th>Firestore ends at</th><th>Storage object</th><th>Queue message</th></tr>
+    <tr><td>Good file, parses cleanly</td><td><code>processing</code></td><td>retained</td><td>acked</td></tr>
+    <tr><td>Magic-number mismatch</td><td><code>failed</code></td><td>retained</td><td>acked</td></tr>
+    <tr><td>Passes precheck, parser crashes/hangs</td><td><code>failed</code></td><td>retained</td><td>acked</td></tr>
+    <tr><td>Bad JSON / Firestore or Storage unreachable</td><td>unchanged</td><td>unchanged</td><td>nacked &#8594; dead-lettered</td></tr>
+    <tr><td>Replay of an already-<code>ready</code>/<code>failed</code> doc</td><td>unchanged (SKIP)</td><td>unchanged</td><td>acked</td></tr>
+  </table>
+</section>
+
+<section id="quiz">
+  <h2 class="section-title">Quiz</h2>
+  <p class="lead">Five questions to check whether the substance above actually stuck. Click an
+  answer to see whether you're right.</p>
+
+  <div class="quiz-item" data-answer="1">
+    <div class="q">1. Why does the envelope published to RabbitMQ carry only <code>{uid, docId}</code> instead of also including the file's content type and size?</div>
+    <div class="opts">
+      <button class="opt">A. To keep the message small enough to fit RabbitMQ's size limit.</button>
+      <button class="opt">B. So the worker is forced to re-read the authoritative metadata from Firestore, meaning the envelope can never disagree with the real record.</button>
+      <button class="opt">C. Because RabbitMQ messages can only contain two fields by protocol.</button>
+      <button class="opt">D. To avoid leaking the filename to anyone who can read the queue.</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="quiz-item" data-answer="1">
+    <div class="q">2. A document is uploaded, but <code>RABBITMQ_URL</code> is unset in the environment. What happens?</div>
+    <div class="opts">
+      <button class="opt">A. <code>finalizeUpload</code> throws, and the upload is reported as failed to the user.</button>
+      <button class="opt">B. The record is written as <code>uploaded</code> successfully, the producer logs one quiet informational line and never attempts to connect, and the document simply rests at <code>uploaded</code>.</button>
+      <button class="opt">C. The worker connects anyway using a default local broker URL.</button>
+      <button class="opt">D. The upload silently fails with no Firestore record at all.</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="quiz-item" data-answer="1">
+    <div class="q">3. The worker crashes while a document is at <code>processing</code>, and RabbitMQ redelivers the unacknowledged envelope. What does <code>claim_for_processing</code> return the second time?</div>
+    <div class="opts">
+      <button class="opt">A. <code>ABSENT</code>, because the document is no longer in the <code>uploaded</code> state.</button>
+      <button class="opt">B. <code>RERUN</code> — the transaction sees <code>processing</code>, refreshes <code>claimedAt</code>, and the job is safely reprocessed from scratch.</button>
+      <button class="opt">C. It raises an exception, since a document can only be claimed once.</button>
+      <button class="opt">D. <code>SKIP</code>, treating a crashed job the same as an already-finished one.</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="quiz-item" data-answer="2">
+    <div class="q">4. A parser subprocess hangs indefinitely on a malicious PDF. What's the actual consequence for the worker process as a whole?</div>
+    <div class="opts">
+      <button class="opt">A. The entire worker process hangs and stops consuming from the queue until manually restarted.</button>
+      <button class="opt">B. RabbitMQ automatically kills the worker container after a fixed timeout.</button>
+      <button class="opt">C. <code>subprocess.run(..., timeout=timeout_s)</code> raises <code>TimeoutExpired</code>, which <code>sandbox.py</code> converts into a <code>ParseError</code>; the document is marked <code>failed</code> and the worker keeps consuming.</button>
+      <button class="opt">D. The parser silently returns an empty string after the timeout.</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="quiz-item" data-answer="2">
+    <div class="q">5. What ultimately determines whether a failed delivery gets ACKed (leaving it alone) versus NACKed to the dead-letter queue?</div>
+    <div class="opts">
+      <button class="opt">A. Whether the file was larger than 5&nbsp;MB.</button>
+      <button class="opt">B. Whether the failure happened in the precheck step versus the parsing step.</button>
+      <button class="opt">C. Whether <code>run_ingest_job</code> returned normally (document-level failure, already written to Firestore as <code>failed</code>) versus raised an exception (infrastructure failure or bug) — the consumer acks the former and nacks the latter.</button>
+      <button class="opt">D. A random retry counter that dead-letters a message after three attempts.</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+</section>
+
+<footer>
+  Generated explanation of commit <code>1eb90738dcfafc1a271e4137616c69cbf3bce822</code> in DocuLyze — issue&nbsp;#4.
+</footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.quiz-item').forEach(function (item) {
+    var correctIdx = parseInt(item.getAttribute('data-answer'), 10);
+    var buttons = item.querySelectorAll('button.opt');
+    var feedback = item.querySelector('.feedback');
+    var answered = false;
+    buttons.forEach(function (btn, idx) {
+      btn.addEventListener('click', function () {
+        if (answered) return;
+        answered = true;
+        buttons.forEach(function (b) { b.disabled = true; });
+        if (idx === correctIdx) {
+          btn.classList.add('correct');
+          feedback.textContent = 'Correct — ' + btn.textContent.replace(/^[A-D]\.\s*/, '');
+          feedback.className = 'feedback show right';
+        } else {
+          btn.classList.add('incorrect');
+          buttons[correctIdx].classList.add('correct');
+          feedback.textContent = 'Not quite. The right answer is: ' + buttons[correctIdx].textContent.replace(/^[A-D]\.\s*/, '');
+          feedback.className = 'feedback show wrong';
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

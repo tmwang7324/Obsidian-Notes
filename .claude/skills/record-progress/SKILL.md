@@ -3,7 +3,7 @@ name: record-progress
 description: >-
   Generate the vault's daily Progress/ changelog files by synthesizing the day's dated
   journal plus that day's modified Project notes — one (C) YYYY-MM-DD.md file per project
-  that saw activity, with type:progress frontmatter, an Advances: goal link, a Done section
+  that saw activity, with type:progress frontmatter, a summary field, an Advances: goal link, a Done section
   built from (DONE)-marked work, a Next steps section wired to Iteration Logs, and cited
   sources. Use this whenever the user wants to record, log, capture, or write up their
   progress for a day — phrases like "record progress", "log my progress", "write today's
@@ -39,7 +39,8 @@ Default to **today**. If the user names a date ("record progress for last Thursd
 "...for 2026-06-04"), resolve it to `YYYY-MM-DD`.
 
 Run the bundled scanner — it does all the fiddly date math (Monday-based week folder,
-month-name journal path like `06 June`) and the modified-note scan in one shot, so you never
+week-nested journal path like `06 June/Week of 2026-06-01`, with a fallback to the flat
+month path for un-migrated journals) and the modified-note scan in one shot, so you never
 redo it by hand:
 
 ```powershell
@@ -118,6 +119,7 @@ Follow this template exactly — the frontmatter is not decoration; `type: progr
 type: progress
 project: <Project>
 date: YYYY-MM-DD
+summary: <a few words summarizing the day — shown in the Progress Log table>
 goals: ["[[(C) <Goal it advances>]]"]
 tags: [progress, <project-slug>]
 sources: <count>
@@ -145,6 +147,9 @@ Notes on each part:
 
 - **Headline** — one scannable line; it's what shows in the Dataview table without opening
   the file. Past tense, concrete.
+- **`summary`** — a few-word gist of the day (≈4–8 words), pulled as the `Summary` column in
+  each project's `Progress/(C) Progress Log.md` Dataview table. Tighter than the headline: just
+  the key nouns, no trailing period. Always set it.
 - **`## Done`** — a dry changelog. What changed, not mood or narrative — that stays in the
   journal. Bold the key nouns (theme/plugin/feature names) like the existing files do.
 - **`tags`** — always `[progress, <project-slug>]`; the slug comes from the scan.

@@ -1,5 +1,5 @@
-
-Next.js is an open-source web development framework built on top of React that allows developers to create and deploy high performance, full-stack applications (using Vercel). One uses React to build components and user interfaces. Next.js provides additional features and optimizaitons primarily regarding lower-level tools like bundlers an#d compilers.
+# Overview
+Next.js is an open-source web development framework built on top of React that allows developers to create and deploy high performance, full-stack applications (using Vercel). One uses React to build components and user interfaces. Next.js provides additional features and optimizations primarily regarding lower-level tools like bundlers and compilers.
 
 ### How to Create a new Next.js Application
 #### System Requirements:
@@ -22,14 +22,14 @@ Choose default options:
 * **ENSURE THAT THE PAGE COMPONENT FILE (which contains everything you want to render onto the route) IS NAMED "PAGE.TSX"**
 
 ### Layouts
-
 * Renders only once when the application is first loaded.
-* Used to render global persisting components of webpages such as a navigation bar. 
-* Ni
+* Used to render global persisting components of webpages such as a navigation bar or a global context provider. 
 ### Navigation
-
+Either use `router.push()` or `redirect()`. 
+* `router.push()` is client-side and usually must be accompanied by a cache clear
+* `redirect()` server-side
 ### Refresh
-In Next.js, the router.refresh() method updates the current page by fetching fresh data from the server and re-rendering Server Components without doing a full browser reload.
+In Next.js, the `router.refresh()` method updates the current page by fetching fresh data from the server and re-rendering Server Components without doing a full browser reload.
 
 When you call router.refresh(), Nex
 

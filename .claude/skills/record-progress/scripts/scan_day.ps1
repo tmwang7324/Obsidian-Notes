@@ -44,9 +44,19 @@ $mondayOffset = ($dow + 6) % 7           # Monday=0
 $monday = $d.AddDays(-$mondayOffset)
 
 $monthFolder = '{0:00} {1}' -f $d.Month, $d.ToString('MMMM', $inv)
-$journalRel  = "01 Journals/$($d.Year) Journals/$monthFolder/$($d.ToString('yyyy-MM-dd')).md"
-$journalAbs  = Join-Path $VaultRoot $journalRel
 $weekFolder  = "Week of $($monday.ToString('yyyy-MM-dd'))"
+$dateName    = $d.ToString('yyyy-MM-dd')
+$journalDir  = "01 Journals/$($d.Year) Journals/$monthFolder"
+
+# Journals nest by Monday-based week folder. Fall back to the flat month path for any
+# journal not yet migrated (or created by the legacy single-folder daily-notes config).
+$journalRel  = "$journalDir/$weekFolder/$dateName.md"
+$journalAbs  = Join-Path $VaultRoot $journalRel
+if (-not (Test-Path -LiteralPath $journalAbs)) {
+  $flatRel = "$journalDir/$dateName.md"
+  $flatAbs = Join-Path $VaultRoot $flatRel
+  if (Test-Path -LiteralPath $flatAbs) { $journalRel = $flatRel; $journalAbs = $flatAbs }
+}
 
 function To-Rel([string]$abs) {
   $full = (Resolve-Path -LiteralPath $abs).Path

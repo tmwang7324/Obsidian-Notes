@@ -1,0 +1,40 @@
+# Overview
+Adds an observer for changes to the user's sign-in state.
+
+Prior to 4.0.0, this triggered the observer when users were signed in, signed out, or when the user's ID token changed in situations such as token expiry or password change. After 4.0.0, the observer is only triggered on sign-in or sign-out.
+
+**Parameters**
+* nextOrObserver: *Observer<any* | ((a: *User | null*) => any)
+```typescript
+const auth = getAuth(app)
+onAuthStateChanged(auth, (user) => {
+	if (user) {  // valid id token
+		console.log("user signed in!")
+	}
+	else {
+		console.log("user not signed in!")
+	}
+})
+```
+# Proper Usage
+Ensure that onAuthStateChanged is set to a constant and returned in a *useEffect* hook. This mounts the observer on component start, and unmounts it once the component is switched.
+
+Otherwise, observer will fire every second.
+
+```typescript
+const auth = getAuth(app)
+useEffect(() => {
+	const subscribe = onAuthStateChanged(auth, (user) => {
+	if (user) {  // valid id token
+		console.log("user signed in!")
+	}
+	else {
+		console.log("user not signed in!")
+	
+	
+	});
+	return subscribe;
+}, []
+)
+
+```

@@ -35,4 +35,4 @@ function getCookie(name: string) {
 
 ## Related
 
-- [[(C) Session Cookies|Session Cookies]] · [[(C) Auth Architecture|Auth Architecture]] · [[(C) Express|Express]]
+- [[(C) Session Cookies|Session Cookies]] · [[(C) Token Verification and Revocation|Token Verification and Revocation]] · [[(C) Auth Architecture|Auth Architecture]] · [[(C) Express|Express]]

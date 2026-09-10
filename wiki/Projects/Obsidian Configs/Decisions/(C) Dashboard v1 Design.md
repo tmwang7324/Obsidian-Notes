@@ -5,14 +5,14 @@ date: 2026-06-11
 status: accepted
 aliases: ["Dashboard v1 Design"]
 tags: [decision, obsidian-configs, dashboard]
-sources: 2
+sources: 4
 supersedes:
 superseded-by:
 ---
 
 # (C) Dashboard v1 Design
 
-**Status:** accepted · **Date:** 2026-06-11 · Grilled 2026-06-09, finalized 2026-06-11.
+**Status:** accepted · **Date:** 2026-06-11 · Grilled 2026-06-09, finalized 2026-06-11 · design refinements 2026-06-16 (additive — see Refinements).
 
 ## Context
 
@@ -46,7 +46,18 @@ The vault needed a landing **dashboard** — a morning-glance surface for time, 
 - The contribution chart is a future add (plugin dependency); deferred, not rejected.
 - Build tracked in `Iteration Logs/(C) Dashboard.md`.
 
+## Refinements (2026-06-16)
+
+Additive design clarifications made before build — the substrate and rationale above are unchanged:
+
+- **Projects widget → project *progress*, not just links.** The launcher should surface the **top ~2 most recent Progress Log entries per project** (newest-first), so the morning glance shows *where each project stands*, not just its name. Driven by a `dataview` `#progress` rollup (`GROUP BY project` + `FLATTEN`) — see [[(C) Dataview|Dataview]].
+- **Bounded embeds.** Embedded widgets (progress entries, today's journal) are height-capped with a CSS snippet (`.markdown-embed * { max-height: 200px }`), which also adds an internal scrollbar — keeps an embedded note from blowing out the grid.
+- **Daily contribution graph** (the deferred GitHub-style chart) confirmed to use the **Contribution Graph** plugin (by vran), colored by **characters written** in the daily journal + Ideas. Still a post-v1 add (plugin dependency).
+- **Pin the dashboard as the default home** on app start so it's the landing surface.
+
 ## Sources
 
-- [[Creating a Dashboard (IN PROGRESS)]] — widget plan + the substrate/approach `(DECISION)`.
+- [[Creating a Dashboard (IN PROGRESS)]] — widget plan + the substrate/approach `(DECISION)`; the project-progress widget, contribution graph, and pin-as-home refinements.
 - [[Finalizing V1 of Dashboard (DONE)]] — grill Q8–Q11 (placement, recent-files scope, Bases launcher, layout).
+- [[Reducing Embedded Content (NOTE)]] — the embed-height CSS cap + scrollbar mechanism.
+- [[Overview|Dataview/Overview]] — the progress-rollup query feeding the Projects widget.

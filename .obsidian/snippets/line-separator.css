@@ -4,6 +4,10 @@ hr {
     background: linear-gradient(45deg, #333, #ddd, #333);
 }
 
+.markdown-embed * {
+    max-height: 300px;
+}
+
 /* (C) Typography baseline — headings (H1–H6) scaled 1.2x, normal text 1.1x.
    font-size only; line-height is left untouched so the existing
    (unitless) line spacing scales proportionally and keeps its rhythm. */

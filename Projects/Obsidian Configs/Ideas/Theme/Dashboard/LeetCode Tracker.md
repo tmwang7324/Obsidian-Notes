@@ -1,0 +1,1 @@
+Using [[(C) Dataview|Dataview]], Claude helped me build a tracker for my recently solved Leetcode questions. Each LeetCode question has its own corresponding note with a detailed YAML frontmatter.

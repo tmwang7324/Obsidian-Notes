@@ -1,0 +1,11 @@
+# Barclays is the day job. Nothing in this folder is committed.
+#
+# The vault is a git repo; the root CLAUDE.md forbids logging Barclays-internal
+# specifics. This is the enforcement layer for that rule, not a substitute for it
+# — the rule still applies to every note anywhere in the vault (journals, Plans/,
+# wiki/, Progress/), and none of those are covered by this file.
+#
+# Ignore everything in this directory, but keep this file itself tracked so the
+# rule survives a clone.
+*
+!.gitignore

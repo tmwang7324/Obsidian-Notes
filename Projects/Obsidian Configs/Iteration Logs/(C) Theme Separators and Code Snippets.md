@@ -19,6 +19,6 @@ updated: 2026-06-06
 Detail:
 - **Advances:** [[(C) Vault is Pleasant to Use]]
 - **Effort:** S — mostly Style Settings toggles + a small CSS snippet.
-- **Surfaced by:** [[Theme Customization]] ("Fancy separator and code snippets")
+- **Surfaced by:** [[Theme Customization (NOTE)]] ("Fancy separator and code snippets")
 
 **Resolved** 2026-06-06 — fancy separators + code-snippet styling completed.

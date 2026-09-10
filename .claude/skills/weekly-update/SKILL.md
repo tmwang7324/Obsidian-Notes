@@ -66,6 +66,23 @@ Reference the current state from **My Goals & Current Progress** in CLAUDE.md an
 
 **Keep this tight.** If nothing changed, move on. Don't make them re-justify their existing goals every week.
 
+### Re-rank the Priority List (the important one)
+
+`GOALS.md` holds an **ordered `## Priority List`** — P1, P2, P3… plus a `—— below the line ——` section that gets zero scheduled hours. The weekly update is the **designated place to reorder it**; `daily-plan` only reads it and refuses to re-rank mid-week. Do this after the project walkthrough in Phase 3, once you know what actually moved.
+
+Show the current order with the `> **Re-ranked:**` date, then ask:
+
+> "Here's the current order — [list]. What moves? Anything that should drop below the line, or come up from it?"
+
+Rules when applying the answer:
+
+- **Keep it strictly ordered.** No ties, no tiers. If the user says two things are equally important, make them pick which goes second — that choice is the whole point of the list.
+- **Ask for the reason on any move**, one line each, and write it into the list entry. A rank with no stated reason is a mood, and it won't survive contact with a hard week.
+- **Below the line is a real commitment.** If something's been sitting at P4+ untouched for weeks, say so and ask whether it belongs below the line. Don't let the list become a to-do pile.
+- **Push back on churn.** If the order changed substantially last week too, name that pattern — constant re-ranking is procrastination wearing a planning costume, and it's a documented failure mode in `GOALS.md`.
+- Stamp a new `> **Re-ranked:** YYYY-MM-DD` date whenever the order or reasons change.
+- Also confirm the `**Intensity:**` dial for the coming week while you're here.
+
 ### GOALS.md Specifics
 
 If GOALS.md exists and has trackable items (income numbers, milestone dates, skill targets, etc.), briefly surface anything that looks like it might need updating:
@@ -151,6 +168,8 @@ After all files are updated, ask the user:
 | Root `CLAUDE.md` → Weekly Update | All five pulse fields + date |
 | Root `CLAUDE.md` → Goals & Progress | Only if numbers/plan/risks changed |
 | Root `CLAUDE.md` → Projects & Overviews | Status line + overview for changed projects |
-| `GOALS.md` | Any trackable items that changed (if file exists) |
+| `GOALS.md` → Priority List | Re-ranked order + one-line reason per entry + `Re-ranked:` date |
+| `GOALS.md` → Intensity | Dial for the coming week |
+| `GOALS.md` | Any other trackable items that changed |
 | Each project `CLAUDE.md` → Current Status | Status + date + what happened |
 | Weekly review note | Optional — user's choice and format |

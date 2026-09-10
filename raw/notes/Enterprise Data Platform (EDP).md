@@ -1,0 +1,4 @@
+# Overview
+An Enterprise Data Platform is a centralized, governed architecture that aggregates and processes data across an organization. It breaks down department silos, allowing teams to use a single, unified source of data for business intelligence, reporting, and AI/machine learning workloads.
+
+EDPs supports real-time data ingestion, transformation, and delivery to the tools used by business and marketing teams. More detailed than Extract, Transform, and Load

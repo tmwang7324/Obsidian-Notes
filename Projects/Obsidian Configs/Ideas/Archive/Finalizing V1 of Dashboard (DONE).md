@@ -9,6 +9,8 @@ Store endtime, remaining time, running, and mode in `localStorage` which is expo
 
 However, **a much easier approach is to either install a pomodero plugin or create a note that I can attach to the sidebar that I never have to switch off of.**
 **Rationale:** No need for `window._pomoInt` and global storage in `localStorage.` Just calculate remaining time by decrementing the totalTime by 1 using an interval. 
+
+Link to Chat: [[(C) Pomodoro Timer Approach]]
 ### Question 9  — Include AI generated files in Recently Modified Widget? (DECISION)
 No, only include files that do not start with a "(C)" in this section. 
 
