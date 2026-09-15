@@ -1,1 +1,0 @@
-Dictionaries in Python are optimized hash tables
