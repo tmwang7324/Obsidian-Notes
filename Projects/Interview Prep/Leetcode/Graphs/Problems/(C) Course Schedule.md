@@ -2,7 +2,7 @@
 project: Google Interview Prep
 difficulty: Medium
 leetcode: 207
-solved:
+solved: 2026-09-14
 solve_time:
 ---
 

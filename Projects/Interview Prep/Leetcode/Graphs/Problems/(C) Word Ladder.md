@@ -18,6 +18,7 @@ I briefly thought of this approach while trying to think of the naive solution. 
 
 
 #### BFS with Token Mapping
+Instead of building a graph mapping all one off letter words, build a graph that  
 
 ## Solution
 ```python

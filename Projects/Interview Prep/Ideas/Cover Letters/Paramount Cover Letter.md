@@ -4,8 +4,6 @@
 
 ---
 
-**
-
 Dear Hiring Manager,
 
 I am writing this letter to express my strong interest in joining the Global Quality Engineering team as a Software Engineer at Paramount Skydance. What drew me to this company is that it is explicitly not an "in test" role: the work is production software that other engineers rely on. The chance for me to combine my expertise in RAG pipelines, ML analysis, and DevOps to help Paramount’s renowned platforms continue presenting the stories and live moments its audiences depend on is an opportunity I will not miss on.

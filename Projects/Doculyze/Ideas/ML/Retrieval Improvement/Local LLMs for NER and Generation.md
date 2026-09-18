@@ -63,10 +63,10 @@ Using a small open-source LLM for NER avoids API costs and handles tables natura
 
 ## Recommended Split: Two Models
 
-| Use Case | Model | Rationale |
-|---|---|---|
-| **NER extraction (ingest worker)** | Qwen2.5-7B | Batch, offline, cost-sensitive — smaller footprint, faster throughput |
-| **RAG chat / answer generation** | Gemma 4 E4B | Interactive, quality-sensitive — better reasoning, lower hallucination, better multi-chunk synthesis |
+| Use Case                           | Model       | Rationale                                                                                            |
+| ---------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------- |
+| **NER extraction (ingest worker)** | Qwen2.5-7B  | Batch, offline, cost-sensitive — smaller footprint, faster throughput                                |
+| **RAG chat / answer generation**   | Gemma 4 E4B | Interactive, quality-sensitive — better reasoning, lower hallucination, better multi-chunk synthesis |
 
 Two Ollama models coexist fine — only the active one occupies GPU memory. The ingest worker and chat service hit the same Ollama endpoint with different model names.
 

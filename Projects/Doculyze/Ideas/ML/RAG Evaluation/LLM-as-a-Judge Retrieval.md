@@ -12,10 +12,10 @@ A fixed set of **(document, question, ground truth answer)** triples. The ground
 
 **Schema per sample:**
 
-| Field | Type | Purpose |
-|---|---|---|
-| `question` | str | The user query |
-| `ground_truth` | str | The reference answer a perfect system would give |
+| Field                   | Type      | Purpose                                          |
+| ----------------------- | --------- | ------------------------------------------------ |
+| `question`              | str       | The user query                                   |
+| `ground_truth`          | str       | The reference answer a perfect system would give |
 | `ground_truth_contexts` | list[str] | The specific chunk texts that contain the answer |
 
 **How to build it (hybrid approach):**
@@ -63,6 +63,7 @@ This **yes/no** is represented as a binary label $v_k ∈ {0, 1}$.
 $\text{Precision@k} = \frac{\text{relevant chunks among ranks }1...k}{k}$
 3. Average those precision\@k values across all relevant positions.
 $\text{Context Precision@K} =\frac{\sum_{k=1}^{K} \left(\text{Precision@k} \times v_k\right)}{\sum_{k=1}^{K} v_k}$ 
+
 **Score interpretation:** 1.0 = every relevant chunk was ranked at the top with no noise above it. Low scores mean the retriever buries relevant chunks under irrelevant ones.
 
 **What improves it:** reranking, entity-based pre-filtering — anything that reduces noise or reorders results.

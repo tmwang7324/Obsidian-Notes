@@ -8,7 +8,7 @@ Hosted on the Cloud means that the Google [[SDK]]s provided by Firebase interact
 ### Supports The SDKs: 
 - User authentication with Cloud Functions
 - Databases
-- File and Image stroage
+- File and Image Storage
 - Real Time Database Updates
 - Firebase Queries
 - hosting an application
