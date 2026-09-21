@@ -2,12 +2,14 @@
   "cssTheme": "AnuPpuccin",
   "theme": "obsidian",
   "enabledCssSnippets": [
-    "custom-rainbow-colors",
     "MCL Multi Column",
     "custom-backgrounds",
     "(C) Dashboard Borders",
-    "line-separator"
+    "line-separator",
+    "custom-rainbow-colors",
+    "(C) bold-color"
   ],
   "baseFontSize": 19,
-  "showViewHeader": true
+  "showViewHeader": true,
+  "accentColor": ""
 }

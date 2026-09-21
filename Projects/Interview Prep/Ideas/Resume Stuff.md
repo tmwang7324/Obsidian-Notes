@@ -1,2 +1,0 @@
-
-**Assisted in migrating a health monitoring automation to BCP 2, a proprietary Kubernetes-based container platform, by updating deployment manifests, as well as validating service health post-migration.**

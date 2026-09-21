@@ -1,6 +1,6 @@
 ---
 name: daily-plan
-description: Generate today's daily plan — a priority-anchored, project-heavy checklist for the day, written to Plans/Week of <Mon>/(C) YYYY-MM-DD.md. Use whenever the user says "daily plan", "/daily-plan", "plan my day", "what should I do today", "give me today's plan", or asks for a plan/checklist for the day's work. Reads the ranked Priority List in GOALS.md and anchors on P1 (overridable), asks how many hours they have, formulates two original daily goals from P1's longer-term goal, supplements them with open next-steps from P1's Iteration Logs plus at most one from P2, and sizes the day to fit. Trigger this proactively at the start of a work day even if the user doesn't name the skill.
+description: Generate today's daily plan — a priority-anchored, project-heavy checklist for the day, written to Plans/Week of <Mon>/(C) YYYY-MM-DD.md. Use whenever the user says "daily plan", "/daily-plan", "plan my day", "what should I do today", "give me today's plan", or asks for a plan/checklist for the day's work. Reads the ranked Priority List in 02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md and anchors on P1 (overridable), asks how many hours they have, formulates two original daily goals from P1's longer-term goal, supplements them with open next-steps from P1's Iteration Logs plus at most one from P2, and sizes the day to fit. Trigger this proactively at the start of a work day even if the user doesn't name the skill.
 ---
 
 # Skill: Daily Plan
@@ -14,12 +14,12 @@ The whole point is to fight the user's documented failure modes: disorganized pr
 - User says "daily plan", "/daily-plan", "plan my day", "give me today's plan", "what should I work on today".
 - The start of a work day, when the user wants direction — trigger proactively even without the exact phrase.
 
-Optional argument: a **project name** to override P1 for today (e.g. `/daily-plan Golf`). This overrides the plan, **not** the Priority List — never rewrite the ranking in `GOALS.md` because of a one-day override.
+Optional argument: a **project name** to override P1 for today (e.g. `/daily-plan Golf`). This overrides the plan, **not** the Priority List — never rewrite the ranking in `02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md` because of a one-day override.
 
 ## Core principles (why this skill is shaped the way it is)
 
 - **Generative, not just consumptive.** The backbone of the plan is **two original daily goals you formulate** from the project's highest-priority longer-term goal — concrete moves toward it that are *not* already written down in the backlog. The backlog (2–3 items) supplements these; it does not lead. This is the deliberate fix to the old behavior, where the plan was nothing but a backlog-priority queue and never asked "what's the right next move toward the goal?"
-- **Priority-anchored, with one center of gravity.** The plan is driven by the ranked **Priority List** in `GOALS.md`, not by a project frozen for the week. Both original daily goals come from **P1**; at most **one** backlog item may come from **P2**; P3 and below get nothing. Rank moves with deadlines, but a single day still has one center of gravity — that's what keeps this from decaying into the multi-project sprawl the old weekly rule existed to kill. Only a thin slice goes to the daily non-negotiables; too many non-negotiables become their own distraction, as the user said explicitly.
+- **Priority-anchored, with one center of gravity.** The plan is driven by the ranked **Priority List** in `02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md`, not by a project frozen for the week. Both original daily goals come from **P1**; at most **one** backlog item may come from **P2**; P3 and below get nothing. Rank moves with deadlines, but a single day still has one center of gravity — that's what keeps this from decaying into the multi-project sprawl the old weekly rule existed to kill. Only a thin slice goes to the daily non-negotiables; too many non-negotiables become their own distraction, as the user said explicitly.
 - **Time-budget fit only.** Tasks are sized by effort and packed into the hours available. There is deliberately **no automatic "you finished X% yesterday, so shrink today" scaling.** That was considered and rejected: unseen life circumstances (not capacity) leave plans undone, and a rate-based algorithm misreads that as low capacity → permanently pessimistic plans, a death spiral. Intensity is a **manual dial** the user controls.
 - **One round-trip.** Draft the whole plan, show it, let the user accept or swap an item or two, then write. Mornings need to be fast; a multi-turn interrogation kills the habit. Approving the plan *is* the commitment to it.
 
@@ -27,27 +27,27 @@ Optional argument: a **project name** to override P1 for today (e.g. `/daily-pla
 
 ### 1. Resolve P1 and P2 from the Priority List
 
-Read the **`## Priority List`** section of `GOALS.md` (vault root). It is an **ordered** list — position 1 is P1, position 2 is P2. Only the **numbered** entries are eligible; everything after any `—— … ——` divider (`below the line`, `done`, or similar) is **out of scope** for the plan entirely.
+Read the **`## Priority List`** section of `02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md` (vault root). It is an **ordered** list — position 1 is P1, position 2 is P2. Only the **numbered** entries are eligible; everything after any `—— … ——` divider (`below the line`, `done`, or similar) is **out of scope** for the plan entirely.
 
-- If a project name was passed as an argument, that project is **today's P1**. The list's real P1 becomes P2 for today (unless the argument already names P1). Do **not** edit `GOALS.md`.
+- If a project name was passed as an argument, that project is **today's P1**. The list's real P1 becomes P2 for today (unless the argument already names P1). Do **not** edit `02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md`.
 - Otherwise take P1 and P2 straight off the list.
-- If the `## Priority List` section is missing, **ask** the user to name their top two priorities for today, use those, and note that adding a `## Priority List` section to `GOALS.md` makes this automatic next time.
+- If the `## Priority List` section is missing, **ask** the user to name their top two priorities for today, use those, and note that adding a `## Priority List` section to `02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md` makes this automatic next time.
 - If the list has only one eligible entry, that's fine — the plan runs on P1 alone and simply carries no P2 item.
 
 Confirm each resolved project has a folder under `Projects/` (subprojects may be nested, e.g. `Projects/Interview Prep/Company/Google Interview Prep/`).
 
 ### 2. Read the intensity dial + run the weekly checks
 
-- Read the **`**Intensity:**`** field in `GOALS.md` (`low` | `normal` | `high`). If absent, assume `normal`.
+- Read the **`**Intensity:**`** field in `02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md` (`low` | `normal` | `high`). If absent, assume `normal`.
 - Determine this week's Monday (see the date snippet below) and check whether `Plans/Week of <Mon>/` already contains any plan files.
 - **If this is the first plan of a new week** (folder empty or missing), run two quick checks in a single question:
   1. **Intensity survey** — "How's the intensity this week — scale up, down, or keep it at `<current>`?"
-  2. **Priority-list check** — show the current top three and the `> **Re-ranked:**` date, then ask "Still the right order?" Apply any reorder to `GOALS.md` and stamp a new `Re-ranked:` date.
+  2. **Priority-list check** — show the current top three and the `> **Re-ranked:**` date, then ask "Still the right order?" Apply any reorder to `02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md` and stamp a new `Re-ranked:` date.
 
   Both edit a non-`(C)` file the user authored — doing it here is the skill's job, but say what changed.
 - On any other day of the week, read both silently. **Do not offer to re-rank mid-week.** If the user asks to re-rank anyway, do it — but say plainly that reordering the list is not progress on it.
 
-> The surveys are weekly, not daily, by design: daily re-asking invites mood-driven over/under-correction, and daily re-ranking turns the priority list into a procrastination surface. Both failure modes are documented in `GOALS.md`. The `weekly-update` skill also maintains these fields; this is the safety net so neither goes stale.
+> The surveys are weekly, not daily, by design: daily re-asking invites mood-driven over/under-correction, and daily re-ranking turns the priority list into a procrastination surface. Both failure modes are documented in `02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md`. The `weekly-update` skill also maintains these fields; this is the safety net so neither goes stale.
 
 ### 3. Ask for today's schedule
 
@@ -167,7 +167,7 @@ TABLE date, project, file.link FROM #plan SORT date DESC
 
 - **It does not reconcile the plan at end of day.** Planned-vs-done and the sidetrack call-out are produced by the daily Progress synthesis, which reads the same-date plan file. Keeping generation and review separate keeps each tool one job.
 - **It does not pull from P3 and below.** One P2 item is the entire allowance. Pulling from every project reopens the multi-project sprawl the operating principle exists to kill — the ranked list replaced the frozen weekly project precisely so rank could move, not so every project could be worked at once.
-- **It does not re-rank the Priority List mid-week**, and a `/daily-plan <Project>` override never rewrites `GOALS.md`.
+- **It does not re-rank the Priority List mid-week**, and a `/daily-plan <Project>` override never rewrites `02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md`.
 - **It does not auto-shrink based on past completion.** See the death-spiral reasoning above; intensity is manual.
 
 ## Date helper
@@ -183,7 +183,7 @@ $monday = $today.AddDays(-(([int]$today.DayOfWeek + 6) % 7))
 ## Edge cases
 
 - **Barclays resolves as P1 or P2** → the plan file is committed to a git repo, so **never write Barclays-internal specifics** into it (no system names, ticket IDs, client or colleague names, internal architecture). Keep goals generic and skill-shaped — "write up what I learned about the deployment pipeline in my own notes", not the pipeline's details. This rule is in the root `CLAUDE.md` and is not negotiable for a day's convenience.
-- **No `## Priority List` in GOALS.md** → ask for today's top two; suggest adding the section.
+- **No `## Priority List` in 02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md** → ask for today's top two; suggest adding the section.
 - **Priority List has one eligible entry** → run on P1 alone, no P2 item.
 - **P1 or P2 names a project with no folder under `Projects/`** → say so and ask which project was meant; don't silently substitute the next one down.
 - **`> **Re-ranked:**` date is more than ~2 weeks old** → mention it once when writing the plan, but still generate today's plan. Don't block on a re-rank.

@@ -27,15 +27,15 @@ The meta-project for the vault itself: configuring and maintaining this Obsidian
 The grill is **complete** — every branch resolved (Q1–Q11), design locked, skill built. (Source: `Chats/Grilling the Daily Plan Skill.md`, completed 2026-06-05.)
 
 - **Identity & scope** — `/daily-plan` (not `/create-daily-plan`; `create-` was redundant for a generation-only skill). Project-anchored, **whole-day, project-heavy**: the bulk advances the week's focus project, with slots reserved for the daily non-negotiables.
-- **Focus project** — defaults to `**This week:**` in `GOALS.md` (overridable by parameter); `weekly-update` sets the field.
-- **Inputs at invocation** — prompts for *hours + fixed commitments today* (the schedule lives nowhere in the vault yet, so ask); reads `**Intensity:**` from `GOALS.md`.
+- **Focus project** — defaults to `**This week:**` in `02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md` (overridable by parameter); `weekly-update` sets the field.
+- **Inputs at invocation** — prompts for *hours + fixed commitments today* (the schedule lives nowhere in the vault yet, so ask); reads `**Intensity:**` from `02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md`.
 - **Task selection** — open `type: next-step` files from the focus project's `Iteration Logs/`; falls back to deriving 1–2 from `Goals/` (and flags it) when the backlog is empty.
 - **Achievability** — **time-budget fit only** (`effort S/M/L → hours`, fill `available hours × intensity`) **plus a manual intensity dial**. Auto completion-rate scaling was **rejected**: undone plans usually mean *life happened*, not low capacity, so a rate-based algorithm would misread misses and shrink plans into a pessimism death-spiral. Intensity is instead a manual `low/normal/high` dial surveyed weekly at week start.
 - **Granularity** — ≥3 focus-project tasks (used as-written, no decomposition), cap ~5–6. **Faith is the only fixed non-negotiable checkbox** (too many non-negotiables become their own distraction; "focus" is already served by the project tasks); LeetCode/sport/rest collapse into one condensed reminder line.
 - **Output** — `Plans/Week of <Mon>/(C) YYYY-MM-DD.md`, `type: plan` — a vault-level daily home (whole-day, cross-project), its own file (not a journal section, protecting the editing rule), mirroring `Progress/` so the end-of-day plan↔progress diff is a same-date lookup.
 - **Interaction & loop closure** — one-shot draft → single confirm/swap → write. End-of-day accountability (planned-vs-done + a blunt sidetrack call-out) is handled by the **daily Progress synthesis**, not `/daily-plan`.
 
-**Downstream wiring this requires:** `GOALS.md` gains `**This week:**` + `**Intensity:**`; root `CLAUDE.md` documents both as source of truth, renames `/create-daily-plan` → `/daily-plan`, and registers `type: plan` + the top-level `Plans/` folder; `weekly-update` sets the two fields and owns the weekly intensity survey; the daily Progress synthesis reads the same-date plan.
+**Downstream wiring this requires:** `02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md` gains `**This week:**` + `**Intensity:**`; root `CLAUDE.md` documents both as source of truth, renames `/create-daily-plan` → `/daily-plan`, and registers `type: plan` + the top-level `Plans/` folder; `weekly-update` sets the two fields and owns the weekly intensity survey; the daily Progress synthesis reads the same-date plan.
 
 ## Theme & appearance
 

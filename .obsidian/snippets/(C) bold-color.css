@@ -1,0 +1,5 @@
+/* Bold text — creamy orange */
+.markdown-rendered strong,
+.cm-strong {
+  color: #f0b060;
+}

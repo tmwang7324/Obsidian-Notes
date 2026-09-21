@@ -1,11 +1,11 @@
 ---
 name: weekly-update
-description: Interview the user to update all context files across the vault (root CLAUDE.md, GOALS.md, and each project's CLAUDE.md). Use for a weekly update, weekly review, or any request to refresh/update the vault's context and project statuses.
+description: Interview the user to update all context files across the vault (root CLAUDE.md, 02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md, and each project's CLAUDE.md). Use for a weekly update, weekly review, or any request to refresh/update the vault's context and project statuses.
 ---
 
 # Skill: Weekly Update
 
-Interview the user to update all context files across the vault — the root CLAUDE.md, GOALS.md, and each project's CLAUDE.md. Keeps everything current so Claude always has accurate context.
+Interview the user to update all context files across the vault — the root CLAUDE.md, 02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md, and each project's CLAUDE.md. Keeps everything current so Claude always has accurate context.
 
 ## When to Use
 
@@ -33,7 +33,7 @@ ls -d "03 Projects"/*/ 2>&1 || echo "No projects yet"
 
 **Read these files:**
 - `CLAUDE.md` — focus on the **Weekly Update** section (what was there last time), **My Goals & Current Progress**, and **My Current Projects & Overviews**
-- `GOALS.md` — if it exists, scan the whole thing for sections with numbers, dates, or progress that might need updating
+- `02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md` — if it exists, scan the whole thing for sections with numbers, dates, or progress that might need updating
 - Each project's `CLAUDE.md` — specifically the **Current Status** section at the bottom
 
 **What you're building:** A mental map of what was true last time, so you can ask targeted questions about what changed — not make the user repeat everything from scratch.
@@ -42,7 +42,7 @@ ls -d "03 Projects"/*/ 2>&1 || echo "No projects yet"
 
 ## Phase 2: Meta-Level Interview
 
-This covers the root CLAUDE.md and GOALS.md. Ask conversationally, referencing what you read in Phase 1 so the user knows you're caught up.
+This covers the root CLAUDE.md and 02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md. Ask conversationally, referencing what you read in Phase 1 so the user knows you're caught up.
 
 ### Weekly Pulse
 
@@ -58,7 +58,7 @@ These map directly to the Weekly Update section fields. If a field hasn't change
 
 ### Goals Check-In
 
-Reference the current state from **My Goals & Current Progress** in CLAUDE.md and anything in GOALS.md. Then ask:
+Reference the current state from **My Goals & Current Progress** in CLAUDE.md and anything in 02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md. Then ask:
 
 - **Any progress on your main goal since last time?** (New numbers, milestones hit, setbacks)
 - **Has the plan changed at all?** (New strategy, dropped something, added something)
@@ -68,7 +68,7 @@ Reference the current state from **My Goals & Current Progress** in CLAUDE.md an
 
 ### Re-rank the Priority List (the important one)
 
-`GOALS.md` holds an **ordered `## Priority List`** — P1, P2, P3… plus a `—— below the line ——` section that gets zero scheduled hours. The weekly update is the **designated place to reorder it**; `daily-plan` only reads it and refuses to re-rank mid-week. Do this after the project walkthrough in Phase 3, once you know what actually moved.
+`02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md` holds an **ordered `## Priority List`** — P1, P2, P3… plus a `—— below the line ——` section that gets zero scheduled hours. The weekly update is the **designated place to reorder it**; `daily-plan` only reads it and refuses to re-rank mid-week. Do this after the project walkthrough in Phase 3, once you know what actually moved.
 
 Show the current order with the `> **Re-ranked:**` date, then ask:
 
@@ -79,17 +79,17 @@ Rules when applying the answer:
 - **Keep it strictly ordered.** No ties, no tiers. If the user says two things are equally important, make them pick which goes second — that choice is the whole point of the list.
 - **Ask for the reason on any move**, one line each, and write it into the list entry. A rank with no stated reason is a mood, and it won't survive contact with a hard week.
 - **Below the line is a real commitment.** If something's been sitting at P4+ untouched for weeks, say so and ask whether it belongs below the line. Don't let the list become a to-do pile.
-- **Push back on churn.** If the order changed substantially last week too, name that pattern — constant re-ranking is procrastination wearing a planning costume, and it's a documented failure mode in `GOALS.md`.
+- **Push back on churn.** If the order changed substantially last week too, name that pattern — constant re-ranking is procrastination wearing a planning costume, and it's a documented failure mode in `02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md`.
 - Stamp a new `> **Re-ranked:** YYYY-MM-DD` date whenever the order or reasons change.
 - Also confirm the `**Intensity:**` dial for the coming week while you're here.
 
-### GOALS.md Specifics
+### 02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md Specifics
 
-If GOALS.md exists and has trackable items (income numbers, milestone dates, skill targets, etc.), briefly surface anything that looks like it might need updating:
+If 02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md exists and has trackable items (income numbers, milestone dates, skill targets, etc.), briefly surface anything that looks like it might need updating:
 
-> "Your GOALS.md shows [X]. Still accurate, or should I update that?"
+> "Your 02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md shows [X]. Still accurate, or should I update that?"
 
-If GOALS.md doesn't exist, skip this — don't create one here.
+If 02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md doesn't exist, skip this — don't create one here.
 
 ---
 
@@ -130,7 +130,7 @@ After the interview, make all the edits. Show the user a summary of what you're 
 
 **My Current Projects & Overviews** — update the **Status** line and overview paragraph for any project whose status changed. Leave unchanged projects alone.
 
-### GOALS.md — if it exists, update any specific numbers/dates/milestones the user called out. Don't restructure it.
+### 02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md — if it exists, update any specific numbers/dates/milestones the user called out. Don't restructure it.
 
 ### Each project's CLAUDE.md — update the **Current Status** section:
 
@@ -168,8 +168,8 @@ After all files are updated, ask the user:
 | Root `CLAUDE.md` → Weekly Update | All five pulse fields + date |
 | Root `CLAUDE.md` → Goals & Progress | Only if numbers/plan/risks changed |
 | Root `CLAUDE.md` → Projects & Overviews | Status line + overview for changed projects |
-| `GOALS.md` → Priority List | Re-ranked order + one-line reason per entry + `Re-ranked:` date |
-| `GOALS.md` → Intensity | Dial for the coming week |
-| `GOALS.md` | Any other trackable items that changed |
+| `02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md` → Priority List | Re-ranked order + one-line reason per entry + `Re-ranked:` date |
+| `02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md` → Intensity | Dial for the coming week |
+| `02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md` | Any other trackable items that changed |
 | Each project `CLAUDE.md` → Current Status | Status + date + what happened |
 | Weekly review note | Optional — user's choice and format |

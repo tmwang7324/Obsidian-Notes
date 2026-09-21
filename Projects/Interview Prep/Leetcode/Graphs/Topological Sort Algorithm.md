@@ -14,11 +14,12 @@ Kahn's Algorithm is a simple [[Breadth-First Search (BFS)]]-based topological so
 **IMPORTANT:** 
 
 
-First, create an indegree array or map that keeps track of how many edges point towards a specific node. *Note: There can be an early termination in this portion if bfs or dfs detects any cycle.* 
-Then, enqueue all nodes with an indegree of 0. While the queue is not empty, `popleft()` the `queue`, retrieving the first appended node, let's call it `ele`, and its neighbors. Record the node in `ordered.`
-For each neighboring node visited, decrement its indegree by 1. If its indegree reaches 0, append it to the `queue`.
-Repeat until the `queue` becomes empty. **IMPORTANT:** Since I already checked for a cycle earlier when creating the indegree map, there is no need for any cycle detection.
+1. First, create an **indegree** array or map that keeps track of how many edges point towards a specific node. *Note: There can be an early termination in this portion if bfs or dfs detects any cycle.* 
+2. Then, enqueue all nodes with an **indegree** of 0. While the queue is not empty, `popleft()` the `queue`, retrieving the first appended node, let's call it `ele`, and its neighbors. Record the node in `ordered.`
+3. For each neighboring node visited, decrement its indegree by 1. If its **indegree** reaches 0, append it to the `queue`.
+4. Repeat until the `queue` becomes empty. 
 
+**IMPORTANT:** Cycle detection occurs naturally because a cycle produces an extra node in `ordering`
 ```python
 
 from collections import defaultdict, deque

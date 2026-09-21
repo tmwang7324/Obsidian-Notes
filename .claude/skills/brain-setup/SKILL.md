@@ -38,7 +38,7 @@ ls -d "03 Projects"/*/ 2>&1 || echo "No projects yet"
 Record:
 - Which system folders exist (Weekly Reviews, Books, Chess Moves, etc.)
 - Which project folders exist under `03 Projects/`
-- Whether CLAUDE.md or GOALS.md already exist
+- Whether CLAUDE.md or `02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md` already exist
 
 You'll use this to auto-populate the Folder Structure section.
 
@@ -155,7 +155,7 @@ After all 5 rounds, assemble the CLAUDE.md using this template. **Write in the u
 ```
 [Vault Name]/
 ├── CLAUDE.md              ← You are here
-├── GOALS.md               ← Goals, progress, master plan
+├── 02 Chess Moves (Long-Term Planning)/  ← Goals, progress, master plan
 [Auto-generated from Phase 1 scan. List every system folder and Projects subfolder with ← short description]
 ```
 

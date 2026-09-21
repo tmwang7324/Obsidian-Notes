@@ -1,5 +1,5 @@
 # Overview
-A priority queue is an Abstract Data Type (ADT) that operates similar to a normal queue except that **each element has a certain priority.** The priority of the elements in hte priority queue determine the order in which elements are removed from the priority queue.
+A priority queue is an Abstract Data Type (ADT) that operates similar to a normal queue except that **each element has a certain priority.** The priority of the elements in the priority queue determine the order in which elements are removed from the priority queue.
 
 ***NOTE:*** Priority queues only support **comparable data,** meaning the data inserted into the priority queue must be able to be ordered in some way. If the data cannot be compared, then relative priorities cannot be assigned.
 

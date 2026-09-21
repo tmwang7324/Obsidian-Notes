@@ -10,7 +10,7 @@ The nodes in the latter direction, using this example, *root.right*, are process
 
 ![[inorder.gif]]
 
-Left subtree -> root -> Right subtree
+***Left subtree -> root -> Right subtree***
 **IMPORTANT:** When applied to a Binary Search Tree, it ensures that nodes are visited in ascending, sorted order.
 ```python
 def inorder(root):
@@ -23,6 +23,23 @@ def inorder(root):
 ```
 
 ## Iterative Algorithm
+The key insight: use a pointer `curr` to **dive left** as far as possible, pushing each node onto the stack. When you can't go left anymore, pop the stack (that's the next inorder node), then move `curr` to the right subtree and repeat.
+
+```python
+def iterative_inorder(root):
+	stack, res, curr = [], [], root
+	while stack or curr:
+		while curr:
+			stack.append(curr)
+			curr = curr.left
+		node = stack.pop()
+		res.append(node.val)
+		curr = node.right
+	return res
+```
+
+### Independent Algorithms (Flawed)
+**Attempt 1 — parent_stack approach:** Fundamental issue — the primary stack drains before the parent_stack, breaking inorder ordering when right subtrees exist.
 ```python
 def iterative_inorder(self, root):
 	if not root:
@@ -52,7 +69,10 @@ def iterative_inorder(self, root):
 		
 		
 		# Solution? Add all elements from left subtree to the primary stack before popping.
-		
+```
+
+**Attempt 2 — dive approach (right idea, buggy):** Correct intuition to dive left first, but: infinite loop when `curr` has no left child, double-counts root, stale `curr` pointer, and `while stack` misses right subtrees when stack is empty.
+```python
 def iterative_dive_inorder(self, root)
 		if not root:
 			return []
@@ -68,5 +88,4 @@ def iterative_dive_inorder(self, root)
 				curr = node.right
 			res.append(node)	
 	return res
-	
 ```

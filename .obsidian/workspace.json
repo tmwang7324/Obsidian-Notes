@@ -24,77 +24,49 @@
             }
           },
           {
-            "id": "33a0004c38f88fbd",
+            "id": "ea55e670eace9faf",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Projects/Interview Prep/Leetcode/Matrix/Problems/Rotate Matrix.md",
+                "file": "Projects/Interview Prep/Ideas/Cover Letters/Google.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Rotate Matrix"
+              "title": "Google"
             }
           },
           {
-            "id": "cbfc9cee2ee0f340",
+            "id": "b9945bdff1be4fa3",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "raw/notes/Local LLMs/Using Ollama.md",
+                "file": "Projects/Interview Prep/Resources/Cover Letter Templates/SWE 2.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Using Ollama"
+              "title": "SWE 2"
             }
           },
           {
-            "id": "55519f6b8d5f6afc",
+            "id": "16cba6dacbdeae01",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Projects/Interview Prep/Ideas/Cover Letters/(C) Paramount Applied ML Group Cover Letter 1.md",
+                "file": "Projects/Interview Prep/Ideas/Resume Optimization.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "(C) Paramount Applied ML Group Cover Letter 1"
-            }
-          },
-          {
-            "id": "2135232ca43a7e5f",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Projects/Doculyze/Ideas/ML/Retrieval Improvement/Named Entity Recognition/Named Entity Recognition.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Named Entity Recognition"
-            }
-          },
-          {
-            "id": "aff5e4c80b6863cb",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "raw/notes/Firebase/Firebase.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Firebase"
+              "title": "Resume Optimization"
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -129,7 +101,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "microservices",
+                "query": "Git",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -291,54 +263,54 @@
       "graph:Open graph view": false
     }
   },
-  "active": "aff5e4c80b6863cb",
+  "active": "16cba6dacbdeae01",
   "lastOpenFiles": [
-    "raw/notes/Firebase/Auth.md",
-    "raw/notes/Firebase/Firebase.md",
-    "raw/notes/AI Orchestration/Astronomer.md",
-    "Projects/Interview Prep/Leetcode/Trees/Problems/(C) Lowest Common Ancestor of a Binary Tree.md",
-    "raw/notes/AI Orchestration",
-    "Projects/Interview Prep/Leetcode/Trees/Problems/(C) Lowest Common Ancestor of a BST.md",
-    "Projects/Interview Prep/Leetcode/Trees/Problems/(C) Diameter of Binary Tree.md",
-    "Projects/Interview Prep/Leetcode/Sliding Window/Problems/(C) Minimum Window Substring.md",
-    "Projects/Interview Prep/Leetcode/Sliding Window/Problems/(C) Garden Sprinkler.md",
-    "Projects/Interview Prep/Leetcode/Sliding Window/Problems/(C) Longest Repeating Character Replacement.md",
-    "Projects/Interview Prep/Leetcode/Sliding Window/Problems/(C) Longest Substring Without Repeating Characters.md",
-    "Projects/Interview Prep/Leetcode/Graphs/Problems/(C) Swim in Rising Water.md",
-    "Projects/Interview Prep/Company/Google Interview Prep/Iteration Logs/(C) Graphs - Modified Dijkstra Swim in Rising Water.md",
-    "Projects/Interview Prep/Company/Google Interview Prep/Iteration Logs/(C) Graphs - Bellman-Ford Cheapest Flights.md",
-    "Projects/Interview Prep/Company/Google Interview Prep/Iteration Logs/(C) Graphs - Weighted BFS Evaluate Division.md",
-    "Projects/Interview Prep/Leetcode/Graphs/Problems/(C) Rotting Oranges.md",
-    "Projects/Interview Prep/Leetcode/Graphs/Problems/(C) Word Ladder.md",
-    "Projects/Interview Prep/Leetcode/Graphs/Problems/(C) Pacific Atlantic Water Flow.md",
-    "Projects/Interview Prep/Leetcode/Linked List/Problems/(C) LRU Cache.md",
+    "Projects/Interview Prep/Resources/Cover Letter Templates/SWE.md",
+    "Projects/Interview Prep/Resources/Cover Letter Templates/SWE 2.md",
+    "Projects/Interview Prep/Ideas/Cover Letters/Google.md",
+    "Untitled 13.md",
     "(C) Dashboard.md",
-    "_fit/Projects/Interview Prep/Company/BlackRock Interview Prep/Ideas/Practice Problems/(C) Add Number Series II.md",
-    "_fit/Projects/Interview Prep/Company/BlackRock Interview Prep/Ideas/Practice Problems/(C) Cash Register.md",
-    "_fit/Projects/Interview Prep/Company/BlackRock Interview Prep/Ideas/Practice Problems/(C) Corporate Ladder.md",
-    "_fit/Projects/Interview Prep/Company/BlackRock Interview Prep/Ideas/Practice Problems/(C) Currency Arbitrage.md",
-    "_fit/Projects/Interview Prep/Company/BlackRock Interview Prep/Ideas/Practice Problems/(C) Currency Exchange.md",
-    "_fit/Projects/Interview Prep/Company/BlackRock Interview Prep/Ideas/Practice Problems/(C) Document Format Verifier.md",
-    "_fit/Projects/Interview Prep/Company/BlackRock Interview Prep/Ideas/Practice Problems/(C) Gas Stations.md",
-    "_fit/Projects/Interview Prep/Company/BlackRock Interview Prep/Ideas/Practice Problems",
-    "_fit/Projects/Interview Prep/Company/BlackRock Interview Prep/Progress/Week of 2026-07-06",
-    "_fit/Projects/Interview Prep/Company/Google Interview Prep/Ideas/Application",
-    "_fit/Projects/Interview Prep/Company/Google Interview Prep/Ideas/Behavioral",
-    "_fit/Projects/Interview Prep/Company/Google Interview Prep/Ideas/Finishing DocuLyze",
-    "_fit/Projects/Interview Prep/Company/Google Interview Prep/Iteration Logs/Archive",
-    "_fit/Projects/Interview Prep/Company/Google Interview Prep/Progress/Week of 2026-06-08",
-    "_fit/Projects/Interview Prep/Company/Google Interview Prep/Progress/Week of 2026-06-15",
-    "_fit/Projects/Interview Prep/Company/Google Interview Prep/Progress/Week of 2026-06-22",
-    "_fit/Projects/Interview Prep/Company/BlackRock Interview Prep/Resources/2027 BlackRock 贝莱德 VI+Coding真题_5_加布职研社 _ Gabu Career Lab_来自小红书网页版.jpg",
-    "_fit/Projects/Interview Prep/Company/BlackRock Interview Prep/Resources/BlackRock OA+三轮Onsite，难度比较高_2_数据Gold矿工咨询_来自小红书网页版 (1).jpg",
-    "_fit/Projects/Interview Prep/Company/BlackRock Interview Prep/Resources/BlackRock OA+三轮Onsite，难度比较高_3_数据Gold矿工咨询_来自小红书网页版 (1).jpg",
-    "_fit/Projects/Interview Prep/Company/BlackRock Interview Prep/Resources/BlackRock OA+三轮Onsite，难度比较高_4_数据Gold矿工咨询_来自小红书网页版 (2).jpg",
-    "_fit/Projects/Interview Prep/Company/BlackRock Interview Prep/Resources/BlakRock OA简直白给！不要太简单了_1_AC客_来自小红书网页版.jpg",
-    "_fit/Projects/Interview Prep/Company/BlackRock Interview Prep/Resources/BlakRock OA简直白给！不要太简单了_2_AC客_来自小红书网页版.jpg",
-    "_fit/Projects/Interview Prep/Company/BlackRock Interview Prep/Resources/blackrock OA搞定，先解决代码再给思路！_1_mathitdd教育_来自小红书网页版.jpg",
-    "_fit/Projects/Interview Prep/Company/BlackRock Interview Prep/Resources/blackrock OA搞定，先解决代码再给思路！_2_mathitdd教育_来自小红书网页版.jpg",
-    "_fit/Projects/Interview Prep/Company/BlackRock Interview Prep/Resources/最新通过BlackRock OA 两题_1_bug克星_来自小红书网页版.jpg",
-    "_fit/Projects/Interview Prep/Company/BlackRock Interview Prep/Resources/最新通过BlackRock OA 两题_2_bug克星_来自小红书网页版.jpg",
+    "Projects/Interview Prep/Leetcode/Graphs/(C) Bellman-Ford.md",
+    "Projects/Interview Prep/Leetcode/Graphs/Problems/(C) Cheapest Flights Within K Stops.md",
+    "Projects/Interview Prep/Leetcode/Graphs/Dijkstra's.md",
+    "Projects/Interview Prep/Leetcode/Trees/Traversal/Inorder.md",
+    "Projects/Interview Prep/Leetcode/Trees/Traversal/Postorder.md",
+    "Projects/Interview Prep/Leetcode/Matrix/Problems/(C) Spiral Matrix.md",
+    "Untitled 12.md",
+    "Projects/Interview Prep/Leetcode/Two Pointers/Problems/(C) Trapping Rain Water.md",
+    "Projects/Interview Prep/Leetcode/Binary Search/Problems/(C) Time Based Key-Value Store.md",
+    "Projects/Interview Prep/Leetcode/Two Pointers/Problems/Minimum Swaps to Move Zeros to End.md",
+    "02 Chess Moves (Long-Term Planning)/Chess Moves.md",
+    "Projects/Interview Prep/Ideas/Resume Optimization.md",
+    "Projects/Interview Prep/Ideas/Resume Stuff.md",
+    "Projects/Interview Prep/Ideas/Mass Apply.md",
+    "02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md.tmp.16900.cfb68a292ea6",
+    "02 Chess Moves (Long-Term Planning)/Progress",
+    "02 Chess Moves (Long-Term Planning)/Chess Moves (EXAMPLE).md",
+    "GOALS.md",
+    "log.md",
+    "CLAUDE.md.tmp.16900.289ff4fb5436",
+    "02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md.tmp.16900.5cee59d57043",
+    "NYC Business-Category Datasets.md",
+    "(C) Track Daily Progress.md",
+    "CLAUDE.md",
+    "Plans/Week of 2026-07-20/(C) 2026-07-24.md",
+    "leetcode_progress.py.tmp.17256.ef067f1384fe",
+    "leetcode_progress.py.tmp.17256.10c7a75fdbc2",
+    "leetcode_progress.py",
+    "raw/notes/AI Orchestration",
+    "Projects/Interview Prep/Resources/System Design/API Design",
+    "Projects/Interview Prep/Resources/System Design",
+    "Projects/Google Interview Prep/Resources/preordercom-gif-maker.gif",
+    "Projects/Google Interview Prep/Resources/postorder.gif",
+    "Projects/Google Interview Prep/Resources/inorder.gif",
+    "Projects/Google Interview Prep/Resources/DocuThinkerUserProfile.png",
+    "Projects/Google Interview Prep/Resources/DocuThinkerDocs.png",
+    "Projects/BlackRock Interview Prep/Resources/最新通过BlackRock OA 两题_2_bug克星_来自小红书网页版.jpg",
+    "Projects/BlackRock Interview Prep/Resources/最新通过BlackRock OA 两题_1_bug克星_来自小红书网页版.jpg",
+    "Projects/BlackRock Interview Prep/Resources/BlakRock OA简直白给！不要太简单了_2_AC客_来自小红书网页版.jpg",
+    "Projects/BlackRock Interview Prep/Resources/BlakRock OA简直白给！不要太简单了_1_AC客_来自小红书网页版.jpg",
+    "Projects/BlackRock Interview Prep/Resources/blackrock OA搞定，先解决代码再给思路！_2_mathitdd教育_来自小红书网页版.jpg",
     "Untitled.canvas",
     "Projects/Obsidian Configs/Ideas/Theme/Date Card.canvas"
   ]

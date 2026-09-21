@@ -1,26 +1,29 @@
 # GOALS
 
-> **Last updated:** 2026-06-04
+> **Last updated:** 2026-09-19
 
 ## North Star
 Recruit into an entry-level Software Engineer role at a FAANG company (Google) or a strong mid-tier (Datadog, Figma) by **winter 2026/2027**. Become the greatest while creating a brighter world — in accordance with my faith and ethics.
 
+***I want to prep Doculyze and the NYC Commercial Analysis by 10/19***
 ## Where I Am Today (2026-06-04)
 - **Job:** Starting at Barclays as a Technology Analyst on **July 27, 2026**.
-- **Possible Interviews:** Google (Received an email demonstrating the company's further exploration of my candidacy).
+- **Possible Interviews:** ~~Google (Received an email demonstrating the company's further exploration of my candidacy).~~
 - **Skills:** Next.js (Doculyze), microservices architecture, RAG document embedding (nyc-commercial-app), ML fundamentals labs, the train/validation loop for encoders.
 - **DJing:** No progress yet.
 
 ## The Plan
-1. ~~Deploy my already made nyc-commercial-analysis app onto my own Vercel account~~ ✅ **deployed 2026-08-08** — still to do: get it onto the resume.
-2. Finish and deploy Doculyze manually.
-3. Comprehensively practice every major data structure and algorithm cluster on LeetCode (>300 questions), with an emphasis on Dynamic Programming. Target: tackle any new question within 30 minutes.
-4. Research and curate a list of top postgraduate machine learning / data science programs I'd like to attend, to send to my Numerical Computing professor — she's writing my recommendation letter.
-5. Fully immerse myself in introductory DJing courses — start with basic house mixing, then move into the genres I love: electro pop, progressive house, and bass.
-6. Hit the range with a high school friend who's proficient in golf; his father played in tournaments and agreed to help with my form. Don't be afraid to fail, look inexperienced, or resist his instructions.
-7. Update my catalog of behavioral questions and answers from before the Jefferies superday — including the ones I left out because the memory was painful.
-8. Start applying to jobs once settled into the new position (most likely September).
-9. Develop this Vault with everything I do in a day.
+1. ~~Deploy my already made nyc-commercial-analysis app onto my own Vercel account~~ — still to do: get it onto the resume. ✅ **deployed and on resume 2026-08-08** → [[Projects/NYC Neighborhood Commercial Analysis/|NYC Commercial Analysis]]
+2. Implement Survival Random Forests for business survival inference. → [[Projects/NYC Neighborhood Commercial Analysis/|NYC Commercial Analysis]]
+3. Finish and deploy Doculyze manually. → [[Projects/Doculyze/|Doculyze]]
+4. Comprehensively practice every major data structure and algorithm cluster on LeetCode (>300 questions), with an emphasis on Dynamic Programming. Target: tackle any new question within 30 minutes. → [[Projects/Interview Prep/|Interview Prep]]
+5. Excel in my SRE role at Barclays. → [[Projects/Barclays/|Barclays]]
+6. ~~Research and curate a list of top postgraduate machine learning / data science programs I'd like to attend, to send to my Numerical Computing professor — she's writing my recommendation letter.~~ → [[Projects/Grad School/|Grad School]]
+7. ~~Fully immerse myself in introductory DJing courses — start with basic house mixing, then move into the genres I love: electro pop, progressive house, and bass.~~ (**Deferred until found job**)
+8. ~~Hit the range with a high school friend who's proficient in golf; his father played in tournaments and agreed to help with my form. Don't be afraid to fail, look inexperienced, or resist his instructions.~~ → [[Projects/Golf/|Golf]]
+9. Update my catalog of behavioral questions and answers from before the Jefferies superday — including the ones I left out because the memory was painful. → [[Projects/Interview Prep/|Interview Prep]]
+10. Start applying to jobs once settled into the new position (most likely September). → [[Projects/Interview Prep/|Interview Prep]]
+11. Develop this Vault with everything I do in a day. → [[Projects/Obsidian Configs/|Obsidian Configs]]
 
 ## Operating Principle
 **A ranked priority list, re-ranked weekly.** Not one frozen project per week — rank has to move when deadlines move. But not sprawl either: the day is anchored on **P1** (both original daily goals) and borrows **at most one** item from **P2**. Everything from P3 down waits its turn.

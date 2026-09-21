@@ -6,25 +6,25 @@
 
 These appear in both the scraped question lists AND your Leetcode folders:
 
-| Problem | LC # | Topic Folder | Companies |
-|---------|------|-------------|-----------|
-| Two Sum | 1 | Arrays + Hashing | Google, TikTok |
-| Product of Array Except Self | 238 | Arrays + Hashing | Google, TikTok |
-| Container With Most Water | 11 | Two Pointers | Google |
-| Longest Substring Without Repeating Characters | 3 | Sliding Window | Google, TikTok |
-| Minimum Window Substring | 76 | Sliding Window | Google, TikTok |
-| Clone Graph | 133 | Graphs | Google, TikTok |
-| Course Schedule | 207 | Graphs | Google, TikTok |
-| Coin Change | 322 | Dynamic Programming | Google, TikTok |
-| LRU Cache | 146 | Linked List | Google, TikTok |
-| Top K Frequent Elements | 347 | Heaps | Google |
-| Valid Parentheses | 20 | Stack + Queues | TikTok |
-| Daily Temperatures | 739 | Stack + Queues | TikTok |
-| Lowest Common Ancestor of a BST | 235 | Trees | Google, TikTok |
-| Invert Binary Tree | 226 | Trees | Google |
-| Same Tree | 100 | Trees | Google |
-| Group Anagrams | — | Arrays + Hashing | TikTok |
-| Best Time to Buy and Sell Stock | 121 | Sliding Window | TikTok (basic; cooldown variant is a gap) |
+| Problem                                        | LC # | Topic Folder        | Companies                                 |
+| ---------------------------------------------- | ---- | ------------------- | ----------------------------------------- |
+| Two Sum                                        | 1    | Arrays + Hashing    | Google, TikTok                            |
+| Product of Array Except Self                   | 238  | Arrays + Hashing    | Google, TikTok                            |
+| Container With Most Water                      | 11   | Two Pointers        | Google                                    |
+| Longest Substring Without Repeating Characters | 3    | Sliding Window      | Google, TikTok                            |
+| Minimum Window Substring                       | 76   | Sliding Window      | Google, TikTok                            |
+| Clone Graph                                    | 133  | Graphs              | Google, TikTok                            |
+| Course Schedule                                | 207  | Graphs              | Google, TikTok                            |
+| Coin Change                                    | 322  | Dynamic Programming | Google, TikTok                            |
+| LRU Cache                                      | 146  | Linked List         | Google, TikTok                            |
+| Top K Frequent Elements                        | 347  | Heaps               | Google                                    |
+| Valid Parentheses                              | 20   | Stack + Queues      | TikTok                                    |
+| Daily Temperatures                             | 739  | Stack + Queues      | TikTok                                    |
+| Lowest Common Ancestor of a BST                | 235  | Trees               | Google, TikTok                            |
+| Invert Binary Tree                             | 226  | Trees               | Google                                    |
+| Same Tree                                      | 100  | Trees               | Google                                    |
+| Group Anagrams                                 | —    | Arrays + Hashing    | TikTok                                    |
+| Best Time to Buy and Sell Stock                | 121  | Sliding Window      | TikTok (basic; cooldown variant is a gap) |
 
 **Coverage: 17 of 44 unique Google problems (39%), 13 of 58 unique TikTok problems (22%)**
 
@@ -43,31 +43,31 @@ These appear in both the scraped question lists AND your Leetcode folders:
 
 ### Trees & Graphs
 
-| Problem | LC # | Difficulty | Asked By | Why Priority |
-|---------|------|-----------|----------|-------------|
-| Number of Islands | 200 | Medium | Google, TikTok | Highest frequency graph problem |
-| Binary Tree Level Order Traversal | 102 | Medium | Google, TikTok | You know BFS traversal but haven't done this specific problem |
-| Serialize/Deserialize Binary Tree | 297 | Hard | Google, TikTok | Design + trees combo |
-| Word Ladder | 127 | Hard | Google, TikTok | BFS shortest path, high frequency |
-| Binary Tree Maximum Path Sum | 124 | Hard | TikTok | Hard tree DFS, frequently asked |
+| Problem                           | LC # | Difficulty | Asked By       | Why Priority                                                  |
+| --------------------------------- | ---- | ---------- | -------------- | ------------------------------------------------------------- |
+| Number of Islands                 | 200  | Medium     | Google, TikTok | Highest frequency graph problem                               |
+| Binary Tree Level Order Traversal | 102  | Medium     | Google, TikTok | You know BFS traversal but haven't done this specific problem |
+| Serialize/Deserialize Binary Tree | 297  | Hard       | Google, TikTok | Design + trees combo                                          |
+| Word Ladder                       | 127  | Hard       | Google, TikTok | BFS shortest path, high frequency                             |
+| Binary Tree Maximum Path Sum      | 124  | Hard       | TikTok         | Hard tree DFS, frequently asked                               |
 
 ### Dynamic Programming
 
-| Problem | LC # | Difficulty | Asked By | Why Priority |
-|---------|------|-----------|----------|-------------|
-| Word Break | 139 | Medium | Google | High frequency, string DP |
-| Longest Increasing Subsequence | 300 | Medium | Google | Classic DP |
-| Decode Ways | 91 | Medium | Google, TikTok | String DP, frequently paired with Word Break |
-| Edit Distance | 72 | Medium | Google | 2D DP cornerstone |
+| Problem                        | LC # | Difficulty | Asked By       | Why Priority                                 |
+| ------------------------------ | ---- | ---------- | -------------- | -------------------------------------------- |
+| Word Break                     | 139  | Medium     | Google         | High frequency, string DP                    |
+| Longest Increasing Subsequence | 300  | Medium     | Google         | Classic DP                                   |
+| Decode Ways                    | 91   | Medium     | Google, TikTok | String DP, frequently paired with Word Break |
+| Edit Distance                  | 72   | Medium     | Google         | 2D DP cornerstone                            |
 
 ### Linked Lists
 
-| Problem | LC # | Difficulty | Asked By | Why Priority |
-|---------|------|-----------|----------|-------------|
-| Reverse Linked List | 206 | Easy | Google, TikTok | Foundational — builds to harder variants |
-| Merge Two Sorted Lists | 21 | Easy | TikTok | Quick win, prerequisite to Merge K |
-| Merge K Sorted Lists | 23 | Hard | Google | Heap + linked list combo |
-| Linked List Cycle | 141 | Easy | Google | Floyd's — quick to learn |
+| Problem                | LC # | Difficulty | Asked By       | Why Priority                             |
+| ---------------------- | ---- | ---------- | -------------- | ---------------------------------------- |
+| Reverse Linked List    | 206  | Easy       | Google, TikTok | Foundational — builds to harder variants |
+| Merge Two Sorted Lists | 21   | Easy       | TikTok         | Quick win, prerequisite to Merge K       |
+| Merge K Sorted Lists   | 23   | Hard       | Google         | Heap + linked list combo                 |
+| Linked List Cycle      | 141  | Easy       | Google         | Floyd's — quick to learn                 |
 
 ### Heaps & Search
 

@@ -7,6 +7,10 @@ git clone [repo_link]
 
 # Git merge
 Performs a three-way merge on the current branch and specified branch
+```bash
+git merge [specified_branch_to_merge_onto]
+```
+## Triaging Merge Conflicts
 # Git Restore (with git 2.24)
 Unstages a file that has been added to a commit. 
 ```bash

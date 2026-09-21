@@ -50,7 +50,7 @@ Help me across everything, but guard the two non-negotiables above all: **faith*
 
 ## 🔗 The Bridge — How the Layers Compound
 
-My goals and the top of my ranked priority list (`## Priority List` in `GOALS.md`) drive what I ingest. Every source I drop into `raw/` gets synthesized up into `wiki/` and compounds with what's already there. The wiki then feeds back into my planning and decisions. Personal layer sets the "why"; the schema below is the "how." Keep them connected: when planning, pull from the wiki; when I learn something durable, file it back into the wiki. My goals live in `GOALS.md`.
+My goals and the top of my ranked priority list (`## Priority List` in `02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md`) drive what I ingest. Every source I drop into `raw/` gets synthesized up into `wiki/` and compounds with what's already there. The wiki then feeds back into my planning and decisions. Personal layer sets the "why"; the schema below is the "how." Keep them connected: when planning, pull from the wiki; when I learn something durable, file it back into the wiki. My goals live in `02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md`.
 
 **Synthesis policy:** durable content in `raw/notes/`, `01 Journals/`, project `Chats/`, and project `Ideas/` flows up into `wiki/` + `index.md` via the `synthesize` skill — cite the source file, never edit sources. The skill auto-sweeps for new/changed notes (tracked in `(C) Synthesis Manifest.md` by timestamp) and runs nightly via `/schedule`. **Durable design decisions + rationale** flagged with a `**Decision**` marker or a `(DECISION)` tag (a sibling to `**Important**`) are authored by `synthesize` as immutable decision records (ADRs) in the wiki — see the **Decisions** convention below.
 

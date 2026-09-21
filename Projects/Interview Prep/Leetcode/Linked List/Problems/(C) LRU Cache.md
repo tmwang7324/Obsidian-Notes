@@ -1,9 +1,14 @@
 ---
-tags: [linked-list, medium]
+tags:
+  - linked-list
+  - medium
 status: Not started
 leetcode: 146
 difficulty: Medium
-solved:
+solved: 2026-09-11
+solve_time: 1hr+
+runtime_beats: 61.76%
+memory_beats: 87.24%
 ---
 
 # (C) LRU Cache (M) — LC 146

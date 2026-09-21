@@ -2,14 +2,18 @@
 project: Google Interview Prep
 difficulty: Medium
 leetcode: 399
-solved:
-solve_time:
+solved: 2026-09-18
+solve_time: 45 m
+runtime_beats: 100%
+memory_beats: 12.97%
 ---
 
 # (C) Evaluate Division — LC 399
 
 ## My approach
-_TODO_
+### Naive
+Iterate through `queries.` Whenever `queries[i]` does not have two of the same value, or appear in `equations,` scan `equations` for the numerator. Then, solve for denominator of the found pair in `equations`
+
 
 ## Solution
 ```python

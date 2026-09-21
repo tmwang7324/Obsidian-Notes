@@ -9,7 +9,10 @@ solve_time: 1hr+
 # (C) Pacific Atlantic Water Flow — LC 417
 
 ## My approach
-_TODO_
+### Multi-value Memo Map
+My first approach was to use a dp-like approach where I mark traversed land spots with a value based on which ocean it ends up flowing to.  
+### Reverse Water Flow
+Instead of tracing the water flow paths from **land to water,** start from an ocean and trace valid paths ***towards land**** 
 
 ## Solution
 ```python

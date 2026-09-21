@@ -23,7 +23,7 @@ The **current-state** map of how the vault's knowledge system works. Mutable: ov
 | `synthesize`      | the wiki + decision ADRs | `wiki/`, `index.md`, `log.md`, manifest |
 | `record-progress` | the dated changelog      | `Progress/`, `Iteration Logs/`          |
 | `daily-plan`      | the day's plan           | `Plans/`                                |
-| `weekly-update`   | weekly focus + intensity | `GOALS.md`                              |
+| `weekly-update`   | weekly focus + intensity | `02 Chess Moves (Long-Term Planning)/(C) Chess Moves.md` |
 
 ## Capture flow (current state)
 
