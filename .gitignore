@@ -11,6 +11,9 @@ CLAUDE.md.bak
 Untitled *.md
 \{\{yesterday\}\}.md
 
+# Scripts with hardcoded credentials
+leetcode_progress.py
+
 # Sensitive / personal content
 raw/notes/Finances/
 raw/notes/401k.md
